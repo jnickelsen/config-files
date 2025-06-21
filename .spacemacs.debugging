@@ -41,31 +41,20 @@ This function should only modify configuration layer settings."
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     git
+     ;; git
      helm
      ;; lsp
-     imenu-list
-     markdown
+     ;; markdown
      multiple-cursors
-     olivetti
-     (org :variables
-          org-directory "~/Documents/org"
-          org-projectile-file "~/Documents/org/projects.org"
-          org-enable-org-journal-support t
-          org-enable-hugo-support t
-          )
+     org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
+     ;; syntax-checking
      ;; version-control
-     treemacs
+     treemacs)
 
-     (treemacs :variables treemacs-use-all-the-icons-theme t)
-     (treemacs :variables treemacs-use-follow-mode t)
-     (treemacs :variables treemacs-use-filewatch-mode t)
-     )
 
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
@@ -76,41 +65,15 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      ;; navigation
-                                      ranger
-                                      ;; Aesthetics
-                                      all-the-icons
-                                      doom-modeline
-                                      doom-themes
-                                      nerd-icons
-                                      nyan-mode
-                                      org-bullets
-                                      toxi-theme
-                                      ef-themes
-                                      ;; For writing
-                                      writegood-mode
-                                      langtool
-                                      org-roam
+                                      org-sidebar
                                       org-side-tree
-                                      palimpsest
-                                      ;; For annotating PDFs
-                                      pdf-tools
-                                      ;;org-noter
-                                      ;; For making a kanban from TODO entries
-                                      ;;org-kanban
                                       )
-
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(
-                                    light-blue
-                                    powerline
-                                    vim-powerline
-                                    )
-
+   dotspacemacs-excluded-packages '()
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -119,18 +82,7 @@ This function should only modify configuration layer settings."
    ;; installs only the used packages but won't delete unused ones. `all'
    ;; installs *all* packages supported by Spacemacs and never uninstalls them.
    ;; (default is `used-only')
-   dotspacemacs-install-packages 'used-only)
-
-
-  ;; Optional: prioritize official packages if needed
-  ;; (setq package-archive-priorities '(("gnu" . 10) ("org" . 8) ("melpa" . 5)))
-
-  ;; Optional: custom load-path additions
-  (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
-
-  ;; If using Spacemacs, `dotspacemacs/init` goes in `.spacemacs`, not here
-  )
-
+   dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
   "Initialization:
@@ -240,12 +192,8 @@ It should only modify the values of Spacemacs settings."
    ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
-   dotspacemacs-startup-lists '((recents . 7)
-                                (projects . 10)
-                                (bookmarks . 5)
-                                (agenda . 5)
-                                (todos . 5)
-                                (recents-by-project . (5 . 5)))
+   dotspacemacs-startup-lists '((recents . 5)
+                                (projects . 7))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -287,14 +235,9 @@ It should only modify the values of Spacemacs settings."
    ;; package can be defined with `:package', or a theme can be defined with
    ;; `:location' to download the theme package, refer the themes section in
    ;; DOCUMENTATION.org for the full theme specifications.
+   dotspacemacs-themes '(spacemacs-dark
+                         spacemacs-light)
 
-   dotspacemacs-themes '(ef-trio-light
-                         organic-green
-                         ef-reverie
-                         ef-dream
-                         spacemacs-light
-                         zenburn
-                         )
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
    ;; first three are spaceline themes. `doom' is the doom-emacs mode-line.
@@ -302,8 +245,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   ;;dotspacemacs-mode-line-theme '(vanilla :separator wave :separator-scale 1.5)
-   dotspacemacs-mode-line-theme 'doom
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -315,7 +257,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 16.0
+                               :size 10.0
                                :weight normal
                                :width normal)
 
@@ -639,21 +581,6 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (setq evil-want-keybinding nil)
-  (setq package-quickstart t)
-  ;; (require 'package)
-  (setq package-archives
-        '(("melpa" . "https://melpa.org/packages/")
-          ("org"   . "https://orgmode.org/elpa/")
-          ("gnu"   . "https://elpa.gnu.org/packages/")))
-  (setq package-enable-at-startup nil)
-  ;;(package-initialize)
-  ;; (unless package-archive-contents
-  ;;   (package-refresh-contents))
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
-  ;;(require 'use-package)
-
   )
 
 
@@ -671,87 +598,8 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-
-
-;;;;;;;;;; setting load path for private packages
-  (let ((default-directory "~/.emacs.d/private/"))
-    (normal-top-level-add-subdirs-to-load-path))
-  (load "~/.emacs.d/private/jess-config/jess-theming.el")
-  (require 'jess-theming)
-  (load "~/.emacs.d/private/jess-config/jess-org.el")
-  (require 'jess-org)
-
-
-;;;;;;;;;; enable transient mark mode, which enables using org mode with different file types
-
-  (transient-mark-mode 1)
-
-;;;;;;;;;; trying to sort window dividers when I split panes
-  (setq window-divider-default-right-width 1)
-  (setq window-divider-default-bottom-width 1)
-  (window-divider-mode 1)
-
-;;;;;;;;;;  this is setting up olivetti for markdown files
-  (add-hook 'text-mode-hook (lambda ()
-                              (interactive)
-                              (message "Olivetti text-mode-hook")
-                              (olivetti-set-width 81)
-                              ;;(hidden-mode-line-mode)
-                              (spacemacs/toggle-vi-tilde-fringe-off)
-                              (olivetti-mode 1)
-                              (palimpsest-mode)
-                              ))
-;;;;;;;;;; configuring ranger
-  (define-key evil-normal-state-map (kbd ", r") 'ranger)
-
-
-
-
-;;;;;;;;;; testing 'stage all and commit' with magit:
-  (defun my/magit-stage-all-and-commit(message)
-    (interactive "sCommit Message: ")
-    (magit-stage-modified)
-    (magit-commit (list "-m" message)))
-
-;;;;;;;;;; save and load layouts cleanly (and cleanup old buffers)
-  ;;;;;;;;;;;SAVE LAYOUT
-  (defun jess/save-layout-cleanly ()
-    "Prompt for a layout name and save the current layout with cleanup."
-    (interactive)
-    (require 'persp-mode)
-    (persp-mode 1)
-    (when (fboundp 'persp-remove-unused-buffers)
-      (persp-remove-unused-buffers))
-    (when (and (boundp 'persp-save-dir)
-               (fboundp 'persp-save-state-to-file))
-      (let* ((existing (directory-files persp-save-dir nil "\\.persp\\'"))
-             (names (mapcar (lambda (f) (file-name-sans-extension f)) existing))
-             (name (completing-read "Save layout as: " names nil nil "jess-")))
-        (persp-save-state-to-file
-         (expand-file-name (concat name ".persp") persp-save-dir))
-        (message "🧼 Layout saved as '%s'." name))))
-
-  (spacemacs/set-leader-keys "o w" #'jess/save-layout-cleanly)
-
-;;;;;;;;;;;;LOAD LAYOUT
-  (defun jess/load-layout ()
-    "Prompt for a saved layout and load it."
-    (interactive)
-    (require 'persp-mode)
-    (persp-mode 1)
-    (when (and (boundp 'persp-save-dir)
-               (fboundp 'persp-load-state-from-file))
-      (let* ((existing (directory-files persp-save-dir nil "\\.persp\\'"))
-             (names (mapcar (lambda (f) (file-name-sans-extension f)) existing))
-             (name (completing-read "Load layout: " names nil t)))
-        (persp-load-state-from-file
-         (expand-file-name (concat name ".persp") persp-save-dir))
-        (message "✨ Loaded layout: '%s'" name))))
-
-  (spacemacs/set-leader-keys "o l" #'jess/load-layout)
-
-
   )
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -765,57 +613,47 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(helm-minibuffer-history-key "M-p")
-   '(org-agenda-files
-     '("/Users/jessicanickelsen/Documents/org/ctl+ink/20250620100818-what_is_ctl_ink.org"
-       "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/rewilding-edits.org"))
-   '(org-side-tree-narrow-on-jump nil)
-   '(org-side-tree-recenter-position 0.2)
    '(package-selected-packages
-     '(a ace-jump-helm-line ace-link aggressive-indent alert all-the-icons
-         auto-compile auto-highlight-symbol catppuccin-theme centered-cursor-mode
-         clean-aindent-mode closql code-review column-enforce-mode dash-functional
-         deferred define-word devdocs diminish dired-quick-sort disable-mouse
-         doom-modeline doom-themes dotenv-mode drag-stuff dumb-jump edit-indirect
-         ef-themes elisp-def elisp-demos elisp-slime-nav emacsql emojify emr
-         eval-sexp-fu evil-anzu evil-args evil-cleverparens evil-collection
-         evil-easymotion evil-escape evil-evilified-state evil-exchange
-         evil-goggles evil-iedit-state evil-indent-plus evil-lion evil-lisp-state
-         evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-org
-         evil-surround evil-textobj-line evil-tutor evil-unimpaired
-         evil-visual-mark-mode evil-visualstar expand-region eyebrowse
-         fancy-battery flatui-theme flx-ido flycheck flycheck-elsa
-         flycheck-package flycheck-pos-tip forge gandalf-theme gh-md ghub git-link
-         git-messenger git-modes git-timemachine gitignore-templates gntp gnuplot
-         golden-ratio google-translate helm-ag helm-comint helm-descbinds
-         helm-git-grep helm-ls-git helm-make helm-mode-manager helm-org
-         helm-org-rifle helm-projectile helm-purpose helm-swoop helm-themes
-         helm-xref hide-comnt highlight-indentation highlight-numbers
-         highlight-parentheses hl-todo holy-mode htmlize hungry-delete hybrid-mode
-         indent-guide info+ inspector langtool link-hint llama log4e lorem-ipsum
-         macrostep magit magit-section markdown-mode markdown-toc memoize
-         multi-line nameless nerd-icons nyan-mode olivetti open-junk-file org
-         org-bullets org-category-capture org-cliplink org-contrib org-download
-         org-journal org-kanban org-mime org-noter org-plus-contrib org-pomodoro
-         org-present org-project-capture org-projectile org-ql
-         org-reverse-datetree org-rich-yank org-roam org-sidebar org-starter
-         org-super-agenda org-superstar organic-green-theme orgit orgit-forge ov
-         overseer ox-hugo package-lint palimpsest paradox password-generator
-         pcre2el pdf-tools popwin pos-tip quickrun rainbow-delimiters ranger
-         request restart-emacs shrink-path sidebar sidebar-narrow smeargle
-         space-doc spaceline spaceline-all-the-icons spacemacs-purpose-popwin
-         spacemacs-whitespace-cleanup string-edit-at-point string-inflection
-         symbol-overlay symon tablist term-cursor toc-org tomelr toxi-theme
-         transient treemacs-all-the-icons treemacs-evil treemacs-icons-dired
-         treemacs-magit treemacs-persp treemacs-projectile treepy ts undo-fu
-         undo-fu-session uuidgen vi-tilde-fringe volatile-highlights vundo wgrep
-         winum with-editor writegood-mode writeroom-mode ws-butler yaml
-         zenburn-theme)))
+     '(ace-jump-helm-line ace-link aggressive-indent alert all-the-icons auto-compile
+                          auto-highlight-symbol centered-cursor-mode
+                          clean-aindent-mode column-enforce-mode define-word
+                          devdocs diminish dired-quick-sort disable-mouse
+                          dotenv-mode drag-stuff dumb-jump elisp-def elisp-demos
+                          elisp-slime-nav emr eval-sexp-fu evil-anzu evil-args
+                          evil-cleverparens evil-collection evil-easymotion
+                          evil-escape evil-evilified-state evil-exchange
+                          evil-goggles evil-iedit-state evil-indent-plus evil-lion
+                          evil-lisp-state evil-matchit evil-mc evil-nerd-commenter
+                          evil-numbers evil-org evil-surround evil-textobj-line
+                          evil-tutor evil-unimpaired evil-visual-mark-mode
+                          evil-visualstar expand-region eyebrowse fancy-battery
+                          flx-ido gntp gnuplot golden-ratio google-translate
+                          helm-ag helm-comint helm-descbinds helm-make
+                          helm-mode-manager helm-org helm-org-rifle
+                          helm-projectile helm-purpose helm-swoop helm-themes
+                          helm-xref hide-comnt highlight-indentation
+                          highlight-numbers highlight-parentheses hl-todo
+                          holy-mode htmlize hungry-delete hybrid-mode indent-guide
+                          info+ inspector link-hint log4e lorem-ipsum macrostep
+                          multi-line nameless open-junk-file org-category-capture
+                          org-cliplink org-contrib org-download org-mime
+                          org-pomodoro org-present org-project-capture
+                          org-projectile org-ql org-rich-yank org-sidebar
+                          org-super-agenda org-superstar ov overseer paradox
+                          password-generator pcre2el popwin quickrun
+                          rainbow-delimiters request restart-emacs space-doc
+                          spaceline spacemacs-purpose-popwin
+                          spacemacs-whitespace-cleanup string-edit-at-point
+                          string-inflection symbol-overlay symon term-cursor
+                          toc-org treemacs-evil treemacs-icons-dired
+                          treemacs-persp treemacs-projectile ts undo-fu
+                          undo-fu-session uuidgen vi-tilde-fringe vim-powerline
+                          volatile-highlights vundo wgrep winum writeroom-mode
+                          ws-butler)))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(highlight-changes ((t (:foreground "#AE0073" :background "#FCDAE9"))))
-   '(highlight-changes-delete ((t (:underline t :foreground "#AE0073" :background "#FCDAE9")))))
+   )
   )
