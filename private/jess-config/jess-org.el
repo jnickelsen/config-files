@@ -1,7 +1,9 @@
 (message "Loading jess-org.el")
 
-
 (setq org-directory "~/Documents/org")
+
+;;;;;;;;;; I was getting 'ghosting' of leading stars with bullets
+(setq org-hide-leading-stars t)
 
 ;;;;;;;;;; cleaning up some errors
 (with-eval-after-load 'org-agenda
@@ -14,8 +16,9 @@
     (kbd "\\") 'org-agenda-filter-by-tag))
 
 
-
 ;;;;;configuration for org and org-roam, etc.
+(with-eval-after-load 'org
+  (org-superstar-mode -1)) ;; superstar mode was overriding my bullets!
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)

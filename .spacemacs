@@ -90,6 +90,7 @@ This function should only modify configuration layer settings."
                                       ;; For writing
                                       writegood-mode
                                       langtool
+                                      org-pomodoro
                                       org-roam
                                       org-side-tree
                                       palimpsest
@@ -288,13 +289,10 @@ It should only modify the values of Spacemacs settings."
    ;; `:location' to download the theme package, refer the themes section in
    ;; DOCUMENTATION.org for the full theme specifications.
 
-   dotspacemacs-themes '(ef-trio-light
-                         organic-green
-                         ef-reverie
-                         ef-dream
-                         spacemacs-light
-                         zenburn
+   dotspacemacs-themes '((doom-flatwhite :package doom-themes)
+                         (doom-horizon :package doom-themes)
                          )
+
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
    ;; first three are spaceline themes. `doom' is the doom-emacs mode-line.
@@ -691,6 +689,46 @@ before packages are loaded."
   (setq window-divider-default-bottom-width 1)
   (window-divider-mode 1)
 
+;;;;;;;;;; enabling nyan mode
+  (require 'nyan-mode)
+  (nyan-mode 1)
+
+;;;;;;;;;; changing bell alarm
+  ;; see M-x customize group / org-pomodoro for this
+
+;;;;;;;;;;doom modeline setup
+
+;;;;;;;;;; doom modeline setup
+  (setq doom-modeline-icon nil)
+  (setq doom-modeline-buffer-file-name-style 'file-name)
+  (setq doom-modeline-minor-modes nil)
+  (setq doom-modeline-enable-word-count t)
+  (setq doom-modeline-nyan-bar t)
+
+  (require 'doom-modeline)
+  (doom-modeline-mode 1)
+  (nyan-mode 1)
+
+  ;; Custom Pomodoro countdown segment (just the timer, no task name)
+  (doom-modeline-def-segment my-pomodoro-countdown
+    "Show org-pomodoro countdown timer if active."
+    (when (and (featurep 'org-pomodoro) (org-pomodoro-active-p))
+      (let* ((remaining (org-pomodoro--time-left))
+             (min (floor (/ remaining 60)))
+             (sec (% (floor remaining) 60)))
+        (format "[%02d:%02d]" min sec))))
+
+  ;; Define your custom modeline layout
+  (doom-modeline-def-modeline 'my-clean-line
+    '(modals buffer-info)                           ;; Left
+    '(word-count my-pomodoro-countdown major-mode))      ;; Right
+
+  ;; Apply the custom modeline
+  (defun my/use-clean-doom-modeline ()
+    (doom-modeline-set-modeline 'my-clean-line 'default))
+
+  (my/use-clean-doom-modeline)
+
 ;;;;;;;;;;  this is setting up olivetti for markdown files
   (add-hook 'text-mode-hook (lambda ()
                               (interactive)
@@ -701,10 +739,9 @@ before packages are loaded."
                               (olivetti-mode 1)
                               (palimpsest-mode)
                               ))
+
 ;;;;;;;;;; configuring ranger
   (define-key evil-normal-state-map (kbd ", r") 'ranger)
-
-
 
 
 ;;;;;;;;;; testing 'stage all and commit' with magit:
@@ -751,7 +788,89 @@ before packages are loaded."
   (spacemacs/set-leader-keys "o l" #'jess/load-layout)
 
 
+;;;;;;;;;;;;;;;;POMODORO
+;;;;;;;;;tweak times
+  (setq org-pomodoro-length 25       ;; Sprint time in minutes
+        org-pomodoro-short-break-length 5
+        org-pomodoro-long-break-length 15
+        org-pomodoro-long-break-frequency 4) ;; Every 4 pomodoros
+
+;;;;; or custom set some quick times for testing and whatnot
+  (defun my/pomodoro-quick-1 ()
+    (interactive)
+    (setq org-pomodoro-length 1
+          org-pomodoro-short-break-length 1
+          org-pomodoro-long-break-length 1)
+    (org-pomodoro))
+
+  (defun my/pomodoro-quick-15 ()
+    (interactive)
+    (setq org-pomodoro-length 15
+          org-pomodoro-short-break-length 3
+          org-pomodoro-long-break-length 10)
+    (org-pomodoro))
+
+  (defun my/pomodoro-quick-25 ()
+    (interactive)
+    (setq org-pomodoro-length 25
+          org-pomodoro-short-break-length 5
+          org-pomodoro-long-break-length 15
+          org-pomodoro-long-break-frequency 4)
+    (org-pomodoro))
+
+  ;;;;;;;;;; turn off the bell
+  ;; (setq visible-bell t)
+
+  ;;;;;;;;;; configure the rest
+
+  (defvar my/pomodoro-buffer nil
+    "The buffer being tracked during the current Pomodoro.")
+
+  (defvar my/pomodoro-start-wordcount 0
+    "Word count at the beginning of the Pomodoro.")
+
+  (defvar my/pomodoro-log-file
+    (expand-file-name "~/Documents/org/pomodoro-log.org")
+    "File where Pomodoro word count logs are saved.")
+
+
+  (defun my/pomodoro-start-tracking ()
+    "Prompt for buffer to track, store initial word count."
+    (let* ((buf (get-buffer (read-buffer "Track word count in buffer: " (buffer-name) t))))
+      (setq my/pomodoro-buffer buf)
+      (setq my/pomodoro-start-wordcount
+            (with-current-buffer buf
+              (count-words (point-min) (point-max))))
+      (message "Tracking Pomodoro in buffer: %s (%d words)"
+               (buffer-name buf) my/pomodoro-start-wordcount)))
+
+  (defun my/pomodoro-log-results ()
+    "Log the word count delta at end of Pomodoro."
+    (let ((tracked-buf (get-buffer my/pomodoro-buffer)))
+      (when (and tracked-buf (buffer-live-p tracked-buf))
+        (let* ((end-count (with-current-buffer tracked-buf
+                            (count-words (point-min) (point-max))))
+               (delta (- end-count my/pomodoro-start-wordcount))
+               (timestamp (format-time-string "%Y-%m-%d %H:%M"))
+               (bufname (buffer-name tracked-buf)))
+          (with-temp-buffer
+            (insert (format "* %s\n  - %s: %d words in %s\n"
+                            (format-time-string "%Y-%m-%d")
+                            timestamp delta bufname))
+            (append-to-file (point-min) (point-max) my/pomodoro-log-file))
+          (message "Pomodoro complete: %d words in %s" delta bufname))))
+    ;; Clean up
+    (setq my/pomodoro-buffer nil)
+    (setq my/pomodoro-start-wordcount 0))
+
+  (add-hook 'org-pomodoro-started-hook #'my/pomodoro-start-tracking)
+  (add-hook 'org-pomodoro-finished-hook #'my/pomodoro-log-results)
+  (add-hook 'org-pomodoro-killed-hook #'my/pomodoro-log-results)
+
   )
+
+
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -765,10 +884,23 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
+   '(doom-modeline-buffer-encoding nil)
+   '(doom-modeline-buffer-file-name-style 'buffer-name)
+   '(doom-modeline-buffer-file-true-name t)
+   '(doom-modeline-buffer-state-icon nil)
+   '(doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
+   '(doom-modeline-env-version nil)
+   '(doom-modeline-major-mode-color-icon nil)
+   '(doom-modeline-modal-icon nil)
+   '(doom-modeline-persp-icon nil)
+   '(doom-modeline-persp-name nil)
+   '(doom-modeline-time t)
    '(helm-minibuffer-history-key "M-p")
    '(org-agenda-files
      '("/Users/jessicanickelsen/Documents/org/ctl+ink/20250620100818-what_is_ctl_ink.org"
        "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/rewilding-edits.org"))
+   '(org-pomodoro-finished-sound "/Users/jessicanickelsen/.emacs.d/sounds/kitchen-timer.wav")
+   '(org-pomodoro-short-break-sound "/Users/jessicanickelsen/.emacs.d/sounds/wood-block.wav")
    '(org-side-tree-narrow-on-jump nil)
    '(org-side-tree-recenter-position 0.2)
    '(package-selected-packages
@@ -801,8 +933,8 @@ This function is called at the very end of Spacemacs initialization."
          org-reverse-datetree org-rich-yank org-roam org-sidebar org-starter
          org-super-agenda org-superstar organic-green-theme orgit orgit-forge ov
          overseer ox-hugo package-lint palimpsest paradox password-generator
-         pcre2el pdf-tools popwin pos-tip quickrun rainbow-delimiters ranger
-         request restart-emacs shrink-path sidebar sidebar-narrow smeargle
+         pcre2el pdf-tools pomodoro popwin pos-tip quickrun rainbow-delimiters
+         ranger request restart-emacs shrink-path sidebar sidebar-narrow smeargle
          space-doc spaceline spaceline-all-the-icons spacemacs-purpose-popwin
          spacemacs-whitespace-cleanup string-edit-at-point string-inflection
          symbol-overlay symon tablist term-cursor toc-org tomelr toxi-theme
