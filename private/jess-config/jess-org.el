@@ -2,6 +2,9 @@
 
 (setq org-directory "~/Documents/org")
 
+;;;;;;;;;; trying to stop files opening in another window by default
+(setq org-link-frame-setup '((file . find-file)))
+
 ;;;;;;;;;; I was getting 'ghosting' of leading stars with bullets
 (setq org-hide-leading-stars t)
 
@@ -15,6 +18,15 @@
     (kbd "|") 'org-agenda-filter-remove-all
     (kbd "\\") 'org-agenda-filter-by-tag))
 
+;;;;;;;;;; headline sizes in org mode
+(with-eval-after-load 'org
+  ;; Top-level heading (* Heading): slightly larger and bold
+  (set-face-attribute 'org-level-1 nil :height 1.1 :weight 'bold)
+
+  ;; All other heading levels: normal size and bold
+  (dolist (face '(org-level-2 org-level-3 org-level-4
+                              org-level-5 org-level-6 org-level-7 org-level-8))
+    (set-face-attribute face nil :height 1.0 :weight 'bold)))
 
 ;;;;;configuration for org and org-roam, etc.
 (with-eval-after-load 'org
@@ -33,15 +45,13 @@
   (global-set-key (kbd "C-c c") #'org-capture)
   (setq org-capture-templates
         `(("i" "inbox" entry (file ,(concat org-directory "/inbox.org"))
-           "* TODO %?")
-          ("m" "meeting notes" entry (file+olp+datetree ,(concat org-directory "/meeting-notes.org"))
-           "* %?")
-          ("w" "writing todo" entry (file ,(concat org-directory "/writing-tasks.org"))
+           "* TODO %? :inbox:\n")
+          ("w" "writing todo" entry (file ,(concat org-directory "/inbox.org"))
            "* TODO %? :writing:\n")
           ("l" "life todo" entry (file ,(concat org-directory "/inbox.org"))
            "* TODO %? :life:\n")
-          ("t" "todo" entry (file+headline "/notes.org" "tasks")
-           "* TODO %?\n  %i\n  %a")
+          ("t" "todo" entry (file ,(concat org-directory "/inbox.org"))
+           "* TODO %? :todo:\n")
           ))
   (setq org-todo-keywords
         '((sequence "TODO" "ZERO DRAFT" "FIRST DRAFT" "SECOND DRAFT" "DONE"))
@@ -50,7 +60,7 @@
 
 
 ;;;;;;;;;; ORG ROAM
-(setq org-roam-directory "~/Documents/org/ctl+ink")
+(setq org-roam-directory "~/Documents/org/org-roam")
 (setq org-roam-v2-ack t)
 (setq org-roam-completion-everywhere t)
 (org-roam-db-autosync-mode)
@@ -84,6 +94,12 @@
           ("e" "experiment" plain "%?"
            :target (file+head "experiments/%<%Y%m%d%H%M%S>-${slug}.org"
                               "#+title: ! %^{Title}\n#+filetags: experiment\n\n")
+
+           :unnarrowed t)
+          ("p" "project" plain "%?"
+           :target (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org"
+                              "#+title: ^ %^{Title}\n#+filetags: project\n\n")
+
            :unnarrowed t)
           ("l" "log" plain "%?"
            :target (file+head "logs/%<%Y%m%d%H%M%S>-${slug}.org"

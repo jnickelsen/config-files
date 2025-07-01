@@ -1,11 +1,16 @@
+;;; jess-theming.el --- Custom theming and palette management -*- lexical-binding: t; -*-
+
 (message "Loading jess-theming.el")
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;; custom helm list of themes
+;; Favorite Themes + Helm interface
 (defvar my/favorite-themes
-  '(spacemacs-light organic-green zenburn toxi ef-trio-light ef-trio-dark ef-summer ef-spring ef-rosa ef-reverie ef-elea-light ef-elea-dark ef-dream doom-solarized-dark doom-rouge doom-oksolar-dark doom-monokai-octagon doom-miramare doom-laserwave doom-henna doom-flatwhite doom-solarized-light doom-ayu-light leuven modus-operandi wombat)
-
+  '(spacemacs-light organic-green zenburn toxi ef-trio-light ef-trio-dark
+                    ef-summer ef-spring ef-rosa ef-reverie ef-elea-light
+                    ef-elea-dark ef-dream doom-solarized-dark doom-rouge
+                    doom-oksolar-dark doom-monokai-octagon doom-miramare
+                    doom-laserwave doom-henna doom-flatwhite doom-solarized-light
+                    doom-ayu-light leuven modus-operandi wombat)
   "Themes I actually use and want to see in Helm.")
 
 (defun my/helm-themes-curated ()
@@ -14,82 +19,51 @@
   (helm :sources
         (helm-build-sync-source "My Themes"
           :candidates (mapcar #'symbol-name my/favorite-themes)
-          :action (lambda (theme)
-                    (load-theme (intern theme) t))
-          :persistent-action (lambda (theme)
-                               (load-theme (intern theme) t)))
+          :action (lambda (theme) (load-theme (intern theme) t))
+          :persistent-action (lambda (theme) (load-theme (intern theme) t)))
         :buffer "*helm my themes*"))
 
 (spacemacs/set-leader-keys "a T" #'my/helm-themes-curated)
 
-;;; and to add them to favourites when you come across them:
 (defun my/add-theme-to-favorites (theme)
   "Add THEME to `my/favorite-themes`."
   (interactive
    (list (intern (completing-read "Theme: " (mapcar #'symbol-name (custom-available-themes))))))
   (add-to-list 'my/favorite-themes theme)
   (message "Added %s to favorites." theme))
-;;
-;; to add the favourites list to my config, (as it will just be in session memory):
-;; run M-: eval-expression, and enter:
-;; (with-output-to-temp-buffer "*My Favorite Themes*"
-;;   (princ my/favorite-themes))
-;; then copy and paste the result into the function above.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;NYAN GOODNESS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Nyan mode tweaks
 (when (fboundp 'nyan-mode)
   (nyan-mode 1)
-  )
-;; (setq nyan-bar-length 20) ;; optional: makes the cat’s trail longer
-;; (setq nyan-wavy-trail nil) ;; optional: no wave
-;; (setq nyan-animate-nyancat t) ;; optional: keep animation
-;; (setq nyan-cat-face 'nyan-cat-face) ;; set explicitly
-;;(setq nyan-rainbow-bar 'off) ;; <-- THIS turns off rainbow mode!
+  (setq nyan-bar-length (if (member (format-time-string "%A") '("Friday" "Saturday"))
+                            24  ; longer bar on weekends
+                          16))
+  (setq nyan-wavy-trail (member (format-time-string "%A") '("Thursday" "Sunday"))))
 
-(setq nyan-bar-length (if (member (format-time-string "%A") '("Friday" "Saturday"))
-                          24  ; longer bar for weekend flex
-                        16))
-
-(setq nyan-wavy-trail (member (format-time-string "%A") '("Thursday" "Sunday")))
-
-
-  ;;;;;;;;;;HIGHLIGHT CHANGES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Highlight Changes faces
 (custom-set-faces
- '(highlight-changes
-   ((t (:foreground "#AE0073" :background "#FCDAE9"))))
- '(highlight-changes-delete
-   ((t (:underline t :foreground "#AE0073" :background "#FCDAE9")))))
+ '(highlight-changes ((t (:foreground "#AE0073" :background "#FCDAE9"))))
+ '(highlight-changes-delete ((t (:underline t :foreground "#AE0073" :background "#FCDAE9")))))
 
-;;;;;;;;;; making pretty checkboxes
-  ;;; see https://symbl.cc/en/collections/list-bullets/ for more
-
-(add-hook 'org-mode-hook (lambda ()
-                           (org-indent-mode t)
-                           "Beautify Org Checkbox Symbol"
-                           (push '("[ ]" .  "☐") prettify-symbols-alist)
-                           (push '("[X]" . "☑" ) prettify-symbols-alist)
-                           (push '("[-]" . "❍" ) prettify-symbols-alist)
-                           (prettify-symbols-mode)
-                           (org-bullets-mode 1)
-                           ))
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org-mode prettify checkboxes
+(add-hook 'org-mode-hook
+          (lambda ()
+            (org-indent-mode 1)
+            (push '("[ ]" . "☐") prettify-symbols-alist)
+            (push '("[X]" . "☑") prettify-symbols-alist)
+            (push '("[-]" . "❍") prettify-symbols-alist)
+            (prettify-symbols-mode 1)
+            (org-bullets-mode 1)))
 
 (defface org-checkbox-done-text
   '((t (:foreground "#71696A")))
   "Face for the text part of a checked org-mode checkbox.")
 
-
-;;;;;;;;;;  headline colours
-;;;;;;;;;;  https://www.reddit.com/r/emacs/comments/rg9ojl/a_workflow_to_quickly_change_orgmode_section/
-;;;;instructions:
-;; 1 First, generate a palette you like from this color palette generator: https://coolors.co
-;; 2 Copy the RGB color codes, separated by hyphens, from the url
-;; 3 Paste it into the list in the same format as I have in the below code snippet
-;; 4 Copy the code into your init file somewhere
-;; 5 Essentially, the code splits the string into a list of codes, then the face attributes set the org header colors to the corresponding list colors.
-;; 6. in the =setq pick-color= selection add the number of your color scheme (starting with 0)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org heading palettes (7+ colors each)
 (defun col-strip (col-str)
   "Convert hyphen-separated hex colors string COL-STR into list of #rrggbb colors."
   (mapcar (lambda (x) (concat "#" x))
@@ -132,7 +106,6 @@
 
 (defun my/update-org-highlighted-text-face (palette)
   "Update =highlighted= org face colors using PALETTE."
-  ;; Choose colors from palette with fallback defaults
   (let ((bg (or (nth 5 palette) "#FFD6C9"))   ;; 6th color for background
         (box (or (nth 2 palette) "#FFAEB9"))) ;; 3rd color for box
     (set-face-attribute 'my/org-highlighted-text nil
@@ -167,58 +140,107 @@
             (let ((face (intern (format "org-level-%d" (1+ i)))))
               (set-face-attribute face nil
                                   :foreground (nth i color-theme))))
-          ;; update highlight face dynamically
           (my/update-org-highlighted-text-face color-theme)
           (message "Applied palette: %s" (nth pos names)))
       (error "No palette found at index %s" index-or-name))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Markdown palette application (safe, deferred)
+(defun my/get-org-palette-colors (palette-name)
+  "Return list of hex colors for PALETTE-NAME from `my-org-heading-palettes`."
+  (cdr (assoc palette-name my-org-heading-palettes)))
 
+(defun my/apply-markdown-palette-by-name (palette-name)
+  "Apply colors from PALETTE-NAME to markdown faces using a clean mapping."
+  (when (featurep 'markdown-mode)
+    (let ((colors (my/get-org-palette-colors palette-name))
+          (mapping '((markdown-header-face-1 . 1)
+                     (markdown-header-face-2 . 2)
+                     (markdown-header-face-3 . 3)
+                     (markdown-link-face     . 4)
+                     (markdown-code-face     . 5)
+                     (markdown-bold-face     . 6)
+                     (markdown-italic-face   . 6)
+                     (markdown-markup-face   . 2)
+                     (font-lock-keyword-face . 2)
+                     (markdown-blockquote-face . 3))))
+      (when (and colors (>= (length colors) 7))
+        (dolist (pair mapping)
+          (let* ((face (car pair))
+                 (color-idx (cdr pair))
+                 (color (nth (1- color-idx) colors))) ;; 1-based to 0-based index
+            (when color
+              (set-face-attribute face nil
+                                  :foreground (if (member face
+                                                          '(markdown-code-face))
+                                                  nil
+                                                color)
+                                  :background (when (eq face 'markdown-code-face) color)
+                                  :weight (if (member face '(markdown-header-face-1 markdown-bold-face))
+                                              'bold
+                                            'normal)
+                                  :slant (if (eq face 'markdown-italic-face)
+                                             'italic
+                                           'normal)
+                                  :underline (if (eq face 'markdown-link-face)
+                                                 t
+                                               nil)))))))))
+
+;; This defers applying markdown palette if markdown-mode not loaded yet
+(defun my/apply-all-palettes (palette-name)
+  "Apply org heading and markdown palettes for PALETTE-NAME safely."
+  (let ((palette (cdr (assoc palette-name my-org-heading-palettes))))
+    (when palette
+      (my/apply-org-heading-palette palette-name)
+      (my/update-org-highlighted-text-face palette)
+      (if (featurep 'markdown-mode)
+          (my/apply-markdown-palette-by-name palette-name)
+        (add-hook 'markdown-mode-hook
+                  (lambda ()
+                    (my/apply-markdown-palette-by-name palette-name)))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Palette cycling
 (defun my/cycle-org-heading-palettes ()
-  "Cycle to the next Org heading color palette."
+  "Cycle to the next Org heading color palette and apply markdown palette too."
   (interactive)
   (setq my-org-current-palette-index
         (mod (1+ my-org-current-palette-index) (length my-org-heading-palettes)))
-  (my/apply-org-heading-palette my-org-current-palette-index))
+  (my/apply-all-palettes (nth my-org-current-palette-index (mapcar #'car my-org-heading-palettes))))
 
 (with-eval-after-load 'org
-  (my/apply-org-heading-palette my-org-current-palette-index)
-  ;; Bind cycling command in org-mode
+  (my/apply-all-palettes (nth my-org-current-palette-index (mapcar #'car my-org-heading-palettes)))
   (spacemacs/set-leader-keys "o p" #'my/cycle-org-heading-palettes))
 
-
-;; Daily theme + palette combo
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Daily themes + palettes
 (defvar jess/day-theme-palette-alist
   '(("Monday"    . (:theme doom-flatwhite        :palette "Mars Static (Violet-Gold)"))
-    ("Tuesday"   . (:theme doom-solarized-light   :palette "Muted Pastels"))
-    ("Wednesday" . (:theme spacemacs-light        :palette "Seaside Pebbles (Contrast)"))
-    ("Thursday"  . (:theme ef-reverie             :palette "Lavender & Purples"))
-    ("Friday"    . (:theme zenburn                :palette "Muted Pastels"))
-    ("Saturday"  . (:theme organic-green          :palette "Deep Tide"))
-    ("Sunday"    . (:theme ef-summer              :palette "Mars Static (Violet-Gold)")) ; really nice!
-    (_           . (:theme organic-green          :palette "Jess theme"))))
+    ("Tuesday"   . (:theme doom-solarized-light  :palette "Muted Pastels"))
+    ("Wednesday" . (:theme spacemacs-light       :palette "Mars Static edit"))
+    ("Thursday"  . (:theme ef-reverie            :palette "Lavender & Purples"))
+    ("Friday"    . (:theme zenburn               :palette "Muted Pastels"))
+    ("Saturday"  . (:theme organic-green         :palette "Deep Tide"))
+    ("Sunday"    . (:theme ef-summer             :palette "Mars Static (Violet-Gold)"))
+    (_           . (:theme organic-green         :palette "Jess theme"))))
 
 (defvar jess/night-theme-palette-alist
-  '(("Monday"    . (:theme doom-solarized-dark    :palette "Tokyo Dusk"))
-    ("Tuesday"   . (:theme doom-miramare          :palette "Dracula Pop"))
-    ("Wednesday" . (:theme ef-elea-dark           :palette "Warm Cinnamon"))
-    ("Thursday"  . (:theme ef-dream               :palette "Thermal Bloom"))
-    ("Friday"    . (:theme doom-henna             :palette "Volcanic Prism"))
-    ("Saturday"  . (:theme wombat                 :palette "Deep Tide"))
-    ("Sunday"    . (:theme doom-solarized-dark    :palette "Dracula Pop")) ;nice!!
-    (_           . (:theme wombat                 :palette "Jess theme"))))
-
-
-  ;;;;;;;;;; creating a helper so that I can set light and dark themes during the day and night :)
+  '(("Monday"    . (:theme doom-solarized-dark   :palette "Frosted Petals"))
+    ("Tuesday"   . (:theme doom-miramare         :palette "Dracula Pop"))
+    ("Wednesday" . (:theme ef-elea-dark          :palette "Frosted Pastels"))
+    ("Thursday"  . (:theme ef-dream              :palette "Thermal Bloom"))
+    ("Friday"    . (:theme doom-henna            :palette "Volcanic Prism"))
+    ("Saturday"  . (:theme wombat                :palette "Citrine to Coal"))
+    ("Sunday"    . (:theme doom-solarized-dark   :palette "Dracula Pop"))
+    (_           . (:theme wombat                :palette "Jess theme"))))
 
 (defun evening-hours-p ()
   "Return t if current time is between 6pm and 7am."
   (let ((hour (string-to-number (format-time-string "%H"))))
     (or (>= hour 18) (< hour 7))))
 
-
 (defun jess/apply-daily-theme-and-palette ()
-  "Load theme and org headline palette based on weekday and time (day/night)."
+  "Load theme and org heading + markdown palettes based on day and time."
   (interactive)
   (let* ((day (format-time-string "%A"))
          (alist (if (evening-hours-p)
@@ -229,59 +251,22 @@
          (theme (plist-get (cdr entry) :theme))
          (palette-name (plist-get (cdr entry) :palette))
          (palette (cdr (assoc palette-name my-org-heading-palettes))))
-    ;; Clean theme slate
     (mapc #'disable-theme custom-enabled-themes)
     (when theme
       (load-theme theme t)
       (message "🖌 Loaded theme: %s" theme))
     (when palette
-      (my/apply-org-heading-palette palette-name)
-      (my/update-org-highlighted-text-face palette)
-      (message "🎨 Applied org headline palette: %s" palette-name))))
-
-
-
-;; (defun jess/apply-daily-theme-and-palette ()
-;;   "Load theme and org headline palette based on the current weekday."
-;;   (interactive)
-;;   (let* ((day (format-time-string "%A"))
-;;          (entry (or (assoc day jess/daily-theme-palette-alist)
-;;                     (assoc '_' jess/daily-theme-palette-alist)))
-;;          (theme (plist-get (cdr entry) :theme))
-;;          (palette-name (plist-get (cdr entry) :palette))
-;;          (palette (cdr (assoc palette-name my-org-heading-palettes))))
-;;     ;; Disable all themes first
-;;     (mapc #'disable-theme custom-enabled-themes)
-;;     ;; Load daily theme
-;;     (when theme
-;;       (load-theme theme t)
-;;       (message "🖌 Loaded theme: %s" theme))
-;;     ;; Apply org headline palette
-;;     (when palette
-;;       (my/apply-org-heading-palette palette-name)
-;;       (my/update-org-highlighted-text-face palette)
-;;       (message "🎨 Applied org headline palette: %s" palette-name))))
-
-
+      (my/apply-all-palettes palette-name)
+      (message "🎨 Applied org heading & markdown palettes: %s" palette-name))))
 
 (spacemacs/set-leader-keys "t d" #'jess/apply-daily-theme-and-palette)
 
-;;;;;;;;;; Schedule automatic theme/palette change at midnight every day
+;; Schedule theme + palette update every hour and at midnight
 (run-at-time nil 3600 #'jess/apply-daily-theme-and-palette)
 (run-at-time "00:00" 86400 #'jess/apply-daily-theme-and-palette)
 
-
-  ;;;;;;;;;; highlighting using extra programmable symbols
-  ;;;;;;;;;; it had to be done as a 'box' rather than a straight highlight, because the hl-line mode kept overwriting it.
-(defface my/org-highlighted-text
-  '((t (:box (:line-width -1 :color "#FFAEB9")
-             :background "#FFD6C9"
-             ;;:foreground "black"
-             ;;:weight bold
-             :inherit nil
-             :extend nil)))
-  "Custom face for =highlighted= Org text.")
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org emphasis + prettify tweaks
 (setq org-hide-emphasis-markers t)
 (setq org-emphasis-alist
       '(("*" bold nil)
@@ -291,19 +276,5 @@
         ("~" org-verbatim verbatim)
         ("+" (:strike-through t) nil)))
 
-;;;;;;;;;; another example of what you can do
-;; (setq org-emphasis-alist
-;;       '(("*" (bold :foreground "Orange" ))
-;;         ("/" italic)
-;;         ("_" underline)
-;;         ("=" (:background "maroon" :foreground "white"))
-;;         ("~" (:background "deep sky blue" :foreground "MidnightBlue"))
-;;         ("+" (:strike-through t))))
-
-
-
-
-
-
-
 (provide 'jess-theming)
+;;; jess-theming.el ends here

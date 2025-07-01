@@ -89,16 +89,19 @@ This function should only modify configuration layer settings."
                                       ef-themes
                                       ;; For writing
                                       writegood-mode
+                                      flyspell
                                       langtool
+                                      wc-mode
                                       org-pomodoro
                                       org-roam
                                       org-side-tree
                                       palimpsest
+                                      writeroom-mode
                                       ;; For annotating PDFs
                                       pdf-tools
                                       ;;org-noter
                                       ;; For making a kanban from TODO entries
-                                      ;;org-kanban
+                                      org-kanban
                                       )
 
 
@@ -130,6 +133,7 @@ This function should only modify configuration layer settings."
   (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 
   ;; If using Spacemacs, `dotspacemacs/init` goes in `.spacemacs`, not here
+
   )
 
 
@@ -645,12 +649,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
           ("org"   . "https://orgmode.org/elpa/")
           ("gnu"   . "https://elpa.gnu.org/packages/")))
   (setq package-enable-at-startup nil)
-  ;;(package-initialize)
-  ;; (unless package-archive-contents
-  ;;   (package-refresh-contents))
   (unless (package-installed-p 'use-package)
     (package-install 'use-package))
-  ;;(require 'use-package)
 
   )
 
@@ -670,18 +670,21 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-
 ;;;;;;;;;; setting load path for private packages
   (let ((default-directory "~/.emacs.d/private/"))
     (normal-top-level-add-subdirs-to-load-path))
   (load "~/.emacs.d/private/jess-config/jess-theming.el")
-  (require 'jess-theming)
   (load "~/.emacs.d/private/jess-config/jess-org.el")
+  (require 'jess-theming)
   (require 'jess-org)
+  (my/apply-all-palettes "Jess theme")
+  (message "Theme loaded successfully.")
+
+  ;; making sure markdown mode works right
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 
 ;;;;;;;;;; enable transient mark mode, which enables using org mode with different file types
-
   (transient-mark-mode 1)
 
 ;;;;;;;;;; trying to sort window dividers when I split panes
@@ -696,8 +699,6 @@ before packages are loaded."
 ;;;;;;;;;; changing bell alarm
   ;; see M-x customize group / org-pomodoro for this
 
-;;;;;;;;;;doom modeline setup
-
 ;;;;;;;;;; doom modeline setup
   (setq doom-modeline-icon nil)
   (setq doom-modeline-buffer-file-name-style 'file-name)
@@ -710,48 +711,84 @@ before packages are loaded."
   (nyan-mode 1)
 
   ;; Custom Pomodoro countdown segment (just the timer, no task name)
-  (doom-modeline-def-segment my-pomodoro-countdown
-    "Show org-pomodoro countdown timer if active."
-    (when (and (featurep 'org-pomodoro) (org-pomodoro-active-p))
-      (let* ((remaining (org-pomodoro--time-left))
-             (min (floor (/ remaining 60)))
-             (sec (% (floor remaining) 60)))
-        (format "[%02d:%02d]" min sec))))
 
-  ;; Define your custom modeline layout
-  (doom-modeline-def-modeline 'my-clean-line
-    '(modals buffer-info)                           ;; Left
-    '(word-count my-pomodoro-countdown major-mode))      ;; Right
 
-  ;; Apply the custom modeline
-  (defun my/use-clean-doom-modeline ()
-    (doom-modeline-set-modeline 'my-clean-line 'default))
+  (with-eval-after-load 'org-pomodoro
+    (doom-modeline-def-segment my-pomodoro-countdown
+      "Show org-pomodoro countdown timer if active."
+      (when (and (featurep 'org-pomodoro) (org-pomodoro-active-p))
+        (let* ((time-left (org-pomodoro-format-seconds)))
+          (format "[%s]" time-left))))
+    ;; Define your custom modeline layout
+    (doom-modeline-def-modeline 'my-clean-line
+      '(modals buffer-info)                           ;; Left
+      '(word-count my-pomodoro-countdown major-mode))      ;; Right
 
-  (my/use-clean-doom-modeline)
+    ;; Apply the custom modeline
+    (defun my/use-clean-doom-modeline ()
+      (doom-modeline-set-modeline 'my-clean-line 'default))
 
-;;;;;;;;;;  this is setting up olivetti for markdown files
+    (my/use-clean-doom-modeline)
+    )
+;;;;;;;;;; OLIVETTI - markdown
+;;;;;;;;;; I am going to try and use writeroom mode for a bit and see if that is very different
+  ;; (add-hook 'text-mode-hook (lambda ()
+  ;;                             (interactive)
+  ;;                             (message "Olivetti text-mode-hook")
+  ;;                             (olivetti-set-width 81)
+  ;;                             ;;(hidden-mode-line-mode)
+  ;;                             (spacemacs/toggle-vi-tilde-fringe-off)
+  ;;                             (olivetti-mode 1)
+  ;;                             (palimpsest-mode)
+  ;;                             ))
+
+
+;;;;;;;;;; WRITEROOM MODE INSTEAD
+  ;; I have customised other things via customize-group RET writeroom RET
+  ;; for example not to maximize screen in fullscreen
   (add-hook 'text-mode-hook (lambda ()
                               (interactive)
-                              (message "Olivetti text-mode-hook")
-                              (olivetti-set-width 81)
+                              (message "Writeroom text-mode-hook")
                               ;;(hidden-mode-line-mode)
                               (spacemacs/toggle-vi-tilde-fringe-off)
-                              (olivetti-mode 1)
+                              (writeroom-mode 1)
                               (palimpsest-mode)
+                              (visual-line-mode t)
                               ))
 
-;;;;;;;;;; configuring ranger
+;;;;;;;;;; MARKDOWN STUFF
+  (add-hook 'markdown-mode-hook
+            (lambda ()
+              ;; Apply your custom color palette
+              (my/apply-markdown-palette-by-name "Your Palette Name")
+
+              ;; Adjust heading sizes and weights
+              (set-face-attribute 'markdown-header-face-1 nil :height 1.1 :weight 'bold)
+              (dolist (face '(markdown-header-face-2 markdown-header-face-3
+                                                     markdown-header-face-4 markdown-header-face-5
+                                                     markdown-header-face-6))
+                (set-face-attribute face nil :height 1.0 :weight 'bold))))
+
+;;;;;;;;;; RANGER
   (define-key evil-normal-state-map (kbd ", r") 'ranger)
 
+;;;;;;;;;;ORG NOVELIST
+;;;;;;;;;; see here for more: https://github.com/sympodius/org-novelist
+;;;;;;;;;; including how to export
+  (load "~/.emacs.d/private/org-novelist/org-novelist.el")
+  (setq org-novelist-author "Jessica Nickelsen")  ; The default author name to use when exporting a story. Each story can also override this setting
+  (setq org-novelist-author-email "jessica.nickelsen@gmail.com")  ; The default author contact email to use when exporting a story. Each story can also override this setting
+  (setq org-novelist-automatic-referencing-p t)  ; Set this variable to 't' if you want Org Novelist to always keep note links up to date. This may slow down some systems when operating on complex stories. It defaults to 'nil' when not set
 
+;;;;;;;;;; MAGIT
 ;;;;;;;;;; testing 'stage all and commit' with magit:
   (defun my/magit-stage-all-and-commit(message)
     (interactive "sCommit Message: ")
     (magit-stage-modified)
     (magit-commit (list "-m" message)))
 
+;;;;;;;;;;;SAVE LAYOUT
 ;;;;;;;;;; save and load layouts cleanly (and cleanup old buffers)
-  ;;;;;;;;;;;SAVE LAYOUT
   (defun jess/save-layout-cleanly ()
     "Prompt for a layout name and save the current layout with cleanup."
     (interactive)
@@ -818,10 +855,10 @@ before packages are loaded."
           org-pomodoro-long-break-frequency 4)
     (org-pomodoro))
 
-  ;;;;;;;;;; turn off the bell
+;;;;;;;;;; turn off the bell
   ;; (setq visible-bell t)
 
-  ;;;;;;;;;; configure the rest
+;;;;;;;;;; configure the rest
 
   (defvar my/pomodoro-buffer nil
     "The buffer being tracked during the current Pomodoro.")
@@ -860,6 +897,23 @@ before packages are loaded."
             (append-to-file (point-min) (point-max) my/pomodoro-log-file))
           (message "Pomodoro complete: %d words in %s" delta bufname))))
     ;; Clean up
+
+    (defvar my/pomodoro-timer-refresh nil)
+
+    (defun my/start-pomodoro-modeline-refresh ()
+      (setq my/pomodoro-timer-refresh
+            (run-with-timer 1 1 (lambda () (force-mode-line-update t)))))
+
+    (defun my/stop-pomodoro-modeline-refresh ()
+      (when (timerp my/pomodoro-timer-refresh)
+        (cancel-timer my/pomodoro-timer-refresh)
+        (setq my/pomodoro-timer-refresh nil)))
+
+    (add-hook 'org-pomodoro-started-hook #'my/start-pomodoro-modeline-refresh)
+    (add-hook 'org-pomodoro-finished-hook #'my/stop-pomodoro-modeline-refresh)
+    (add-hook 'org-pomodoro-killed-hook  #'my/stop-pomodoro-modeline-refresh)
+
+
     (setq my/pomodoro-buffer nil)
     (setq my/pomodoro-start-wordcount 0))
 
@@ -867,6 +921,9 @@ before packages are loaded."
   (add-hook 'org-pomodoro-finished-hook #'my/pomodoro-log-results)
   (add-hook 'org-pomodoro-killed-hook #'my/pomodoro-log-results)
 
+
+
+  ;; end of user-config
   )
 
 
@@ -897,7 +954,8 @@ This function is called at the very end of Spacemacs initialization."
    '(doom-modeline-time t)
    '(helm-minibuffer-history-key "M-p")
    '(org-agenda-files
-     '("/Users/jessicanickelsen/Documents/org/ctl+ink/20250620100818-what_is_ctl_ink.org"
+     '("~/Documents/org/inbox.org"
+       "/Users/jessicanickelsen/Documents/org/ctl+ink/20250620100818-what_is_ctl_ink.org"
        "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/rewilding-edits.org"))
    '(org-pomodoro-finished-sound "/Users/jessicanickelsen/.emacs.d/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "/Users/jessicanickelsen/.emacs.d/sounds/wood-block.wav")
@@ -930,19 +988,27 @@ This function is called at the very end of Spacemacs initialization."
          org-bullets org-category-capture org-cliplink org-contrib org-download
          org-journal org-kanban org-mime org-noter org-plus-contrib org-pomodoro
          org-present org-project-capture org-projectile org-ql
-         org-reverse-datetree org-rich-yank org-roam org-sidebar org-starter
-         org-super-agenda org-superstar organic-green-theme orgit orgit-forge ov
-         overseer ox-hugo package-lint palimpsest paradox password-generator
-         pcre2el pdf-tools pomodoro popwin pos-tip quickrun rainbow-delimiters
-         ranger request restart-emacs shrink-path sidebar sidebar-narrow smeargle
-         space-doc spaceline spaceline-all-the-icons spacemacs-purpose-popwin
-         spacemacs-whitespace-cleanup string-edit-at-point string-inflection
-         symbol-overlay symon tablist term-cursor toc-org tomelr toxi-theme
-         transient treemacs-all-the-icons treemacs-evil treemacs-icons-dired
-         treemacs-magit treemacs-persp treemacs-projectile treepy ts undo-fu
-         undo-fu-session uuidgen vi-tilde-fringe volatile-highlights vundo wgrep
-         winum with-editor writegood-mode writeroom-mode ws-butler yaml
-         zenburn-theme)))
+         org-reverse-datetree org-rich-yank org-roam org-side-tree org-sidebar
+         org-starter org-super-agenda org-superstar organic-green-theme orgit
+         orgit-forge ov overseer ox-hugo package-lint palimpsest paradox
+         password-generator pcre2el pdf-tools pomodoro popwin pos-tip quickrun
+         rainbow-delimiters ranger request restart-emacs shrink-path sidebar
+         sidebar-narrow smeargle space-doc spaceline spaceline-all-the-icons
+         spacemacs-purpose-popwin spacemacs-whitespace-cleanup
+         string-edit-at-point string-inflection symbol-overlay symon tablist
+         term-cursor toc-org tomelr toxi-theme transient treemacs-all-the-icons
+         treemacs-evil treemacs-icons-dired treemacs-magit treemacs-persp
+         treemacs-projectile treepy ts undo-fu undo-fu-session uuidgen
+         vi-tilde-fringe volatile-highlights vundo wc-mode wgrep winum with-editor
+         writegood-mode writeroom-mode ws-butler yaml zenburn-theme))
+   '(writeroom-fullscreen-effect 'maximized)
+   '(writeroom-global-effects
+     '(writeroom-set-alpha writeroom-set-tool-bar-lines
+                           writeroom-set-vertical-scroll-bars
+                           writeroom-set-bottom-divider-width))
+   '(writeroom-maximize-window nil)
+   '(writeroom-mode-line t)
+   '(writeroom-mode-line-toggle-position 'mode-line-format nil nil "Customized with use-package writeroom-mode"))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
