@@ -775,10 +775,10 @@ before packages are loaded."
 ;;;;;;;;;;ORG NOVELIST
 ;;;;;;;;;; see here for more: https://github.com/sympodius/org-novelist
 ;;;;;;;;;; including how to export
-  (load "~/.emacs.d/private/org-novelist/org-novelist.el")
-  (setq org-novelist-author "Jessica Nickelsen")  ; The default author name to use when exporting a story. Each story can also override this setting
-  (setq org-novelist-author-email "jessica.nickelsen@gmail.com")  ; The default author contact email to use when exporting a story. Each story can also override this setting
-  (setq org-novelist-automatic-referencing-p t)  ; Set this variable to 't' if you want Org Novelist to always keep note links up to date. This may slow down some systems when operating on complex stories. It defaults to 'nil' when not set
+  ;; (load "~/.emacs.d/private/org-novelist/org-novelist.el")
+  ;; (setq org-novelist-author "Jessica Nickelsen")  ; The default author name to use when exporting a story. Each story can also override this setting
+  ;; (setq org-novelist-author-email "jessica.nickelsen@gmail.com")  ; The default author contact email to use when exporting a story. Each story can also override this setting
+  ;; (setq org-novelist-automatic-referencing-p t)  ; Set this variable to 't' if you want Org Novelist to always keep note links up to date. This may slow down some systems when operating on complex stories. It defaults to 'nil' when not set
 
 ;;;;;;;;;; MAGIT
 ;;;;;;;;;; testing 'stage all and commit' with magit:
@@ -955,7 +955,6 @@ This function is called at the very end of Spacemacs initialization."
    '(helm-minibuffer-history-key "M-p")
    '(org-agenda-files
      '("~/Documents/org/inbox.org"
-       "/Users/jessicanickelsen/Documents/org/ctl+ink/20250620100818-what_is_ctl_ink.org"
        "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/rewilding-edits.org"))
    '(org-pomodoro-finished-sound "/Users/jessicanickelsen/.emacs.d/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "/Users/jessicanickelsen/.emacs.d/sounds/wood-block.wav")

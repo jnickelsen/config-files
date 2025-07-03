@@ -8,6 +8,10 @@
 ;;;;;;;;;; I was getting 'ghosting' of leading stars with bullets
 (setq org-hide-leading-stars t)
 
+;;;;;;;;;; cleaning up any missing org agenda files on emacs startup
+(setq org-agenda-files
+      (cl-remove-if-not #'file-exists-p org-agenda-files))
+
 ;;;;;;;;;; cleaning up some errors
 (with-eval-after-load 'org-agenda
   ;; Prevent Spacemacs from trying to remap these specific keys
