@@ -86,6 +86,7 @@ This function should only modify configuration layer settings."
                                       nyan-mode
                                       org-bullets
                                       toxi-theme
+                                      zenburn-theme
                                       ef-themes
                                       ;; For writing
                                       writegood-mode

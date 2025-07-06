@@ -9,8 +9,9 @@
 (setq org-hide-leading-stars t)
 
 ;;;;;;;;;; cleaning up any missing org agenda files on emacs startup
-(setq org-agenda-files
-      (cl-remove-if-not #'file-exists-p org-agenda-files))
+(with-eval-after-load 'org
+  (setq org-agenda-files
+        (cl-remove-if-not #'file-exists-p org-agenda-files)))
 
 ;;;;;;;;;; cleaning up some errors
 (with-eval-after-load 'org-agenda
