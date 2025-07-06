@@ -955,7 +955,7 @@ This function is called at the very end of Spacemacs initialization."
    '(helm-minibuffer-history-key "M-p")
    '(org-agenda-files
      '("~/Documents/org/inbox.org"
-       "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/rewilding-edits.org"))
+       "~/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/rewilding-edits.org"))
    '(org-pomodoro-finished-sound "/Users/jessicanickelsen/.emacs.d/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "/Users/jessicanickelsen/.emacs.d/sounds/wood-block.wav")
    '(org-side-tree-narrow-on-jump nil)
