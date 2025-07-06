@@ -18,9 +18,9 @@
   (interactive)
   (helm :sources
         (helm-build-sync-source "My Themes"
-          :candidates (mapcar #'symbol-name my/favorite-themes)
-          :action (lambda (theme) (load-theme (intern theme) t))
-          :persistent-action (lambda (theme) (load-theme (intern theme) t)))
+                                :candidates (mapcar #'symbol-name my/favorite-themes)
+                                :action (lambda (theme) (load-theme (intern theme) t))
+                                :persistent-action (lambda (theme) (load-theme (intern theme) t)))
         :buffer "*helm my themes*"))
 
 (spacemacs/set-leader-keys "a T" #'my/helm-themes-curated)
@@ -219,17 +219,17 @@
     ("Tuesday"   . (:theme doom-solarized-light  :palette "Muted Pastels"))
     ("Wednesday" . (:theme spacemacs-light       :palette "Mars Static edit"))
     ("Thursday"  . (:theme ef-reverie            :palette "Lavender & Purples"))
-    ("Friday"    . (:theme zenburn               :palette "Muted Pastels"))
+    ("Friday"    . (:theme zenburn               :palette "Frosted Pastels"))
     ("Saturday"  . (:theme organic-green         :palette "Deep Tide"))
     ("Sunday"    . (:theme ef-summer             :palette "Mars Static (Violet-Gold)"))
     (_           . (:theme organic-green         :palette "Jess theme"))))
 
 (defvar jess/night-theme-palette-alist
-  '(("Monday"    . (:theme doom-solarized-dark   :palette "Frosted Petals"))
+  '(("Monday"    . (:theme doom-solarized-dark   :palette "Muted Pastels"))
     ("Tuesday"   . (:theme doom-miramare         :palette "Dracula Pop"))
     ("Wednesday" . (:theme ef-elea-dark          :palette "Frosted Pastels"))
     ("Thursday"  . (:theme ef-dream              :palette "Thermal Bloom"))
-    ("Friday"    . (:theme doom-henna            :palette "Volcanic Prism"))
+    ("Friday"    . (:theme doom-henna            :palette "Citrine to Coal"))
     ("Saturday"  . (:theme wombat                :palette "Citrine to Coal"))
     ("Sunday"    . (:theme doom-solarized-dark   :palette "Dracula Pop"))
     (_           . (:theme wombat                :palette "Jess theme"))))
