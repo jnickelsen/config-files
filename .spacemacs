@@ -955,25 +955,25 @@ This function is called at the very end of Spacemacs initialization."
    '(doom-modeline-time t)
    '(helm-minibuffer-history-key "M-p")
    '(org-agenda-files
-     '("~/Documents/org/inbox.org"
+     '("~/Documents/org/today.org" "~/Documents/org/inbox.org"
        "~/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"))
-   '(org-pomodoro-finished-sound "/Users/jessicanickelsen/.emacs.d/sounds/kitchen-timer.wav")
-   '(org-pomodoro-short-break-sound "/Users/jessicanickelsen/.emacs.d/sounds/wood-block.wav")
+   '(org-pomodoro-finished-sound "~/.emacs.d/private/sounds/kitchen-timer.wav")
+   '(org-pomodoro-short-break-sound "~/.emacs.d/private/sounds/wood-block.wav")
    '(org-side-tree-narrow-on-jump nil)
    '(org-side-tree-recenter-position 0.2)
    '(package-selected-packages
      '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
          all-the-icons auto-compile auto-highlight-symbol catppuccin-theme
-         centered-cursor-mode clean-aindent-mode closql
-         column-enforce-mode company company-web counsel counsel-css
-         dash-functional deferred define-word devdocs diminish dired-quick-sort
-         disable-mouse doom-modeline doom-themes dotenv-mode drag-stuff dumb-jump
-         edit-indirect ef-themes elisp-def elisp-demos elisp-slime-nav emacsql
-         emmet-mode emojify emr eval-sexp-fu evil-anzu evil-args evil-cleverparens
-         evil-collection evil-easymotion evil-escape evil-evilified-state
-         evil-exchange evil-goggles evil-iedit-state evil-indent-plus evil-lion
-         evil-lisp-state evil-matchit evil-mc evil-nerd-commenter evil-numbers
-         evil-org evil-surround evil-textobj-line evil-tutor evil-unimpaired
+         centered-cursor-mode clean-aindent-mode closql column-enforce-mode
+         company company-web counsel counsel-css dash-functional deferred
+         define-word devdocs diminish dired-quick-sort disable-mouse doom-modeline
+         doom-themes dotenv-mode drag-stuff dumb-jump edit-indirect ef-themes
+         elisp-def elisp-demos elisp-slime-nav emacsql emmet-mode emojify emr
+         eval-sexp-fu evil-anzu evil-args evil-cleverparens evil-collection
+         evil-easymotion evil-escape evil-evilified-state evil-exchange
+         evil-goggles evil-iedit-state evil-indent-plus evil-lion evil-lisp-state
+         evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-org
+         evil-surround evil-textobj-line evil-tutor evil-unimpaired
          evil-visual-mark-mode evil-visualstar expand-region eyebrowse
          fancy-battery flatui-theme flx-ido flycheck flycheck-elsa
          flycheck-package flycheck-pos-tip forge gandalf-theme gh-md ghub git-link
