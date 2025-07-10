@@ -964,7 +964,7 @@ This function is called at the very end of Spacemacs initialization."
    '(package-selected-packages
      '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
          all-the-icons auto-compile auto-highlight-symbol catppuccin-theme
-         centered-cursor-mode clean-aindent-mode closql code-review
+         centered-cursor-mode clean-aindent-mode closql
          column-enforce-mode company company-web counsel counsel-css
          dash-functional deferred define-word devdocs diminish dired-quick-sort
          disable-mouse doom-modeline doom-themes dotenv-mode drag-stuff dumb-jump
