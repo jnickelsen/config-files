@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -956,59 +956,62 @@ This function is called at the very end of Spacemacs initialization."
    '(helm-minibuffer-history-key "M-p")
    '(org-agenda-files
      '("~/Documents/org/inbox.org"
-       "~/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/rewilding-edits.org"))
+       "~/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"))
    '(org-pomodoro-finished-sound "/Users/jessicanickelsen/.emacs.d/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "/Users/jessicanickelsen/.emacs.d/sounds/wood-block.wav")
    '(org-side-tree-narrow-on-jump nil)
    '(org-side-tree-recenter-position 0.2)
    '(package-selected-packages
-     '(a ace-jump-helm-line ace-link aggressive-indent alert all-the-icons
-         auto-compile auto-highlight-symbol catppuccin-theme centered-cursor-mode
-         clean-aindent-mode closql code-review column-enforce-mode dash-functional
-         deferred define-word devdocs diminish dired-quick-sort disable-mouse
-         doom-modeline doom-themes dotenv-mode drag-stuff dumb-jump edit-indirect
-         ef-themes elisp-def elisp-demos elisp-slime-nav emacsql emojify emr
-         eval-sexp-fu evil-anzu evil-args evil-cleverparens evil-collection
-         evil-easymotion evil-escape evil-evilified-state evil-exchange
-         evil-goggles evil-iedit-state evil-indent-plus evil-lion evil-lisp-state
-         evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-org
-         evil-surround evil-textobj-line evil-tutor evil-unimpaired
+     '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
+         all-the-icons auto-compile auto-highlight-symbol catppuccin-theme
+         centered-cursor-mode clean-aindent-mode closql code-review
+         column-enforce-mode company company-web counsel counsel-css
+         dash-functional deferred define-word devdocs diminish dired-quick-sort
+         disable-mouse doom-modeline doom-themes dotenv-mode drag-stuff dumb-jump
+         edit-indirect ef-themes elisp-def elisp-demos elisp-slime-nav emacsql
+         emmet-mode emojify emr eval-sexp-fu evil-anzu evil-args evil-cleverparens
+         evil-collection evil-easymotion evil-escape evil-evilified-state
+         evil-exchange evil-goggles evil-iedit-state evil-indent-plus evil-lion
+         evil-lisp-state evil-matchit evil-mc evil-nerd-commenter evil-numbers
+         evil-org evil-surround evil-textobj-line evil-tutor evil-unimpaired
          evil-visual-mark-mode evil-visualstar expand-region eyebrowse
          fancy-battery flatui-theme flx-ido flycheck flycheck-elsa
          flycheck-package flycheck-pos-tip forge gandalf-theme gh-md ghub git-link
          git-messenger git-modes git-timemachine gitignore-templates gntp gnuplot
-         golden-ratio google-translate helm-ag helm-comint helm-descbinds
-         helm-git-grep helm-ls-git helm-make helm-mode-manager helm-org
-         helm-org-rifle helm-projectile helm-purpose helm-swoop helm-themes
-         helm-xref hide-comnt highlight-indentation highlight-numbers
+         golden-ratio google-translate haml-mode helm-ag helm-comint helm-css-scss
+         helm-descbinds helm-git-grep helm-ls-git helm-make helm-mode-manager
+         helm-org helm-org-rifle helm-projectile helm-purpose helm-swoop
+         helm-themes helm-xref hide-comnt highlight-indentation highlight-numbers
          highlight-parentheses hl-todo holy-mode htmlize hungry-delete hybrid-mode
-         indent-guide info+ inspector langtool link-hint llama log4e lorem-ipsum
-         macrostep magit magit-section markdown-mode markdown-toc memoize
-         multi-line nameless nerd-icons nyan-mode olivetti open-junk-file org
-         org-bullets org-category-capture org-cliplink org-contrib org-download
-         org-journal org-kanban org-mime org-noter org-plus-contrib org-pomodoro
-         org-present org-project-capture org-projectile org-ql
-         org-reverse-datetree org-rich-yank org-roam org-side-tree org-sidebar
-         org-starter org-super-agenda org-superstar organic-green-theme orgit
-         orgit-forge ov overseer ox-hugo package-lint palimpsest paradox
-         password-generator pcre2el pdf-tools pomodoro popwin pos-tip quickrun
-         rainbow-delimiters ranger request restart-emacs shrink-path sidebar
-         sidebar-narrow smeargle space-doc spaceline spaceline-all-the-icons
-         spacemacs-purpose-popwin spacemacs-whitespace-cleanup
-         string-edit-at-point string-inflection symbol-overlay symon tablist
-         term-cursor toc-org tomelr toxi-theme transient treemacs-all-the-icons
-         treemacs-evil treemacs-icons-dired treemacs-magit treemacs-persp
-         treemacs-projectile treepy ts undo-fu undo-fu-session uuidgen
-         vi-tilde-fringe volatile-highlights vundo wc-mode wgrep winum with-editor
-         writegood-mode writeroom-mode ws-butler yaml zenburn-theme))
+         impatient-mode indent-guide info+ inspector ivy langtool link-hint llama
+         log4e lorem-ipsum macrostep magit magit-section markdown-mode
+         markdown-toc memoize multi-line nameless nerd-icons nyan-mode olivetti
+         open-junk-file org org-bullets org-category-capture org-cliplink
+         org-contrib org-download org-journal org-kanban org-mime org-noter
+         org-plus-contrib org-pomodoro org-present org-project-capture
+         org-projectile org-ql org-reverse-datetree org-rich-yank org-roam
+         org-side-tree org-sidebar org-starter org-super-agenda org-superstar
+         organic-green-theme orgit orgit-forge ov overseer ox-hugo package-lint
+         palimpsest paradox password-generator pcre2el pdf-tools pomodoro popwin
+         pos-tip prettier-js pug-mode quickrun rainbow-delimiters ranger request
+         restart-emacs sass-mode scss-mode shrink-path sidebar sidebar-narrow
+         simple-httpd slim-mode smeargle space-doc spaceline
+         spaceline-all-the-icons spacemacs-purpose-popwin
+         spacemacs-whitespace-cleanup string-edit-at-point string-inflection
+         swiper symbol-overlay symon tablist tagedit term-cursor toc-org tomelr
+         toxi-theme transient treemacs-all-the-icons treemacs-evil
+         treemacs-icons-dired treemacs-magit treemacs-persp treemacs-projectile
+         treepy ts undo-fu undo-fu-session uuidgen vi-tilde-fringe
+         volatile-highlights vundo wc-mode web-beautify web-completion-data
+         web-mode wgrep winum with-editor writegood-mode writeroom-mode ws-butler
+         yaml yasnippet zenburn-theme))
    '(writeroom-fullscreen-effect 'maximized)
    '(writeroom-global-effects
      '(writeroom-set-alpha writeroom-set-tool-bar-lines
                            writeroom-set-vertical-scroll-bars
                            writeroom-set-bottom-divider-width))
    '(writeroom-maximize-window nil)
-   '(writeroom-mode-line t)
-   '(writeroom-mode-line-toggle-position 'mode-line-format nil nil "Customized with use-package writeroom-mode"))
+   '(writeroom-mode-line t))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.

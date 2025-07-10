@@ -18,9 +18,9 @@
   (interactive)
   (helm :sources
         (helm-build-sync-source "My Themes"
-                                :candidates (mapcar #'symbol-name my/favorite-themes)
-                                :action (lambda (theme) (load-theme (intern theme) t))
-                                :persistent-action (lambda (theme) (load-theme (intern theme) t)))
+          :candidates (mapcar #'symbol-name my/favorite-themes)
+          :action (lambda (theme) (load-theme (intern theme) t))
+          :persistent-action (lambda (theme) (load-theme (intern theme) t)))
         :buffer "*helm my themes*"))
 
 (spacemacs/set-leader-keys "a T" #'my/helm-themes-curated)
@@ -217,7 +217,7 @@
 (defvar jess/day-theme-palette-alist
   '(("Monday"    . (:theme doom-flatwhite        :palette "Mars Static (Violet-Gold)"))
     ("Tuesday"   . (:theme doom-solarized-light  :palette "Muted Pastels"))
-    ("Wednesday" . (:theme spacemacs-light       :palette "Mars Static edit"))
+    ("Wednesday" . (:theme spacemacs-light       :palette "Lavender & Purples"))
     ("Thursday"  . (:theme ef-reverie            :palette "Lavender & Purples"))
     ("Friday"    . (:theme zenburn               :palette "Frosted Pastels"))
     ("Saturday"  . (:theme organic-green         :palette "Deep Tide"))
@@ -226,7 +226,7 @@
 
 (defvar jess/night-theme-palette-alist
   '(("Monday"    . (:theme doom-solarized-dark   :palette "Muted Pastels"))
-    ("Tuesday"   . (:theme doom-miramare         :palette "Dracula Pop"))
+    ("Tuesday"   . (:theme doom-miramare         :palette "Thermal Bloom"))
     ("Wednesday" . (:theme ef-elea-dark          :palette "Frosted Pastels"))
     ("Thursday"  . (:theme ef-dream              :palette "Thermal Bloom"))
     ("Friday"    . (:theme doom-henna            :palette "Citrine to Coal"))
