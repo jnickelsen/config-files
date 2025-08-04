@@ -3,6 +3,9 @@
             ((def-buffer ".spacemacs"
                          "/Users/jessicanickelsen/Documents/GitHub/config-files/.spacemacs"
                          emacs-lisp-mode)
+             (def-buffer "rewilding 3.0.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/rewilding 3.0.org"
+                         org-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
@@ -26,8 +29,9 @@
               (buffer ".spacemacs" (selected . t) (hscroll . 0)
                       (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 46390) (start . 45476))
-              (prev-buffers ("*spacemacs*" 1 245) ("*scratch*" 1 1))))
+                      (dedicated) (point . 46390) (start . 45556))
+              (prev-buffers ("rewilding 3.0.org" 1 761) ("*spacemacs*" 1 794)
+                            ("*scratch*" 1 1))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -44,7 +48,8 @@
                  (buffer ".spacemacs" (selected . t) (hscroll . 0)
                          (fringes 8 8 nil nil) (margins nil)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 46390) (start . 45476))
-                 (prev-buffers ("*spacemacs*" 1 245) ("*scratch*" 1 1)))
+                         (dedicated) (point . 46390) (start . 45556))
+                 (prev-buffers ("rewilding 3.0.org" 1 761) ("*spacemacs*" 1 794)
+                               ("*scratch*" 1 1)))
                 ""))))
             t nil nil))

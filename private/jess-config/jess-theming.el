@@ -215,7 +215,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Daily themes + palettes
 (defvar jess/day-theme-palette-alist
-  '(("Monday"    . (:theme doom-flatwhite        :palette "Mars Static (Violet-Gold)"))
+  '(("Monday"    . (:theme doom-flatwhite        :palette "Mars Static Edit)"))
     ("Tuesday"   . (:theme doom-solarized-light  :palette "Muted Pastels"))
     ("Wednesday" . (:theme spacemacs-light       :palette "Lavender & Purples"))
     ("Thursday"  . (:theme ef-reverie            :palette "Lavender & Purples"))
