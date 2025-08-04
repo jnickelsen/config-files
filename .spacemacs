@@ -114,6 +114,7 @@ This function should only modify configuration layer settings."
                                     light-blue
                                     powerline
                                     vim-powerline
+                                    code-review
                                     )
 
 
@@ -143,6 +144,10 @@ This function should only modify configuration layer settings."
 This function is called at the very beginning of Spacemacs startup,
 before layer configuration.
 It should only modify the values of Spacemacs settings."
+  ;; problem solving an error
+  (setq package-quickstart nil)
+
+
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
@@ -955,8 +960,9 @@ This function is called at the very end of Spacemacs initialization."
    '(doom-modeline-time t)
    '(helm-minibuffer-history-key "M-p")
    '(org-agenda-files
-     '("~/Documents/org/today.org" "~/Documents/org/inbox.org"
-       "~/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"))
+     '("~/Documents/org/work.org" "/Users/jessicanickelsen/Documents/org/today.org"
+       "/Users/jessicanickelsen/Documents/org/inbox.org"
+       "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"))
    '(org-pomodoro-finished-sound "~/.emacs.d/private/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "~/.emacs.d/private/sounds/wood-block.wav")
    '(org-side-tree-narrow-on-jump nil)

@@ -1,0 +1,111 @@
+;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
+((def-persp nil
+            ((def-buffer "pekapeka-wetland-1920.jpg"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/research/pekapeka-wetland-1920.jpg"
+                         image-mode)
+             (def-buffer "rewilding 3.0.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/rewilding 3.0.org"
+                         org-mode)
+             (def-buffer "emacs reference.org"
+                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
+                         org-mode)
+             (def-buffer "today.org"
+                         "/Users/jessicanickelsen/Documents/org/today.org"
+                         org-mode)
+             (def-buffer "inbox.org"
+                         "/Users/jessicanickelsen/Documents/org/inbox.org"
+                         org-mode)
+             (def-buffer "rewilding-edits.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"
+                         org-mode)
+             (def-buffer "general.org"
+                         "/Users/jessicanickelsen/Documents/org/general.org"
+                         org-mode)
+             (def-buffer ".custom-settings"
+                         "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
+                         emacs-lisp-mode))
+            (def-wconf
+             (((min-height . 8) (min-width . 20) (min-height-ignore . 6)
+               (min-width-ignore . 8) (min-height-safe . 2) (min-width-safe . 4)
+               (min-pixel-height . 160) (min-pixel-width . 200)
+               (min-pixel-height-ignore . 120) (min-pixel-width-ignore . 80)
+               (min-pixel-height-safe . 40) (min-pixel-width-safe . 40))
+              hc (pixel-width . 1276) (pixel-height . 668) (total-width . 128)
+              (total-height . 33) (normal-height . 1.0) (normal-width . 1.0)
+              (combination-limit)
+              (leaf (pixel-width . 636) (pixel-height . 668) (total-width . 64)
+                    (total-height . 33) (normal-height . 1.0)
+                    (normal-width . 0.5)
+                    (buffer "rewilding 3.0.org" (selected) (hscroll . 0)
+                            (fringes 8 8 t nil) (margins nil)
+                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                            (dedicated) (point . 1) (start . 1))
+                    (prev-buffers ("*spacemacs*" 1 652) ("*scratch*" 1 1)))
+              (vc (last . t) (pixel-width . 640) (pixel-height . 668)
+                  (total-width . 64) (total-height . 33) (normal-height . 1.0)
+                  (normal-width . 0.5) (combination-limit)
+                  (leaf (pixel-width . 640) (pixel-height . 334)
+                        (total-width . 64) (total-height . 16)
+                        (normal-height . 0.5) (normal-width . 1.0)
+                        (buffer "rewilding 3.0.org" (selected) (hscroll . 0)
+                                (fringes 8 8 t nil) (margins nil)
+                                (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                                (dedicated) (point . 1) (start . 1))
+                        (prev-buffers ("pekapeka-wetland-1920.jpg" 1 1)
+                                      ("rewilding 3.0.org" 1 1)))
+                  (leaf (last . t) (pixel-width . 640) (pixel-height . 334)
+                        (total-width . 64) (total-height . 16)
+                        (normal-height . 0.5) (normal-width . 1.0)
+                        (buffer "pekapeka-wetland-1920.jpg" (selected . t)
+                                (hscroll . 0) (fringes 8 8 nil nil)
+                                (margins nil) (scroll-bars nil 0 t nil 0 t nil)
+                                (vscroll . 0) (dedicated) (point . 1)
+                                (start . 1))
+                        (prev-buffers ("rewilding 3.0.org" 1 1))))))
+            (def-params
+             ((gui-eyebrowse-window-configs
+               (1
+                (((min-height . 8) (min-width . 20) (min-height-ignore . 6)
+                  (min-width-ignore . 8) (min-height-safe . 2)
+                  (min-width-safe . 4) (min-pixel-height . 160)
+                  (min-pixel-width . 200) (min-pixel-height-ignore . 120)
+                  (min-pixel-width-ignore . 80) (min-pixel-height-safe . 40)
+                  (min-pixel-width-safe . 40))
+                 hc (pixel-width . 1276) (pixel-height . 668)
+                 (total-width . 128) (total-height . 33) (normal-height . 1.0)
+                 (normal-width . 1.0) (combination-limit)
+                 (leaf (pixel-width . 636) (pixel-height . 668)
+                       (total-width . 64) (total-height . 33)
+                       (normal-height . 1.0) (normal-width . 0.5)
+                       (buffer "rewilding 3.0.org" (selected) (hscroll . 0)
+                               (fringes 8 8 t nil) (margins nil)
+                               (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                               (dedicated) (point . 1) (start . 1))
+                       (prev-buffers ("*spacemacs*" 1 652) ("*scratch*" 1 1)))
+                 (vc (last . t) (pixel-width . 640) (pixel-height . 668)
+                     (total-width . 64) (total-height . 33)
+                     (normal-height . 1.0) (normal-width . 0.5)
+                     (combination-limit)
+                     (leaf (pixel-width . 640) (pixel-height . 334)
+                           (total-width . 64) (total-height . 16)
+                           (normal-height . 0.5) (normal-width . 1.0)
+                           (buffer "rewilding 3.0.org" (selected) (hscroll . 0)
+                                   (fringes 8 8 t nil) (margins nil)
+                                   (scroll-bars nil 0 t nil 0 t nil)
+                                   (vscroll . 0) (dedicated) (point . 1)
+                                   (start . 1))
+                           (prev-buffers ("pekapeka-wetland-1920.jpg" 1 1)
+                                         ("rewilding 3.0.org" 1 1)))
+                     (leaf (last . t) (pixel-width . 640) (pixel-height . 334)
+                           (total-width . 64) (total-height . 16)
+                           (normal-height . 0.5) (normal-width . 1.0)
+                           (buffer "pekapeka-wetland-1920.jpg" (selected . t)
+                                   (hscroll . 0) (fringes 8 8 nil nil)
+                                   (margins nil)
+                                   (scroll-bars nil 0 t nil 0 t nil)
+                                   (vscroll . 0) (dedicated) (point . 1)
+                                   (start . 1))
+                           (prev-buffers ("rewilding 3.0.org" 1 1)))))
+                ""))
+              (gui-eyebrowse-current-slot . 1) (gui-eyebrowse-last-slot . 1)))
+            t nil nil))

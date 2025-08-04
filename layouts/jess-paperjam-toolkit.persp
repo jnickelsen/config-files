@@ -1,0 +1,113 @@
+;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
+((def-persp nil
+            ((def-buffer "20250620121223-paperjam_toolkit.org"
+                         "/Users/jessicanickelsen/Documents/org/ctl+ink/concepts/20250620121223-paperjam_toolkit.org"
+                         org-mode)
+             (def-buffer "emacs reference.org"
+                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
+                         org-mode)
+             (def-buffer "rewilding 3.0.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/rewilding 3.0.org"
+                         org-mode)
+             (def-buffer ".spacemacs"
+                         "/Users/jessicanickelsen/Documents/GitHub/config-files/.spacemacs"
+                         emacs-lisp-mode)
+             (def-buffer "rewilding 2.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/writing in sections/rewilding 2.md"
+                         markdown-mode)
+             (def-buffer "20250620100818-what_is_ctl_ink.org"
+                         "/Users/jessicanickelsen/Documents/org/ctl+ink/20250620100818-what_is_ctl_ink.org"
+                         org-mode)
+             (def-buffer "rewilding-edits.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/rewilding-edits.org"
+                         org-mode)
+             (def-buffer ".dir-locals.el"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/.dir-locals.el"
+                         lisp-data-mode)
+             (def-buffer "20250620101015-paperjam_mini_course.org"
+                         "/Users/jessicanickelsen/Documents/org/ctl+ink/20250620101015-paperjam_mini_course.org"
+                         org-mode)
+             (def-buffer "20250620104337-test_note.org" nil org-mode)
+             (def-buffer "startup.org"
+                         "/Users/jessicanickelsen/Documents/org/startup.org"
+                         org-mode)
+             (def-buffer ".custom-settings"
+                         "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
+                         emacs-lisp-mode)
+             (def-buffer "pomodoro-log.org"
+                         "/Users/jessicanickelsen/Documents/org/pomodoro-log.org"
+                         org-mode)
+             (def-buffer "pekapeka-wetland-1920.jpg"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/10 Notes/rewilding/pekapeka-wetland-1920.jpg"
+                         image-mode)
+             (def-buffer "CAPTURE-20250620121223-paperjam_toolkit.org" nil
+                         org-mode)
+             (def-buffer "CAPTURE-20250620115456-paperjam_micro_products.org"
+                         nil org-mode)
+             (def-buffer "20250620115942-paperjam_books.org"
+                         "/Users/jessicanickelsen/Documents/org/ctl+ink/concepts/20250620115942-paperjam_books.org"
+                         org-mode)
+             (def-buffer "CAPTURE-20250620115942-paperjam_books.org" nil
+                         org-mode)
+             (def-buffer "20250620115456-paperjam_micro_products.org"
+                         "/Users/jessicanickelsen/Documents/org/ctl+ink/concepts/20250620115456-paperjam_micro_products.org"
+                         org-mode))
+            (def-wconf
+             (((min-height . 4) (min-width . 20) (min-height-ignore . 3)
+               (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4)
+               (min-pixel-height . 80) (min-pixel-width . 200)
+               (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 80)
+               (min-pixel-height-safe . 20) (min-pixel-width-safe . 40))
+              hc (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
+              (total-height . 34) (normal-height . 1.0) (normal-width . 1.0)
+              (combination-limit)
+              (leaf (pixel-width . 920) (pixel-height . 674) (total-width . 92)
+                    (total-height . 34) (normal-height . 1.0)
+                    (normal-width . 0.7210031347962382)
+                    (buffer "20250620121223-paperjam_toolkit.org" (selected . t)
+                            (hscroll . 0) (fringes 8 8 t nil) (margins 5 . 5)
+                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                            (dedicated) (point . 197) (start . 1))
+                    (prev-buffers ("emacs reference.org" 1372 1645)
+                                  ("20250620121223-paperjam_toolkit.org" 1 196)))
+              (leaf (last . t) (pixel-width . 356) (pixel-height . 674)
+                    (total-width . 36) (total-height . 34) (normal-height . 1.0)
+                    (normal-width . 0.27899686520376177)
+                    (buffer "emacs reference.org" (selected) (hscroll . 0)
+                            (fringes 8 8 t nil) (margins nil)
+                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                            (dedicated) (point . 3579) (start . 79)))))
+            (def-params
+             ((gui-eyebrowse-window-configs
+               (1
+                (((min-height . 4) (min-width . 20) (min-height-ignore . 3)
+                  (min-width-ignore . 8) (min-height-safe . 1)
+                  (min-width-safe . 4) (min-pixel-height . 80)
+                  (min-pixel-width . 200) (min-pixel-height-ignore . 60)
+                  (min-pixel-width-ignore . 80) (min-pixel-height-safe . 20)
+                  (min-pixel-width-safe . 40))
+                 hc (pixel-width . 1276) (pixel-height . 674)
+                 (total-width . 128) (total-height . 34) (normal-height . 1.0)
+                 (normal-width . 1.0) (combination-limit)
+                 (leaf (pixel-width . 920) (pixel-height . 674)
+                       (total-width . 92) (total-height . 34)
+                       (normal-height . 1.0) (normal-width . 0.7210031347962382)
+                       (buffer "20250620121223-paperjam_toolkit.org"
+                               (selected . t) (hscroll . 0) (fringes 8 8 t nil)
+                               (margins 5 . 5) (scroll-bars nil 0 t nil 0 t nil)
+                               (vscroll . 0) (dedicated) (point . 197)
+                               (start . 1))
+                       (prev-buffers ("emacs reference.org" 1372 1645)
+                                     ("20250620121223-paperjam_toolkit.org" 1
+                                      196)))
+                 (leaf (last . t) (pixel-width . 356) (pixel-height . 674)
+                       (total-width . 36) (total-height . 34)
+                       (normal-height . 1.0)
+                       (normal-width . 0.27899686520376177)
+                       (buffer "emacs reference.org" (selected) (hscroll . 0)
+                               (fringes 8 8 t nil) (margins nil)
+                               (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                               (dedicated) (point . 3579) (start . 79))))
+                ""))
+              (gui-eyebrowse-current-slot . 1) (gui-eyebrowse-last-slot . 1)))
+            t nil nil))

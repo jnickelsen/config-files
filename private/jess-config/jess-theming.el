@@ -225,13 +225,13 @@
     (_           . (:theme organic-green         :palette "Jess theme"))))
 
 (defvar jess/night-theme-palette-alist
-  '(("Monday"    . (:theme doom-solarized-dark   :palette "Muted Pastels"))
+  '(("Monday"    . (:theme doom-solarized-dark   :palette "Muted Pastels")) ; <3 this one
     ("Tuesday"   . (:theme doom-miramare         :palette "Thermal Bloom"))
     ("Wednesday" . (:theme ef-elea-dark          :palette "Frosted Pastels"))
     ("Thursday"  . (:theme ef-dream              :palette "Thermal Bloom"))
     ("Friday"    . (:theme doom-henna            :palette "Citrine to Coal"))
     ("Saturday"  . (:theme wombat                :palette "Citrine to Coal"))
-    ("Sunday"    . (:theme doom-solarized-dark   :palette "Dracula Pop"))
+    ("Sunday"    . (:theme doom-solarized-dark   :palette "Lavender & Purples"))
     (_           . (:theme wombat                :palette "Jess theme"))))
 
 (defun evening-hours-p ()

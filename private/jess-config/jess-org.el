@@ -26,21 +26,32 @@
 ;;;;;;;;;; headline sizes in org mode
 (with-eval-after-load 'org
   ;; Top-level heading (* Heading): slightly larger and bold
-  (set-face-attribute 'org-level-1 nil :height 1.1 :weight 'bold)
+  ;; edit: this was :height 1.1 but I am changing it back to 1.0
+  (set-face-attribute 'org-level-1 nil :height 1.0 :weight 'bold)
 
   ;; All other heading levels: normal size and bold
   (dolist (face '(org-level-2 org-level-3 org-level-4
                               org-level-5 org-level-6 org-level-7 org-level-8))
     (set-face-attribute face nil :height 1.0 :weight 'bold)))
 
+;;;;;;;;;; setting details for tags
+(setq org-tags-column 0) ; this hopefully puts tags inline with headlines
+
 ;;;;;configuration for org and org-roam, etc.
 (with-eval-after-load 'org
-  (org-superstar-mode -1)) ;; superstar mode was overriding my bullets!
-(use-package org-bullets
-  :after org
-  :hook (org-mode . org-bullets-mode)
-  :custom
-  (org-bullets-bullet-list '("◉" "☉" "◎" "○" "►" "✲")))
+  ;;  (org-superstar-mode -1) ;; superstar mode was overriding my bullets!
+
+  (use-package org-bullets
+    :after org
+    :hook (org-mode . org-bullets-mode)
+    :custom
+    (org-bullets-bullet-list '("◉" "☉" "◎" "○" "►" "✲")))
+  )
+;;;;;;;;;; superstar mode
+(setq org-superstar-remove-leading-stars t
+      org-superstar-leading-bullet " "
+      org-hide-leading-stars t)
+
 
 ;;;;;;;;;; setting up org capture, agenda, and other stuff
 (with-eval-after-load 'org

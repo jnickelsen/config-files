@@ -1,0 +1,89 @@
+;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
+((def-persp nil
+            ((def-buffer "today.org"
+                         "/Users/jessicanickelsen/Documents/org/today.org"
+                         org-mode)
+             (def-buffer "inbox.org"
+                         "/Users/jessicanickelsen/Documents/org/inbox.org"
+                         org-mode)
+             (def-buffer "rewilding-edits.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"
+                         org-mode)
+             (def-buffer "general.org"
+                         "/Users/jessicanickelsen/Documents/org/general.org"
+                         org-mode)
+             (def-buffer "rewilding 3.0.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/rewilding 3.0.org"
+                         org-mode)
+             (def-buffer "emacs reference.org"
+                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
+                         org-mode)
+             (def-buffer ".custom-settings"
+                         "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
+                         emacs-lisp-mode))
+            (def-wconf
+             (((min-height . 4) (min-width . 20) (min-height-ignore . 3)
+               (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4)
+               (min-pixel-height . 80) (min-pixel-width . 200)
+               (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 80)
+               (min-pixel-height-safe . 20) (min-pixel-width-safe . 40))
+              hc (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
+              (total-height . 33) (normal-height . 1.0) (normal-width . 1.0)
+              (combination-limit)
+              (leaf (pixel-width . 1009) (pixel-height . 674)
+                    (total-width . 101) (total-height . 33)
+                    (normal-height . 1.0) (normal-width . 0.7932389937106918)
+                    (buffer "today.org" (selected . t) (hscroll . 0)
+                            (fringes 8 8 t nil) (margins 9 . 10)
+                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                            (dedicated) (point . 334) (start . 1))
+                    (next-buffers "emacs reference.org")
+                    (prev-buffers ("emacs reference.org" 1 5220)
+                                  ("today.org" 1 294) ("rewilding 3.0.org" 1 1)
+                                  ("general.org" 1 1) ("*spacemacs*" 1 245)
+                                  ("*scratch*" 1 1)))
+              (leaf (last . t) (pixel-width . 267) (pixel-height . 674)
+                    (total-width . 27) (total-height . 33) (normal-height . 1.0)
+                    (normal-width . 0.20676100628930813)
+                    (buffer "emacs reference.org" (selected) (hscroll . 0)
+                            (fringes 8 8 t nil) (margins nil)
+                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                            (dedicated) (point . 5220) (start . 154))
+                    (prev-buffers ("today.org" 1 294)))))
+            (def-params
+             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
+              (gui-eyebrowse-window-configs
+               (1
+                (((min-height . 4) (min-width . 20) (min-height-ignore . 3)
+                  (min-width-ignore . 8) (min-height-safe . 1)
+                  (min-width-safe . 4) (min-pixel-height . 80)
+                  (min-pixel-width . 200) (min-pixel-height-ignore . 60)
+                  (min-pixel-width-ignore . 80) (min-pixel-height-safe . 20)
+                  (min-pixel-width-safe . 40))
+                 hc (pixel-width . 1276) (pixel-height . 674)
+                 (total-width . 128) (total-height . 33) (normal-height . 1.0)
+                 (normal-width . 1.0) (combination-limit)
+                 (leaf (pixel-width . 1009) (pixel-height . 674)
+                       (total-width . 101) (total-height . 33)
+                       (normal-height . 1.0) (normal-width . 0.7932389937106918)
+                       (buffer "today.org" (selected . t) (hscroll . 0)
+                               (fringes 8 8 t nil) (margins 9 . 10)
+                               (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                               (dedicated) (point . 334) (start . 1))
+                       (next-buffers "emacs reference.org")
+                       (prev-buffers ("emacs reference.org" 1 5220)
+                                     ("today.org" 1 294)
+                                     ("rewilding 3.0.org" 1 1)
+                                     ("general.org" 1 1) ("*spacemacs*" 1 245)
+                                     ("*scratch*" 1 1)))
+                 (leaf (last . t) (pixel-width . 267) (pixel-height . 674)
+                       (total-width . 27) (total-height . 33)
+                       (normal-height . 1.0)
+                       (normal-width . 0.20676100628930813)
+                       (buffer "emacs reference.org" (selected) (hscroll . 0)
+                               (fringes 8 8 t nil) (margins nil)
+                               (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                               (dedicated) (point . 5220) (start . 154))
+                       (prev-buffers ("today.org" 1 294))))
+                ""))))
+            t nil nil))
