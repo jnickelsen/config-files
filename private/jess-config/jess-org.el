@@ -52,7 +52,6 @@
       org-superstar-leading-bullet " "
       org-hide-leading-stars t)
 
-
 ;;;;;;;;;; setting up org capture, agenda, and other stuff
 (with-eval-after-load 'org
   (setq org-default-notes-file (concat org-directory "/notes.org"))
@@ -73,6 +72,102 @@
         '((sequence "TODO" "ZERO DRAFT" "FIRST DRAFT" "SECOND DRAFT" "DONE"))
         )
   )
+
+
+;;;;;;;;;;;WRITING CLOCKTABLE
+;; Run M-x my-writing-tracking-toggle to turn tracking on or off. Clock in/out as usual.
+;; When on, clock-out will add the extra word count lines in the LOGBOOK after the clock entry.
+
+;; each org file that is tracking writing will need the following set up as the clocktable:
+
+;; #+BEGIN: writing-clocktable :maxlevel 2 :block thisweek
+;; #+END:
+
+;; Workflow:
+;; Open a writing file.
+;; M-x my-writing-tracking-toggle → ON
+;; Clock in to a heading → write/edit.
+;; Clock out → LOGBOOK gets:
+;; CLOCK: [2025-08-08 Fri 10:00]--[2025-08-08 Fri 11:30] =>  1:30
+;; - Words total: 3240
+;; - Words change: +450
+;; Refresh your #+BEGIN: writing-clocktable … → table shows time, total words, and change.
+
+
+(defvar my-writing-tracking-mode nil
+  "If non-nil, record word count and change on clock-out.")
+
+(defun my-writing-tracking-toggle ()
+  "Toggle writing tracking mode for clock-out."
+  (interactive)
+  (setq my-writing-tracking-mode (not my-writing-tracking-mode))
+  (message "Writing tracking mode %s"
+           (if my-writing-tracking-mode "ON" "OFF")))
+
+(defun my-writing-word-count ()
+  "Count words in the current org heading's subtree."
+  (save-excursion
+    (org-back-to-heading t)
+    (let ((start (point))
+          (end (org-end-of-subtree t)))
+      (count-words start end))))
+
+(defun my-writing-last-total-in-logbook ()
+  "Get the last recorded 'Words total' in this heading's LOGBOOK."
+  (save-excursion
+    (org-back-to-heading t)
+    (when (re-search-forward "- Words total: \\([0-9]+\\)" (org-end-of-subtree t) t)
+      (string-to-number (match-string 1)))))
+
+(defun my-writing-log-word-data ()
+  "If `my-writing-tracking-mode' is on, log total and change in LOGBOOK with timestamp."
+  (when my-writing-tracking-mode
+    (let* ((total (my-writing-word-count))
+           (prev-total (or (my-writing-last-total-in-logbook) total))
+           (change (- total prev-total))
+           (timestamp (format-time-string "[%Y-%m-%d %a %H:%M]")))
+      (save-excursion
+        (org-back-to-heading t)
+        (if (re-search-forward ":LOGBOOK:" (org-end-of-subtree t) t)
+            (progn
+              (forward-line)
+              (insert (format "- Words total: %d %s\n- Words change: %+d %s\n"
+                              total timestamp change timestamp)))
+          (progn
+            (org-end-of-subtree t)
+            (insert "\n:LOGBOOK:\n")
+            (insert (format "- Words total: %d %s\n- Words change: %+d %s\n"
+                            total timestamp change timestamp))
+            (insert ":END:\n")))))))
+
+
+
+;;;;;;;;;;THE WRITING CLOCKTABLE BLOCK
+(defun org-dblock-write:writing-clocktable (params)
+  "Generate a clocktable with word counts and changes."
+  (let* ((data (org-clock-get-table-data (current-buffer) params))
+         (total-time (nth 1 data))
+         (entries (nth 2 data)))
+    (insert "| Headline | Time | Words total | Words change |\n|-\n")
+    (dolist (entry entries)
+      (let* ((headline (nth 1 entry))
+             (time-min (nth 3 entry))
+             (marker (nth 5 entry))
+             (words-total (save-excursion
+                            (goto-char marker)
+                            (or (my-writing-last-total-in-logbook) "")))
+             (words-change (save-excursion
+                             (goto-char marker)
+                             (when (re-search-forward "- Words change: \\([+-]?[0-9]+\\)"
+                                                      (org-end-of-subtree t) t)
+                               (match-string 1)))))
+        (insert (format "| %s | %d:%02d | %s | %s |\n"
+                        headline (/ time-min 60) (mod time-min 60)
+                        words-total words-change))))
+    (insert "|-\n")
+    (insert (format "| *Total* | %d:%02d |   |   |\n"
+                    (/ total-time 60) (mod total-time 60)))))
+
 
 
 ;;;;;;;;;; ORG ROAM

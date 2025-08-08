@@ -97,22 +97,24 @@
 (defvar my-org-current-palette-index 0
   "Current index into `my-org-heading-palettes'.")
 
-(defface my/org-highlighted-text
-  '((t (:box (:line-width -1 :color "#FFAEB9")
-             :background "#FFD6C9"
-             :inherit nil
-             :extend nil)))
-  "Custom face for =highlighted= Org text.")
 
-(defun my/update-org-highlighted-text-face (palette)
-  "Update =highlighted= org face colors using PALETTE."
-  (let ((bg (or (nth 5 palette) "#FFD6C9"))   ;; 6th color for background
-        (box (or (nth 2 palette) "#FFAEB9"))) ;; 3rd color for box
-    (set-face-attribute 'my/org-highlighted-text nil
-                        :background bg
-                        :box `(:line-width -1 :color ,box)
-                        :foreground 'unspecified
-                        :weight 'normal)))
+;; ;; Custom face for =highlighted= Org text (DISABLED to use theme default)
+;; (defface my/org-highlighted-text
+;;   '((t (:box (:line-width -1 :color "#FFAEB9")
+;;              :background "#FFD6C9"
+;;              :inherit nil
+;;              :extend nil)))
+;;   "Custom face for =highlighted= Org text.")
+
+;; (defun my/update-org-highlighted-text-face (palette)
+;;   "Update =highlighted= org face colors using PALETTE."
+;;   (let ((bg (or (nth 5 palette) "#FFD6C9"))   ;; 6th color for background
+;;         (box (or (nth 2 palette) "#FFAEB9"))) ;; 3rd color for box
+;;     (set-face-attribute 'my/org-highlighted-text nil
+;;                         :background bg
+;;                         :box `(:line-width -1 :color ,box)
+;;                         :foreground 'unspecified
+;;                         :weight 'normal)))
 
 (defun my/apply-org-heading-palette (index-or-name)
   "Apply the Org heading color palette by INDEX (number) or NAME (string)."
@@ -140,7 +142,7 @@
             (let ((face (intern (format "org-level-%d" (1+ i)))))
               (set-face-attribute face nil
                                   :foreground (nth i color-theme))))
-          (my/update-org-highlighted-text-face color-theme)
+          ;; (my/update-org-highlighted-text-face color-theme)
           (message "Applied palette: %s" (nth pos names)))
       (error "No palette found at index %s" index-or-name))))
 
@@ -192,7 +194,7 @@
   (let ((palette (cdr (assoc palette-name my-org-heading-palettes))))
     (when palette
       (my/apply-org-heading-palette palette-name)
-      (my/update-org-highlighted-text-face palette)
+      ;;(my/update-org-highlighted-text-face palette)
       (if (featurep 'markdown-mode)
           (my/apply-markdown-palette-by-name palette-name)
         (add-hook 'markdown-mode-hook
@@ -272,7 +274,8 @@
       '(("*" bold nil)
         ("/" italic nil)
         ("_" underline nil)
-        ("=" my/org-highlighted-text nil)
+        ;;        ("=" my/org-highlighted-text nil) ;; COMMENTED OUT to use theme default
+        ("=" org-verbatim verbatim) ;; this is the default
         ("~" org-verbatim verbatim)
         ("+" (:strike-through t) nil)))
 
