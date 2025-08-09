@@ -116,8 +116,9 @@
   "Get the last recorded 'Words total' in this heading's LOGBOOK."
   (save-excursion
     (org-back-to-heading t)
-    (when (re-search-forward "- Words total: \\([0-9]+\\)" (org-end-of-subtree t) t)
-      (string-to-number (match-string 1)))))
+    (let ((end (org-end-of-subtree t)))
+      (when (re-search-forward "- Words total: \\([0-9]+\\)" end t)
+        (string-to-number (match-string 1))))))
 
 (defun my-writing-log-word-data ()
   "If `my-writing-tracking-mode' is on, log total and change in LOGBOOK with timestamp."
@@ -128,18 +129,27 @@
            (timestamp (format-time-string "[%Y-%m-%d %a %H:%M]")))
       (save-excursion
         (org-back-to-heading t)
-        (if (re-search-forward ":LOGBOOK:" (org-end-of-subtree t) t)
+        ;; Find the existing LOGBOOK drawer, if any
+        (if (re-search-forward "^:LOGBOOK:" (save-excursion (org-end-of-subtree t) (point)) t)
             (progn
+              ;; Move inside the LOGBOOK drawer
               (forward-line)
-              (insert (format "- Words total: %d %s\n- Words change: %+d %s\n"
-                              total timestamp change timestamp)))
+              ;; Insert under the last entry but before :END:
+              (if (re-search-forward "^:END:" (save-excursion (org-end-of-subtree t) (point)) t)
+                  (progn
+                    (beginning-of-line)
+                    (insert (format "- Words total: %d %s\n- Words change: %+d %s\n"
+                                    total timestamp change timestamp)))
+                ;; If :END: not found, just insert
+                (insert (format "- Words total: %d %s\n- Words change: %+d %s\n"
+                                total timestamp change timestamp))))
+          ;; If no LOGBOOK found, create one after the clock entry
           (progn
             (org-end-of-subtree t)
             (insert "\n:LOGBOOK:\n")
             (insert (format "- Words total: %d %s\n- Words change: %+d %s\n"
                             total timestamp change timestamp))
             (insert ":END:\n")))))))
-
 
 
 ;;;;;;;;;;THE WRITING CLOCKTABLE BLOCK
@@ -168,7 +178,7 @@
     (insert (format "| *Total* | %d:%02d |   |   |\n"
                     (/ total-time 60) (mod total-time 60)))))
 
-
+(add-hook 'org-clock-out-hook #'my-writing-log-word-data)
 
 ;;;;;;;;;; ORG ROAM
 (setq org-roam-directory "~/Documents/org/org-roam")
