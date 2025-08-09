@@ -3,9 +3,6 @@
             ((def-buffer "garbage god.org"
                          "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/garbage god.org"
                          org-mode)
-             (def-buffer ".spacemacs"
-                         "/Users/jessicanickelsen/Documents/GitHub/config-files/.spacemacs"
-                         emacs-lisp-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
@@ -24,15 +21,13 @@
                (min-pixel-height . 80) (min-pixel-width . 100)
                (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 40)
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
-              leaf (pixel-width . 1276) (pixel-height . 660) (total-width . 127)
+              leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
               (total-height . 33) (normal-height . 1.0) (normal-width . 1.0)
               (buffer "garbage god.org" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins 23 . 23)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 5413) (start . 1))
-              (prev-buffers ("garbage god.org" 1 4747)
-                            (".spacemacs" 45565 46377) ("*spacemacs*" 1 1084)
-                            ("*scratch*" 1 1))))
+                      (dedicated) (point . 6) (start . 1))
+              (prev-buffers ("*spacemacs*" 1 597) ("*scratch*" 1 1))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -43,15 +38,13 @@
                   (min-pixel-width . 100) (min-pixel-height-ignore . 60)
                   (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 20))
-                 leaf (pixel-width . 1276) (pixel-height . 660)
-                 (total-width . 127) (total-height . 33) (normal-height . 1.0)
+                 leaf (pixel-width . 1276) (pixel-height . 674)
+                 (total-width . 128) (total-height . 33) (normal-height . 1.0)
                  (normal-width . 1.0)
                  (buffer "garbage god.org" (selected . t) (hscroll . 0)
                          (fringes 8 8 t nil) (margins 23 . 23)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 5413) (start . 1))
-                 (prev-buffers ("garbage god.org" 1 4747)
-                               (".spacemacs" 45565 46377) ("*spacemacs*" 1 1084)
-                               ("*scratch*" 1 1)))
+                         (dedicated) (point . 6) (start . 1))
+                 (prev-buffers ("*spacemacs*" 1 597) ("*scratch*" 1 1)))
                 ""))))
             t nil nil))
