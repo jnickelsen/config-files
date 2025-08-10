@@ -75,110 +75,163 @@
 
 
 ;;;;;;;;;;;WRITING CLOCKTABLE
-;; Run M-x my-writing-tracking-toggle to turn tracking on or off. Clock in/out as usual.
-;; When on, clock-out will add the extra word count lines in the LOGBOOK after the clock entry.
+;; Add #+FILETAGS: writing at the top of any Org file where you want word count tracking active.
+;; Clock in and out on headings in that file as usual.
+;; The properties START_WORDS, END_WORDS, and WORDS_DELTA will be automatically updated on clock in/out.
+;; Other Org files without that filetag will behave normally with no extra properties added.
 
-;; each org file that is tracking writing will need the following set up as the clocktable:
-
-;; #+BEGIN: writing-clocktable :maxlevel 2 :block thisweek
-;; #+END:
-
-;; Workflow:
-;; Open a writing file.
-;; M-x my-writing-tracking-toggle → ON
-;; Clock in to a heading → write/edit.
-;; Clock out → LOGBOOK gets:
-;; CLOCK: [2025-08-08 Fri 10:00]--[2025-08-08 Fri 11:30] =>  1:30
-;; - Words total: 3240
-;; - Words change: +450
-;; Refresh your #+BEGIN: writing-clocktable … → table shows time, total words, and change.
-
-
-(defvar my-writing-tracking-mode nil
-  "If non-nil, record word count and change on clock-out.")
-
-(defun my-writing-tracking-toggle ()
-  "Toggle writing tracking mode for clock-out."
-  (interactive)
-  (setq my-writing-tracking-mode (not my-writing-tracking-mode))
-  (message "Writing tracking mode %s"
-           (if my-writing-tracking-mode "ON" "OFF")))
-
-(defun my-writing-word-count ()
-  "Count words in the current org heading's subtree."
-  (save-excursion
-    (org-back-to-heading t)
-    (let ((start (point))
-          (end (org-end-of-subtree t)))
-      (count-words start end))))
-
-(defun my-writing-last-total-in-logbook ()
-  "Get the last recorded 'Words total' in this heading's LOGBOOK."
-  (save-excursion
-    (org-back-to-heading t)
-    (let ((end (org-end-of-subtree t)))
-      (when (re-search-forward "- Words total: \\([0-9]+\\)" end t)
-        (string-to-number (match-string 1))))))
-
-(defun my-writing-log-word-data ()
-  "If `my-writing-tracking-mode' is on, log total and change in LOGBOOK with timestamp."
-  (when my-writing-tracking-mode
-    (let* ((total (my-writing-word-count))
-           (prev-total (or (my-writing-last-total-in-logbook) total))
-           (change (- total prev-total))
-           (timestamp (format-time-string "[%Y-%m-%d %a %H:%M]")))
-      (save-excursion
-        (org-back-to-heading t)
-        ;; Find the existing LOGBOOK drawer, if any
-        (if (re-search-forward "^:LOGBOOK:" (save-excursion (org-end-of-subtree t) (point)) t)
-            (progn
-              ;; Move inside the LOGBOOK drawer
-              (forward-line)
-              ;; Insert under the last entry but before :END:
-              (if (re-search-forward "^:END:" (save-excursion (org-end-of-subtree t) (point)) t)
-                  (progn
-                    (beginning-of-line)
-                    (insert (format "- Words total: %d %s\n- Words change: %+d %s\n"
-                                    total timestamp change timestamp)))
-                ;; If :END: not found, just insert
-                (insert (format "- Words total: %d %s\n- Words change: %+d %s\n"
-                                total timestamp change timestamp))))
-          ;; If no LOGBOOK found, create one after the clock entry
-          (progn
-            (org-end-of-subtree t)
-            (insert "\n:LOGBOOK:\n")
-            (insert (format "- Words total: %d %s\n- Words change: %+d %s\n"
-                            total timestamp change timestamp))
-            (insert ":END:\n")))))))
-
-
-;;;;;;;;;;THE WRITING CLOCKTABLE BLOCK
-(defun org-dblock-write:writing-clocktable (params)
-  "Generate a clocktable with word counts and changes."
+(defun my/org-clocktable-with-words (ipos _tables params)
+  "Custom clocktable formatter showing time plus WORDS_DELTA and END_WORDS.
+IPOS is the position where the table should be inserted.
+PARAMS is the plist of clocktable parameters."
+  (message "Running custom clocktable formatter")
   (let* ((data (org-clock-get-table-data (current-buffer) params))
-         (total-time (nth 1 data))
-         (entries (nth 2 data)))
-    (insert "| Headline | Time | Words total | Words change |\n|-\n")
-    (dolist (entry entries)
-      (let* ((headline (nth 1 entry))
-             (time-min (nth 3 entry))
-             (marker (nth 5 entry))
-             (words-total (save-excursion
-                            (goto-char marker)
-                            (or (my-writing-last-total-in-logbook) "")))
-             (words-change (save-excursion
-                             (goto-char marker)
-                             (when (re-search-forward "- Words change: \\([+-]?[0-9]+\\)"
-                                                      (org-end-of-subtree t) t)
-                               (match-string 1)))))
-        (insert (format "| %s | %d:%02d | %s | %s |\n"
-                        headline (/ time-min 60) (mod time-min 60)
-                        words-total words-change))))
-    (insert "|-\n")
-    (insert (format "| *Total* | %d:%02d |   |   |\n"
-                    (/ total-time 60) (mod total-time 60)))))
+         (table-entries (nth 4 data))
+         (table-str
+          (with-temp-buffer
+            ;; Insert header
+            (insert (format "| %-30s | %-7s | %-9s | %-9s |\n"
+                            "Heading" "Time" "Words Δ" "End Words"))
+            (insert "|-------------------------------+---------+-----------+-----------|\n")
+            ;; Insert rows
+            (dolist (entry table-entries)
+              (let* ((marker (nth 4 entry))
+                     (time-minutes (nth 2 entry))
+                     (heading (save-excursion
+                                (goto-char marker)
+                                (org-get-heading t t t t)))
+                     words-delta
+                     end-words)
+                (save-excursion
+                  (goto-char marker)
+                  (org-back-to-heading t)
+                  (setq words-delta (or (org-entry-get (point) "WORDS_DELTA") "NO-WORDS-DELTA"))
+                  (setq end-words (or (org-entry-get (point) "END_WORDS") "NO-END-WORDS")))
+                (message "Entry: %s, Words Δ: %s, End Words: %s" heading words-delta end-words)
+                (insert (format "| %-30s | %7d | %9s | %9s |\n"
+                                heading time-minutes words-delta end-words))))
+            (buffer-string))))
+    ;; Insert table into original buffer
+    (goto-char ipos)
+    (forward-line 1)
+    (insert table-str))
+  nil) ;; Return nil as per org-clocktable formatter spec
 
-(add-hook 'org-clock-out-hook #'my-writing-log-word-data)
+
+
+
+(defun my/org-file-get-filetags ()
+  "Return a list of filetags from the #+FILETAGS: line in the current buffer."
+  (save-excursion
+    (goto-char (point-min))
+    (when (re-search-forward "^#\\+FILETAGS:[ \t]*\\(.*\\)$" nil t)
+      (split-string (match-string 1) "[ \t]+" t))))
+
+(defun my/org-file-has-filetag-p (tag)
+  "Return t if current Org file has file tag TAG by checking #+FILETAGS: line."
+  (member tag (my/org-file-get-filetags)))
+
+(defun my/org-heading-word-count ()
+  "Return number of words in current heading’s subtree."
+  (save-excursion
+    (org-back-to-heading t)
+    (let ((beg (point)))
+      (org-end-of-subtree t t)
+      (count-words beg (point)))))
+
+(defun my/org-store-start-words-conditional ()
+  "Store START_WORDS property on clock in, only if current file has 'writing' filetag."
+  (when (my/org-file-has-filetag-p "writing")
+    (save-excursion
+      (org-back-to-heading t)
+      (org-set-property "START_WORDS"
+                        (number-to-string (my/org-heading-word-count))))))
+
+(defun my/org-store-end-words-conditional ()
+  "Store END_WORDS and WORDS_DELTA properties on clock out, only if current file has 'writing' filetag."
+  (when (my/org-file-has-filetag-p "writing")
+    (save-excursion
+      (org-back-to-heading t)
+      (let* ((end (my/org-heading-word-count))
+             (start (string-to-number (or (org-entry-get (point) "START_WORDS") "0")))
+             (delta (- end start)))
+        (org-set-property "END_WORDS" (number-to-string end))
+        (org-set-property "WORDS_DELTA" (format "%+d" delta))
+        (org-save-all-org-buffers)))))
+
+;; Hook into org clock in/out:
+(add-hook 'org-clock-in-hook #'my/org-store-start-words-conditional)
+(add-hook 'org-clock-out-hook #'my/org-store-end-words-conditional)
+
+
+;; (defun my/org-clocktable-with-words (ipos _tables params)
+;;   (message "Running custom clocktable formatter")
+;;   (let* ((data (org-clock-get-table-data (current-buffer) params))
+;;          (table-entries (nth 4 data)))
+;;     (message "Number of clock entries: %d" (length table-entries))
+;;     (let ((table-str
+;;            (with-temp-buffer
+;;              (insert (format "| %-30s | %-7s | %-9s | %-9s |\n"
+;;                              "Heading" "Time" "Words Δ" "End Words"))
+;;              (insert "|-------------------------------+---------+-----------+-----------|\n")
+;;              (dolist (entry table-entries)
+;;                (let* ((marker (nth 4 entry))
+;;                       (time-minutes (nth 2 entry))
+;;                       (heading (save-excursion
+;;                                  (goto-char marker)
+;;                                  (org-get-heading t t t t)))
+;;                       words-delta
+;;                       end-words)
+;;                  (save-excursion
+;;                    (goto-char marker)
+;;                    (org-back-to-heading t)
+;;                    (setq words-delta (or (org-entry-get (point) "WORDS_DELTA") "NO-WORDS-DELTA"))
+;;                    (setq end-words (or (org-entry-get (point) "END_WORDS") "NO-END-WORDS")))
+;;                  (message "Entry: %s, Words Δ: %s, End Words: %s" heading words-delta end-words)
+;;                  (insert (format "| %-30s | %7d | %9s | %9s |\n"
+;;                                  heading time-minutes words-delta end-words))))
+;;              (buffer-string))))
+;;       (message "Generated table string length: %d" (length table-str))
+;;       (goto-char ipos)
+;;       (forward-line 1)
+;;       (insert "\n--- TEST INSERT ---\n")
+;;       (insert table-str)))
+;; nil)
+
+(defun my/org-clocktable-with-words (ipos _tables params)
+  (message "Running custom clocktable formatter")
+  (let* ((data (org-clock-get-table-data (current-buffer) params))
+         (table-entries (nth 4 data)))
+    (message "Number of clock entries: %d" (length table-entries))
+    (let ((table-str
+           (with-temp-buffer
+             (insert (format "| %-30s | %-7s | %-9s | %-9s |\n"
+                             "Heading" "Time" "Words Δ" "End Words"))
+             (insert "|-------------------------------+---------+-----------+-----------|\n")
+             (dolist (entry table-entries)
+               (let* ((marker (nth 4 entry))
+                      (time-minutes (nth 2 entry))
+                      (heading (save-excursion
+                                 (goto-char marker)
+                                 (org-get-heading t t t t)))
+                      words-delta
+                      end-words)
+                 (save-excursion
+                   (goto-char marker)
+                   (org-back-to-heading t)
+                   (setq words-delta (or (org-entry-get (point) "WORDS_DELTA") "NO-WORDS-DELTA"))
+                   (setq end-words (or (org-entry-get (point) "END_WORDS") "NO-END-WORDS")))
+                 (message "Entry: %s, Words Δ: %s, End Words: %s" heading words-delta end-words)
+                 (insert (format "| %-30s | %7d | %9s | %9s |\n"
+                                 heading time-minutes words-delta end-words))))
+             (buffer-string))))
+      (message "Generated table string length: %d" (length table-str))
+      (goto-char ipos)
+      (forward-line 1)
+      (insert "\n--- TEST INSERT ---\n")
+      (insert table-str)))
+  nil)
+
 
 ;;;;;;;;;; ORG ROAM
 (setq org-roam-directory "~/Documents/org/org-roam")

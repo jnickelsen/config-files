@@ -1,10 +1,10 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "jess-org.el"
+            ((def-buffer "garbage gods.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/garbage gods.org"
+                         org-mode)
+             (def-buffer "jess-org.el"
                          "/Users/jessicanickelsen/Documents/GitHub/config-files/private/jess-config/jess-org.el"
-                         emacs-lisp-mode)
-             (def-buffer ".spacemacs"
-                         "/Users/jessicanickelsen/Documents/GitHub/config-files/.spacemacs"
                          emacs-lisp-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
@@ -24,14 +24,15 @@
                (min-pixel-height . 80) (min-pixel-width . 100)
                (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 40)
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
-              leaf (pixel-width . 1276) (pixel-height . 675) (total-width . 128)
-              (total-height . 34) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "jess-org.el" (selected . t) (hscroll . 0)
-                      (fringes 8 8 nil nil) (margins nil)
+              leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
+              (total-height . 33) (normal-height . 1.0) (normal-width . 1.0)
+              (buffer "garbage gods.org" (selected . t) (hscroll . 0)
+                      (fringes 8 8 t nil) (margins 23 . 23)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 6768) (start . 5580))
-              (prev-buffers (".spacemacs" 38587 39880) ("jess-org.el" 1 362)
-                            ("*spacemacs*" 1 645) ("*scratch*" 1 1))))
+                      (dedicated) (point . 1114) (start . 787))
+              (prev-buffers ("*scratch*" 1 58) ("garbage gods.org" 787 1114)
+                            ("*Messages*" 7929 9061) ("jess-org.el" 8013 8603)
+                            ("*spacemacs*" 1 595))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -42,14 +43,15 @@
                   (min-pixel-width . 100) (min-pixel-height-ignore . 60)
                   (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 20))
-                 leaf (pixel-width . 1276) (pixel-height . 675)
-                 (total-width . 128) (total-height . 34) (normal-height . 1.0)
+                 leaf (pixel-width . 1276) (pixel-height . 674)
+                 (total-width . 128) (total-height . 33) (normal-height . 1.0)
                  (normal-width . 1.0)
-                 (buffer "jess-org.el" (selected . t) (hscroll . 0)
-                         (fringes 8 8 nil nil) (margins nil)
+                 (buffer "garbage gods.org" (selected . t) (hscroll . 0)
+                         (fringes 8 8 t nil) (margins 23 . 23)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 6768) (start . 5580))
-                 (prev-buffers (".spacemacs" 38587 39880) ("jess-org.el" 1 362)
-                               ("*spacemacs*" 1 645) ("*scratch*" 1 1)))
+                         (dedicated) (point . 1114) (start . 787))
+                 (prev-buffers ("*scratch*" 1 58) ("garbage gods.org" 787 1114)
+                               ("*Messages*" 7929 9061)
+                               ("jess-org.el" 8013 8603) ("*spacemacs*" 1 595)))
                 ""))))
             t nil nil))
