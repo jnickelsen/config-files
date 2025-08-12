@@ -1,11 +1,8 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "garbage gods.org"
+            ((def-buffer "garbage gods.org<garbage-gods>"
                          "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/garbage gods.org"
                          org-mode)
-             (def-buffer "jess-org.el"
-                         "/Users/jessicanickelsen/Documents/GitHub/config-files/private/jess-config/jess-org.el"
-                         emacs-lisp-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
@@ -17,41 +14,89 @@
                          org-mode)
              (def-buffer "rewilding-edits.org"
                          "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"
-                         org-mode))
+                         org-mode)
+             (def-buffer "gothic trash god novel.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/011 The Garbage God My Mother Made/gothic trash god novel.org"
+                         org-mode)
+             (def-buffer "garbage gods.org<011 The Garbage God My Mother Made>"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/011 The Garbage God My Mother Made/garbage gods.org"
+                         org-mode)
+             (def-buffer "emacs reference.org"
+                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
+                         org-mode)
+             (def-buffer "jess-garbage-gods.persp"
+                         "/Users/jessicanickelsen/Documents/GitHub/config-files/layouts/jess-garbage-gods.persp"
+                         emacs-lisp-mode)
+             (def-buffer ".custom-settings"
+                         "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
+                         emacs-lisp-mode))
             (def-wconf
-             (((min-height . 4) (min-width . 10) (min-height-ignore . 3)
-               (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2)
-               (min-pixel-height . 80) (min-pixel-width . 100)
-               (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 40)
-               (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
-              leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
-              (total-height . 33) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "garbage gods.org" (selected . t) (hscroll . 0)
-                      (fringes 8 8 t nil) (margins 23 . 23)
-                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 1114) (start . 787))
-              (prev-buffers ("*scratch*" 1 58) ("garbage gods.org" 787 1114)
-                            ("*Messages*" 7929 9061) ("jess-org.el" 8013 8603)
-                            ("*spacemacs*" 1 595))))
+             (((min-height . 4) (min-width . 20) (min-height-ignore . 4)
+               (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4)
+               (min-pixel-height . 80) (min-pixel-width . 200)
+               (min-pixel-height-ignore . 80) (min-pixel-width-ignore . 80)
+               (min-pixel-height-safe . 20) (min-pixel-width-safe . 40))
+              hc (pixel-width . 1916) (pixel-height . 937) (total-width . 192)
+              (total-height . 46) (normal-height . 1.0) (normal-width . 1.0)
+              (combination-limit)
+              (leaf (pixel-width . 1550) (pixel-height . 937)
+                    (total-width . 155) (total-height . 46)
+                    (normal-height . 1.0) (normal-width . 0.8089770354906054)
+                    (buffer "garbage gods.org<garbage-gods>" (selected . t)
+                            (hscroll . 0) (fringes 8 8 t nil) (margins 36 . 37)
+                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                            (dedicated) (point . 635) (start . 1))
+                    (prev-buffers ("gothic trash god novel.org" 1 176)
+                                  ("work.org" 5810 9381)
+                                  ("garbage gods.org<011 The Garbage God My Mother Made>"
+                                   869 1936)
+                                  ("*spacemacs*" 1 583) ("*scratch*" 1 1)))
+              (leaf (last . t) (pixel-width . 366) (pixel-height . 937)
+                    (total-width . 37) (total-height . 46) (normal-height . 1.0)
+                    (normal-width . 0.19102296450939457)
+                    (buffer "emacs reference.org" (selected) (hscroll . 0)
+                            (fringes 8 8 t nil) (margins nil)
+                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                            (dedicated) (point . 1) (start . 1))
+                    (prev-buffers ("emacs reference.org" 1 180)
+                                  ("garbage gods.org<011 The Garbage God My Mother Made>"
+                                   1 431)))))
             (def-params
-             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
-              (gui-eyebrowse-window-configs
+             ((gui-eyebrowse-window-configs
                (1
-                (((min-height . 4) (min-width . 10) (min-height-ignore . 3)
-                  (min-width-ignore . 4) (min-height-safe . 1)
-                  (min-width-safe . 2) (min-pixel-height . 80)
-                  (min-pixel-width . 100) (min-pixel-height-ignore . 60)
-                  (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
-                  (min-pixel-width-safe . 20))
-                 leaf (pixel-width . 1276) (pixel-height . 674)
-                 (total-width . 128) (total-height . 33) (normal-height . 1.0)
-                 (normal-width . 1.0)
-                 (buffer "garbage gods.org" (selected . t) (hscroll . 0)
-                         (fringes 8 8 t nil) (margins 23 . 23)
-                         (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 1114) (start . 787))
-                 (prev-buffers ("*scratch*" 1 58) ("garbage gods.org" 787 1114)
-                               ("*Messages*" 7929 9061)
-                               ("jess-org.el" 8013 8603) ("*spacemacs*" 1 595)))
-                ""))))
+                (((min-height . 4) (min-width . 20) (min-height-ignore . 4)
+                  (min-width-ignore . 8) (min-height-safe . 1)
+                  (min-width-safe . 4) (min-pixel-height . 80)
+                  (min-pixel-width . 200) (min-pixel-height-ignore . 80)
+                  (min-pixel-width-ignore . 80) (min-pixel-height-safe . 20)
+                  (min-pixel-width-safe . 40))
+                 hc (pixel-width . 1916) (pixel-height . 937)
+                 (total-width . 192) (total-height . 46) (normal-height . 1.0)
+                 (normal-width . 1.0) (combination-limit)
+                 (leaf (pixel-width . 1550) (pixel-height . 937)
+                       (total-width . 155) (total-height . 46)
+                       (normal-height . 1.0) (normal-width . 0.8089770354906054)
+                       (buffer "garbage gods.org<garbage-gods>" (selected . t)
+                               (hscroll . 0) (fringes 8 8 t nil)
+                               (margins 36 . 37)
+                               (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                               (dedicated) (point . 635) (start . 1))
+                       (prev-buffers ("gothic trash god novel.org" 1 176)
+                                     ("work.org" 5810 9381)
+                                     ("garbage gods.org<011 The Garbage God My Mother Made>"
+                                      869 1936)
+                                     ("*spacemacs*" 1 583) ("*scratch*" 1 1)))
+                 (leaf (last . t) (pixel-width . 366) (pixel-height . 937)
+                       (total-width . 37) (total-height . 46)
+                       (normal-height . 1.0)
+                       (normal-width . 0.19102296450939457)
+                       (buffer "emacs reference.org" (selected) (hscroll . 0)
+                               (fringes 8 8 t nil) (margins nil)
+                               (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                               (dedicated) (point . 1) (start . 1))
+                       (prev-buffers ("emacs reference.org" 1 180)
+                                     ("garbage gods.org<011 The Garbage God My Mother Made>"
+                                      1 431))))
+                ""))
+              (gui-eyebrowse-current-slot . 1) (gui-eyebrowse-last-slot . 1)))
             t nil nil))
