@@ -1,11 +1,8 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "test2.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/test2.org"
+            ((def-buffer "garbage gods planning.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/011 The Garbage God My Mother Made/garbage gods planning.org"
                          org-mode)
-             (def-buffer "my-org-clocktable.el"
-                         "/Users/jessicanickelsen/Documents/GitHub/config-files/private/my-org-clocktable.el"
-                         emacs-lisp-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
@@ -24,15 +21,13 @@
                (min-pixel-height . 80) (min-pixel-width . 100)
                (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 40)
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
-              leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
-              (total-height . 33) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "test2.org" (selected . t) (hscroll . 0)
-                      (fringes 8 8 t nil) (margins 23 . 23)
+              leaf (pixel-width . 1916) (pixel-height . 939) (total-width . 192)
+              (total-height . 46) (normal-height . 1.0) (normal-width . 1.0)
+              (buffer "garbage gods planning.org" (selected . t) (hscroll . 0)
+                      (fringes 8 8 t nil) (margins 55 . 55)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 94) (start . 1))
-              (prev-buffers ("my-org-clocktable.el" 1794 1964)
-                            ("*Messages*" 5132 5893) ("test2.org" 1 22)
-                            ("*spacemacs*" 1 588) ("*scratch*" 1 1))))
+                      (dedicated) (point . 8114) (start . 1))
+              (prev-buffers ("*spacemacs*" 1 1195) ("*scratch*" 1 1))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -43,15 +38,13 @@
                   (min-pixel-width . 100) (min-pixel-height-ignore . 60)
                   (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 20))
-                 leaf (pixel-width . 1276) (pixel-height . 674)
-                 (total-width . 128) (total-height . 33) (normal-height . 1.0)
+                 leaf (pixel-width . 1916) (pixel-height . 939)
+                 (total-width . 192) (total-height . 46) (normal-height . 1.0)
                  (normal-width . 1.0)
-                 (buffer "test2.org" (selected . t) (hscroll . 0)
-                         (fringes 8 8 t nil) (margins 23 . 23)
+                 (buffer "garbage gods planning.org" (selected . t)
+                         (hscroll . 0) (fringes 8 8 t nil) (margins 55 . 55)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 94) (start . 1))
-                 (prev-buffers ("my-org-clocktable.el" 1794 1964)
-                               ("*Messages*" 5132 5893) ("test2.org" 1 22)
-                               ("*spacemacs*" 1 588) ("*scratch*" 1 1)))
+                         (dedicated) (point . 8114) (start . 1))
+                 (prev-buffers ("*spacemacs*" 1 1195) ("*scratch*" 1 1)))
                 ""))))
             t nil nil))

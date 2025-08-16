@@ -88,16 +88,19 @@ This function should only modify configuration layer settings."
                                       toxi-theme
                                       zenburn-theme
                                       ef-themes
+                                      organic-green-theme
                                       ;; For writing
                                       writegood-mode
                                       flyspell
                                       langtool
                                       wc-mode
                                       org-pomodoro
-                                      org-roam
+                                      ;; org-roam
                                       org-side-tree
                                       palimpsest
                                       writeroom-mode
+                                      org-tracktable
+                                      annotate
                                       ;; For annotating PDFs
                                       pdf-tools
                                       ;;org-noter
@@ -693,6 +696,13 @@ before packages are loaded."
 ;;;;;;;;;; enable transient mark mode, which enables using org mode with different file types
   (transient-mark-mode 1)
 
+
+;;;;;;;;;; tidy up caching / changed files
+  ;; Automatically clean up recentf when files no longer exist
+  (add-hook 'kill-emacs-hook #'recentf-cleanup)
+  (add-hook 'find-file-hook #'recentf-cleanup)
+
+
 ;;;;;;;;;; trying to sort window dividers when I split panes
   (setq window-divider-default-right-width 1)
   (setq window-divider-default-bottom-width 1)
@@ -776,7 +786,28 @@ before packages are loaded."
                 (set-face-attribute face nil :height 1.0 :weight 'bold))))
 
 ;;;;;;;;;; RANGER
-  (define-key evil-normal-state-map (kbd ", r") 'ranger)
+  ;; (define-key evil-normal-state-map (kbd ", r") 'ranger)
+  ;; (setq ranger-cleanup-eagerly t)
+
+
+  ;; ;;;;;;;;;; RANGER ;;;;;;;;;;
+
+  ;; Ranger behavior tweaks
+  (setq ranger-cleanup-eagerly t)   ;; clean up windows/buffers when quitting
+  (setq ranger-open-in-place nil)   ;; open files in another window, keep ranger open
+
+  ;; Open ranger in the current buffer's directory
+  (defun my/ranger-here ()
+    "Open ranger in the directory of the current buffer."
+    (interactive)
+    (ranger (if (buffer-file-name)
+                (file-name-directory (buffer-file-name))
+              default-directory)))
+
+  ;; Override any existing , r binding in evil normal state (currently ', r' opens org-roam)
+  (define-key evil-normal-state-map (kbd ", r") nil)
+  (define-key evil-normal-state-map (kbd ", r") 'my/ranger-here)
+
 
 ;;;;;;;;;;ORG NOVELIST
 ;;;;;;;;;; see here for more: https://github.com/sympodius/org-novelist
@@ -969,17 +1000,17 @@ This function is called at the very end of Spacemacs initialization."
    '(org-side-tree-recenter-position 0.2)
    '(package-selected-packages
      '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
-         all-the-icons auto-compile auto-highlight-symbol catppuccin-theme
-         centered-cursor-mode clean-aindent-mode closql column-enforce-mode
-         company company-web counsel counsel-css dash-functional deferred
-         define-word devdocs diminish dired-quick-sort disable-mouse doom-modeline
-         doom-themes dotenv-mode drag-stuff dumb-jump edit-indirect ef-themes
-         elisp-def elisp-demos elisp-slime-nav emacsql emmet-mode emojify emr
-         eval-sexp-fu evil-anzu evil-args evil-cleverparens evil-collection
-         evil-easymotion evil-escape evil-evilified-state evil-exchange
-         evil-goggles evil-iedit-state evil-indent-plus evil-lion evil-lisp-state
-         evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-org
-         evil-surround evil-textobj-line evil-tutor evil-unimpaired
+         all-the-icons annotate auto-compile auto-highlight-symbol
+         catppuccin-theme centered-cursor-mode clean-aindent-mode closql
+         column-enforce-mode company company-web counsel counsel-css
+         dash-functional deferred define-word devdocs diminish dired-quick-sort
+         disable-mouse doom-modeline doom-themes dotenv-mode drag-stuff dumb-jump
+         edit-indirect ef-themes elisp-def elisp-demos elisp-slime-nav emacsql
+         emmet-mode emojify emr eval-sexp-fu evil-anzu evil-args evil-cleverparens
+         evil-collection evil-easymotion evil-escape evil-evilified-state
+         evil-exchange evil-goggles evil-iedit-state evil-indent-plus evil-lion
+         evil-lisp-state evil-matchit evil-mc evil-nerd-commenter evil-numbers
+         evil-org evil-surround evil-textobj-line evil-tutor evil-unimpaired
          evil-visual-mark-mode evil-visualstar expand-region eyebrowse
          fancy-battery flatui-theme flx-ido flycheck flycheck-elsa
          flycheck-package flycheck-pos-tip forge gandalf-theme gh-md ghub git-link
@@ -995,13 +1026,13 @@ This function is called at the very end of Spacemacs initialization."
          open-junk-file org org-bullets org-category-capture org-cliplink
          org-contrib org-download org-journal org-kanban org-mime org-noter
          org-plus-contrib org-pomodoro org-present org-project-capture
-         org-projectile org-ql org-reverse-datetree org-rich-yank org-roam
+         org-projectile org-ql org-reverse-datetree org-rich-yank
          org-side-tree org-sidebar org-starter org-super-agenda org-superstar
-         organic-green-theme orgit orgit-forge ov overseer ox-hugo package-lint
-         palimpsest paradox password-generator pcre2el pdf-tools pomodoro popwin
-         pos-tip prettier-js pug-mode quickrun rainbow-delimiters ranger request
-         restart-emacs sass-mode scss-mode shrink-path sidebar sidebar-narrow
-         simple-httpd slim-mode smeargle space-doc spaceline
+         org-tracktable organic-green-theme orgit orgit-forge ov overseer ox-hugo
+         package-lint palimpsest paradox password-generator pcre2el pdf-tools
+         pomodoro popwin pos-tip prettier-js pug-mode quickrun rainbow-delimiters
+         ranger request restart-emacs sass-mode scss-mode shrink-path sidebar
+         sidebar-narrow simple-httpd slim-mode smeargle space-doc spaceline
          spaceline-all-the-icons spacemacs-purpose-popwin
          spacemacs-whitespace-cleanup string-edit-at-point string-inflection
          swiper symbol-overlay symon tablist tagedit term-cursor toc-org tomelr
