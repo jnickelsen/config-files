@@ -96,12 +96,11 @@ This function should only modify configuration layer settings."
                                       langtool
                                       wc-mode
                                       org-pomodoro
-                                      ;; org-roam
-                                      org-side-tree
                                       palimpsest
                                       writeroom-mode
                                       org-tracktable
-                                      annotate
+                                      denote-markdown
+                                      denote-journal
                                       ;; For annotating PDFs
                                       pdf-tools
                                       ;;org-noter

@@ -221,7 +221,7 @@
     ("Tuesday"   . (:theme doom-solarized-light  :palette "Muted Pastels"))
     ("Wednesday" . (:theme spacemacs-light       :palette "Lavender & Purples"))
     ("Thursday"  . (:theme ef-reverie            :palette "Lavender & Purples"))
-    ("Friday"    . (:theme zenburn               :palette "Frosted Pastels"))
+    ("Friday"    . (:theme ef-maris-light        :palette "Frosted Pastels"))
     ("Saturday"  . (:theme organic-green         :palette "Deep Tide")) ; <3
     ("Sunday"    . (:theme ef-summer             :palette "Mars Static (Violet-Gold)")) ; <3
     (_           . (:theme organic-green         :palette "Jess theme"))))
