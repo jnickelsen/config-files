@@ -89,7 +89,7 @@ This function should only modify configuration layer settings."
                                       zenburn-theme
                                       ef-themes
                                       organic-green-theme
-                                      forest-blue
+                                      forest-blue-theme
                                       ;; For writing
                                       writegood-mode
                                       flyspell
