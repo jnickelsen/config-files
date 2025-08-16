@@ -1,12 +1,6 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "jess-theming.el"
-                         "/Users/jessicanickelsen/Documents/Github/config-files/private/jess-config/jess-theming.el"
-                         emacs-lisp-mode)
-             (def-buffer "jess-org.el"
-                         "/Users/jessicanickelsen/Documents/Github/config-files/private/jess-config/jess-org.el"
-                         emacs-lisp-mode)
-             (def-buffer ".spacemacs"
+            ((def-buffer ".spacemacs"
                          "/Users/jessicanickelsen/Documents/Github/config-files/.spacemacs"
                          emacs-lisp-mode)
              (def-buffer "work.org"
@@ -29,12 +23,12 @@
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
               leaf (pixel-width . 1916) (pixel-height . 939) (total-width . 192)
               (total-height . 46) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "jess-theming.el" (selected . t) (hscroll . 0)
+              (buffer ".spacemacs" (selected . t) (hscroll . 0)
                       (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 11249) (start . 9980))
-              (prev-buffers ("jess-org.el" 4138 5274) (".spacemacs" 42745 44088)
-                            ("*spacemacs*" 1 1167) ("*scratch*" 1 1))))
+                      (dedicated) (point . 37183) (start . 36065))
+              (prev-buffers ("*Deft*" 1 71) (".spacemacs" 34964 37183)
+                            ("*spacemacs*" 1 373) ("*scratch*" 1 1))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -48,12 +42,11 @@
                  leaf (pixel-width . 1916) (pixel-height . 939)
                  (total-width . 192) (total-height . 46) (normal-height . 1.0)
                  (normal-width . 1.0)
-                 (buffer "jess-theming.el" (selected . t) (hscroll . 0)
+                 (buffer ".spacemacs" (selected . t) (hscroll . 0)
                          (fringes 8 8 nil nil) (margins nil)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 11249) (start . 9980))
-                 (prev-buffers ("jess-org.el" 4138 5274)
-                               (".spacemacs" 42745 44088) ("*spacemacs*" 1 1167)
-                               ("*scratch*" 1 1)))
+                         (dedicated) (point . 37183) (start . 36065))
+                 (prev-buffers ("*Deft*" 1 71) (".spacemacs" 34964 37183)
+                               ("*spacemacs*" 1 373) ("*scratch*" 1 1)))
                 ""))))
             t nil nil))

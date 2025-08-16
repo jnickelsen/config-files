@@ -73,84 +73,31 @@
         )
   )
 
+;; ;;;;;;;;;;using org-side-tree
+;; ;;;;;;;;;;see https://www.youtube.com/watch?v=c3QLfl9_D5Y for demo!
+;; (setq org-side-tree-timer-interval 2.0)
 
-;;;;;;;;;;;WRITING CLOCKTABLE
-;; (load-file "~/.emacs.d/private/my-org-clocktable.el")
+;; (with-eval-after-load 'org
+;;   (require 'org-side-tree)
 
-;;;;;;;;;; ORG ROAM
-;;;;; I think I am going to stop using org-roam
-;; (setq org-roam-directory "~/Documents/org/org-roam")
-;; (setq org-roam-v2-ack t)
-;; (setq org-roam-completion-everywhere t)
-;; (org-roam-db-autosync-mode)
-;; ;;;;;;;;;;; setting up capture templates
-;; (with-eval-after-load 'org-roam
-;;   (setq org-roam-capture-templates
-;;         '(("c" "concept" plain "%?"
-;;            :target (file+head "concepts/%<%Y%m%d%H%M%S>-${slug}.org"
-;;                               "#+title: * %^{Title}\n#+filetags: concept\n\n")
-;;            :unnarrowed t)
-;;           ("r" "course" plain "%?"
-;;            :target (file+head "courses/%<%Y%m%d%H%M%S>-${slug}.org"
-;;                               "#+title: # %^{Title}\n#+filetags: course\n\n")
-;;            :unnarrowed t)
-;;           ("n" "note" plain "%?"
-;;            :target (file+head "notes/%<%Y%m%d%H%M%S>-${slug}.org"
-;;                               "#+title: @ %^{Title}\n#+filetags: note\n\n")
-;;            :unnarrowed t)
-;;           ("t" "tool" plain "%?"
-;;            :target (file+head "tools/%<%Y%m%d%H%M%S>-${slug}.org"
-;;                               "#+title: $ %^{Title}\n#+filetags: tool\n\n")
-;;            :unnarrowed t)
-;;           ("x" "technique" plain "%?"
-;;            :target (file+head "techniques/%<%Y%m%d%H%M%S>-${slug}.org"
-;;                               "#+title: + %^{Title}\n#+filetags: technique\n\n")
-;;            :unnarrowed t)
-;;           ("i" "inspiration" plain "%?"
-;;            :target (file+head "inspirations/%<%Y%m%d%H%M%S>-${slug}.org"
-;;                               "#+title: % %^{Title}\n#+filetags: inspiration\n\n")
-;;            :unnarrowed t)
-;;           ("e" "experiment" plain "%?"
-;;            :target (file+head "experiments/%<%Y%m%d%H%M%S>-${slug}.org"
-;;                               "#+title: ! %^{Title}\n#+filetags: experiment\n\n")
+;;   ;; Wrap the timer function to ignore the "Invalid search bound" error
+;;   (defun my/org-side-tree-timer-function-safe ()
+;;     (ignore-errors
+;;       (org-side-tree-timer-function)))
 
-;;            :unnarrowed t)
-;;           ("p" "project" plain "%?"
-;;            :target (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org"
-;;                               "#+title: ^ %^{Title}\n#+filetags: project\n\n")
+;;   ;; Cancel any existing timers on the original function
+;;   (cancel-function-timers 'org-side-tree-timer-function)
+;;   ;; Restart the timer with the safe wrapper
+;;   (run-with-timer 0 org-side-tree-timer-interval #'my/org-side-tree-timer-function-safe)
 
-;;            :unnarrowed t)
-;;           ("l" "log" plain "%?"
-;;            :target (file+head "logs/%<%Y%m%d%H%M%S>-${slug}.org"
-;;                               "#+title: ~ %^{Title}\n#+filetags: log\n\n")
-;;            :unnarrowed t)))
-;;   )
-
-;;;;;;;;;;using org-side-tree
-;;;;;;;;;;see https://www.youtube.com/watch?v=c3QLfl9_D5Y for demo!
-(setq org-side-tree-timer-interval 2.0)
-
-(with-eval-after-load 'org
-  (require 'org-side-tree)
-
-  ;; Wrap the timer function to ignore the "Invalid search bound" error
-  (defun my/org-side-tree-timer-function-safe ()
-    (ignore-errors
-      (org-side-tree-timer-function)))
-
-  ;; Cancel any existing timers on the original function
-  (cancel-function-timers 'org-side-tree-timer-function)
-  ;; Restart the timer with the safe wrapper
-  (run-with-timer 0 org-side-tree-timer-interval #'my/org-side-tree-timer-function-safe)
-
-  (add-hook 'org-side-tree-mode-hook
-            (lambda ()
-              (local-set-key (kbd "RET") #'org-side-tree-visit)))
-  (setq org-side-tree-persistent t)
-  (setq outline-minor-mode-cycle t)
-  (spacemacs/set-leader-keys "a s" #'org-side-tree))
-;; can also
-(setq org-side-tree-narrow-on-jump nil)
+;;   (add-hook 'org-side-tree-mode-hook
+;;             (lambda ()
+;;               (local-set-key (kbd "RET") #'org-side-tree-visit)))
+;;   (setq org-side-tree-persistent t)
+;;   (setq outline-minor-mode-cycle t)
+;;   (spacemacs/set-leader-keys "a s" #'org-side-tree))
+;; ;; can also
+;; (setq org-side-tree-narrow-on-jump nil)
 
 
 ;; ;; this is the indent sorting
