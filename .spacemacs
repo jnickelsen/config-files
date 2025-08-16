@@ -89,6 +89,7 @@ This function should only modify configuration layer settings."
                                       zenburn-theme
                                       ef-themes
                                       organic-green-theme
+                                      forest-blue
                                       ;; For writing
                                       writegood-mode
                                       flyspell
@@ -98,7 +99,8 @@ This function should only modify configuration layer settings."
                                       palimpsest
                                       writeroom-mode
                                       org-tracktable
-                                      deft
+                                      denote-markdown
+                                      denote-journal
                                       ;; For annotating PDFs
                                       pdf-tools
                                       ;;org-noter
@@ -700,36 +702,6 @@ before packages are loaded."
   (add-hook 'kill-emacs-hook #'recentf-cleanup)
   (add-hook 'find-file-hook #'recentf-cleanup)
 
-  ;; Load package-quickstart safely without showing warnings
-  (when (file-exists-p "~/.emacs.d/package-quickstart.el")
-    (with-demoted-errors
-        "Warning suppressed: %S"
-      (load "~/.emacs.d/package-quickstart.el")))
-
-  ;; ==============================
-  ;; Silence common byte-compile warnings
-  ;; ==============================
-
-  ;; Suppress warnings about free variables, unresolved functions, and obsolete features
-  (setq byte-compile-warnings
-        '(cl-functions obsolete make-local
-                       interactive-only
-                       ;; ignore these common Spacemacs auto-generated warnings
-                       free-vars unresolved callargs redefine noruntime))
-
-  ;; Wrap package configuration to suppress warnings locally if needed
-  (defmacro with-silenced-warnings (&rest body)
-    "Evaluate BODY with byte-compile warnings temporarily silenced."
-    `(let ((byte-compile-warnings nil))
-       ,@body))
-
-  ;; Example usage:
-  (with-silenced-warnings
-   ;; any package code that triggers warnings
-   (require 'package)
-   ;; or a specific package configuration
-   ;; (use-package some-package :ensure t)
-   )
 
 ;;;;;;;;;; trying to sort window dividers when I split panes
   (setq window-divider-default-right-width 1)
@@ -813,40 +785,12 @@ before packages are loaded."
                                                      markdown-header-face-6))
                 (set-face-attribute face nil :height 1.0 :weight 'bold))))
 
-
-;;;;;;;;;;DEFT CONFIG
-;;;;;;;;;;;; DEFT OPTIMIZED FOR LARGE MD VAULT
-  (use-package deft
-    :ensure t
-    :commands (deft)
-    :init
-    ;; Point to your existing Obsidian vault
-    (setq deft-directory "~/Documents/GitHub/obsidian"
-          deft-extensions '("md")              ;; only Markdown files
-          deft-recursive t                     ;; include subdirectories
-          deft-use-filename-as-title t         ;; show filenames as titles
-          deft-strip-summary-regexp "\n.*"     ;; show only first line in preview
-          deft-auto-save-interval 0            ;; disable auto-save for speed
-          deft-default-extension "md"
-          deft-use-filter-string-for-filename t
-          deft-compact-preview t               ;; compact preview (faster)
-          deft-text-mode 'markdown-mode)       ;; open new notes in markdown-mode
-    :config
-    ;; Optional: integrate with spacemacs leader keys
-    (with-eval-after-load 'deft
-      (spacemacs/set-leader-keys
-        "n d" #'deft))
-    ;; Optional: open Deft in Write Room mode automatically
-    (defun my/deft-write-room ()
-      "Open Deft in Write Room mode."
-      (interactive)
-      (deft)
-      (when (fboundp 'writeroom-mode)
-        (writeroom-mode 1))))
-
-
-
 ;;;;;;;;;; RANGER
+  ;; (define-key evil-normal-state-map (kbd ", r") 'ranger)
+  ;; (setq ranger-cleanup-eagerly t)
+
+
+  ;; ;;;;;;;;;; RANGER ;;;;;;;;;;
 
   ;; Ranger behavior tweaks
   (setq ranger-cleanup-eagerly t)   ;; clean up windows/buffers when quitting
@@ -865,6 +809,40 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd ", r") 'my/ranger-here)
 
 
+;;;;;;;;;;ORG NOVELIST
+;;;;;;;;;; see here for more: https://github.com/sympodius/org-novelist
+;;;;;;;;;; including how to export
+  ;; (load "~/.emacs.d/private/org-novelist/org-novelist.el")
+  ;; (setq org-novelist-author "Jessica Nickelsen")  ; The default author name to use when exporting a story. Each story can also override this setting
+  ;; (setq org-novelist-author-email "jessica.nickelsen@gmail.com")  ; The default author contact email to use when exporting a story. Each story can also override this setting
+  ;; (setq org-novelist-automatic-referencing-p t)  ; Set this variable to 't' if you want Org Novelist to always keep note links up to date. This may slow down some systems when operating on complex stories. It defaults to 'nil' when not set
+
+;;;;;;;;;; MAGIT
+;;;;;;;;;; testing 'stage all and commit' with magit:
+  (defun my/magit-stage-all-and-commit(message)
+    (interactive "sCommit Message: ")
+    (magit-stage-modified)
+    (magit-commit (list "-m" message)))
+
+;;;;;;;;;;;SAVE LAYOUT
+;;;;;;;;;; save and load layouts cleanly (and cleanup old buffers)
+  (defun jess/save-layout-cleanly ()
+    "Prompt for a layout name and save the current layout with cleanup."
+    (interactive)
+    (require 'persp-mode)
+    (persp-mode 1)
+    (when (fboundp 'persp-remove-unused-buffers)
+      (persp-remove-unused-buffers))
+    (when (and (boundp 'persp-save-dir)
+               (fboundp 'persp-save-state-to-file))
+      (let* ((existing (directory-files persp-save-dir nil "\\.persp\\'"))
+             (names (mapcar (lambda (f) (file-name-sans-extension f)) existing))
+             (name (completing-read "Save layout as: " names nil nil "jess-")))
+        (persp-save-state-to-file
+         (expand-file-name (concat name ".persp") persp-save-dir))
+        (message "🧼 Layout saved as '%s'." name))))
+
+  (spacemacs/set-leader-keys "o w" #'jess/save-layout-cleanly)
 
 ;;;;;;;;;;;;LOAD LAYOUT
   (defun jess/load-layout ()
@@ -1024,7 +1002,7 @@ This function is called at the very end of Spacemacs initialization."
      '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
          all-the-icons annotate auto-compile auto-highlight-symbol
          catppuccin-theme centered-cursor-mode clean-aindent-mode closql
-         column-enforce-mode company company-web consult counsel counsel-css
+         column-enforce-mode company company-web counsel counsel-css
          dash-functional deferred define-word devdocs diminish dired-quick-sort
          disable-mouse doom-modeline doom-themes dotenv-mode drag-stuff dumb-jump
          edit-indirect ef-themes elisp-def elisp-demos elisp-slime-nav emacsql
@@ -1048,13 +1026,13 @@ This function is called at the very end of Spacemacs initialization."
          open-junk-file org org-bullets org-category-capture org-cliplink
          org-contrib org-download org-journal org-kanban org-mime org-noter
          org-plus-contrib org-pomodoro org-present org-project-capture
-         org-projectile org-ql org-reverse-datetree org-rich-yank org-side-tree
-         org-sidebar org-starter org-super-agenda org-superstar org-tracktable
-         organic-green-theme orgit orgit-forge ov overseer ox-hugo package-lint
-         palimpsest paradox password-generator pcre2el pdf-tools pomodoro popwin
-         pos-tip prettier-js pug-mode quickrun rainbow-delimiters ranger request
-         restart-emacs sass-mode scss-mode shrink-path sidebar sidebar-narrow
-         simple-httpd slim-mode smeargle space-doc spaceline
+         org-projectile org-ql org-reverse-datetree org-rich-yank
+         org-side-tree org-sidebar org-starter org-super-agenda org-superstar
+         org-tracktable organic-green-theme orgit orgit-forge ov overseer ox-hugo
+         package-lint palimpsest paradox password-generator pcre2el pdf-tools
+         pomodoro popwin pos-tip prettier-js pug-mode quickrun rainbow-delimiters
+         ranger request restart-emacs sass-mode scss-mode shrink-path sidebar
+         sidebar-narrow simple-httpd slim-mode smeargle space-doc spaceline
          spaceline-all-the-icons spacemacs-purpose-popwin
          spacemacs-whitespace-cleanup string-edit-at-point string-inflection
          swiper symbol-overlay symon tablist tagedit term-cursor toc-org tomelr
