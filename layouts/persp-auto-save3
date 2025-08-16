@@ -1,8 +1,25 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "garbage gods planning.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/011 The Garbage God My Mother Made/garbage gods planning.org"
+            ((def-buffer "jess-theming.el"
+<<<<<<< Updated upstream
+                         "/Users/jessicanickelsen/Documents/Github/config-files/private/jess-config/jess-theming.el"
+                         emacs-lisp-mode)
+             (def-buffer "jess-org.el"
+                         "/Users/jessicanickelsen/Documents/Github/config-files/private/jess-config/jess-org.el"
+                         emacs-lisp-mode)
+             (def-buffer ".spacemacs"
+                         "/Users/jessicanickelsen/Documents/Github/config-files/.spacemacs"
+                         emacs-lisp-mode)
+=======
+                         "/Users/jessicanickelsen/Documents/GitHub/config-files/private/jess-config/jess-theming.el"
+                         emacs-lisp-mode)
+             (def-buffer "garbage gods.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/garbage gods.org"
                          org-mode)
+             (def-buffer "01-nilla-arrives.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/manuscript/01-nilla-arrives.md"
+                         markdown-mode)
+>>>>>>> Stashed changes
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
@@ -21,13 +38,26 @@
                (min-pixel-height . 80) (min-pixel-width . 100)
                (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 40)
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
+<<<<<<< Updated upstream
               leaf (pixel-width . 1916) (pixel-height . 939) (total-width . 192)
               (total-height . 46) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "garbage gods planning.org" (selected . t) (hscroll . 0)
-                      (fringes 8 8 t nil) (margins 55 . 55)
+              (buffer "jess-theming.el" (selected . t) (hscroll . 0)
+                      (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 8114) (start . 1))
-              (prev-buffers ("*spacemacs*" 1 1195) ("*scratch*" 1 1))))
+                      (dedicated) (point . 11249) (start . 9980))
+              (prev-buffers ("jess-org.el" 4138 5274) (".spacemacs" 42745 44088)
+                            ("*spacemacs*" 1 1167) ("*scratch*" 1 1))))
+=======
+              leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
+              (total-height . 34) (normal-height . 1.0) (normal-width . 1.0)
+              (buffer "jess-theming.el" (selected . t) (hscroll . 0)
+                      (fringes 8 8 nil nil) (margins nil)
+                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                      (dedicated) (point . 11164) (start . 10210))
+              (prev-buffers ("garbage gods.org" 13608 13906) ("work.org" 1 9998)
+                            ("01-nilla-arrives.md" 1 1) ("*spacemacs*" 1 915)
+                            ("*scratch*" 1 1))))
+>>>>>>> Stashed changes
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -38,13 +68,27 @@
                   (min-pixel-width . 100) (min-pixel-height-ignore . 60)
                   (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 20))
+<<<<<<< Updated upstream
                  leaf (pixel-width . 1916) (pixel-height . 939)
                  (total-width . 192) (total-height . 46) (normal-height . 1.0)
+=======
+                 leaf (pixel-width . 1276) (pixel-height . 674)
+                 (total-width . 128) (total-height . 34) (normal-height . 1.0)
+>>>>>>> Stashed changes
                  (normal-width . 1.0)
-                 (buffer "garbage gods planning.org" (selected . t)
-                         (hscroll . 0) (fringes 8 8 t nil) (margins 55 . 55)
+                 (buffer "jess-theming.el" (selected . t) (hscroll . 0)
+                         (fringes 8 8 nil nil) (margins nil)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 8114) (start . 1))
-                 (prev-buffers ("*spacemacs*" 1 1195) ("*scratch*" 1 1)))
+<<<<<<< Updated upstream
+                         (dedicated) (point . 11249) (start . 9980))
+                 (prev-buffers ("jess-org.el" 4138 5274)
+                               (".spacemacs" 42745 44088) ("*spacemacs*" 1 1167)
+                               ("*scratch*" 1 1)))
+=======
+                         (dedicated) (point . 11164) (start . 10210))
+                 (prev-buffers ("garbage gods.org" 13608 13906)
+                               ("work.org" 1 9998) ("01-nilla-arrives.md" 1 1)
+                               ("*spacemacs*" 1 915) ("*scratch*" 1 1)))
+>>>>>>> Stashed changes
                 ""))))
             t nil nil))
