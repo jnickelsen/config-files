@@ -222,8 +222,8 @@
     ("Wednesday" . (:theme spacemacs-light       :palette "Lavender & Purples"))
     ("Thursday"  . (:theme ef-reverie            :palette "Lavender & Purples"))
     ("Friday"    . (:theme zenburn               :palette "Frosted Pastels"))
-    ("Saturday"  . (:theme organic-green         :palette "Deep Tide"))
-    ("Sunday"    . (:theme ef-summer             :palette "Mars Static (Violet-Gold)"))
+    ("Saturday"  . (:theme organic-green         :palette "Deep Tide")) ; <3
+    ("Sunday"    . (:theme ef-summer             :palette "Mars Static (Violet-Gold)")) ; <3
     (_           . (:theme organic-green         :palette "Jess theme"))))
 
 (defvar jess/night-theme-palette-alist
@@ -233,7 +233,7 @@
     ("Thursday"  . (:theme ef-dream              :palette "Thermal Bloom"))
     ("Friday"    . (:theme doom-henna            :palette "Citrine to Coal"))
     ("Saturday"  . (:theme wombat                :palette "Citrine to Coal"))
-    ("Sunday"    . (:theme doom-solarized-dark   :palette "Lavender & Purples"))
+    ("Sunday"    . (:theme doom-solarized-dark   :palette "Lavender & Purples")) ; <3
     (_           . (:theme wombat                :palette "Jess theme"))))
 
 (defun evening-hours-p ()
@@ -278,6 +278,13 @@
         ("=" org-verbatim verbatim) ;; this is the default
         ("~" org-verbatim verbatim)
         ("+" (:strike-through t) nil)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Tweak the modeline if there are problems distinguishing between windows
+;; (set-face-foreground 'modeline "white")
+;; (set-face-background 'modeline "purple")
+;; (set-face-background 'modeline-inactive "light blue")
+
 
 (provide 'jess-theming)
 ;;; jess-theming.el ends here
