@@ -99,8 +99,12 @@ This function should only modify configuration layer settings."
                                       palimpsest
                                       writeroom-mode
                                       org-tracktable
+                                      <<<<<<< Updated upstream
                                       denote-markdown
                                       denote-journal
+                                      =======
+                                      annotate
+                                      >>>>>>> Stashed changes
                                       ;; For annotating PDFs
                                       pdf-tools
                                       ;;org-noter
