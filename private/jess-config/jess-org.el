@@ -27,12 +27,16 @@
 (with-eval-after-load 'org
   ;; Top-level heading (* Heading): slightly larger and bold
   ;; edit: this was :height 1.1 but I am changing it back to 1.0
-  (set-face-attribute 'org-level-1 nil :height 1.0 :weight 'bold)
+  (set-face-attribute 'org-level-1 nil :height 1.05 :weight 'bold)
 
   ;; All other heading levels: normal size and bold
   (dolist (face '(org-level-2 org-level-3 org-level-4
                               org-level-5 org-level-6 org-level-7 org-level-8))
     (set-face-attribute face nil :height 1.0 :weight 'bold)))
+
+;; making sure the above 'sticks' when the theme changes
+(add-hook 'after-load-theme-hook #'jess/org-set-headline-sizes)
+
 
 ;;;;;;;;;; setting details for tags
 (setq org-tags-column 0) ; this hopefully puts tags inline with headlines
@@ -134,37 +138,37 @@
 ;;            :unnarrowed t)))
 ;;   )
 
-;;;;;;;;;;using org-side-tree
-;;;;;;;;;;see https://www.youtube.com/watch?v=c3QLfl9_D5Y for demo!
-(setq org-side-tree-timer-interval 2.0)
+;; ;;;;;;;;;;using org-side-tree
+;; ;;;;;;;;;;see https://www.youtube.com/watch?v=c3QLfl9_D5Y for demo!
+;; (setq org-side-tree-timer-interval 2.0)
 
-(with-eval-after-load 'org
-  (require 'org-side-tree)
+;; (with-eval-after-load 'org
+;;   (require 'org-side-tree)
 
-  ;; Wrap the timer function to ignore the "Invalid search bound" error
-  (defun my/org-side-tree-timer-function-safe ()
-    (ignore-errors
-      (org-side-tree-timer-function)))
+;;   ;; Wrap the timer function to ignore the "Invalid search bound" error
+;;   (defun my/org-side-tree-timer-function-safe ()
+;;     (ignore-errors
+;;       (org-side-tree-timer-function)))
 
-  ;; Cancel any existing timers on the original function
-  (cancel-function-timers 'org-side-tree-timer-function)
-  ;; Restart the timer with the safe wrapper
-  (run-with-timer 0 org-side-tree-timer-interval #'my/org-side-tree-timer-function-safe)
+;;   ;; Cancel any existing timers on the original function
+;;   (cancel-function-timers 'org-side-tree-timer-function)
+;;   ;; Restart the timer with the safe wrapper
+;;   (run-with-timer 0 org-side-tree-timer-interval #'my/org-side-tree-timer-function-safe)
 
-  (add-hook 'org-side-tree-mode-hook
-            (lambda ()
-              (local-set-key (kbd "RET") #'org-side-tree-visit)))
-  (setq org-side-tree-persistent t)
-  (setq outline-minor-mode-cycle t)
-  (spacemacs/set-leader-keys "a s" #'org-side-tree))
-;; can also
-(setq org-side-tree-narrow-on-jump nil)
+;;   (add-hook 'org-side-tree-mode-hook
+;;             (lambda ()
+;;               (local-set-key (kbd "RET") #'org-side-tree-visit)))
+;;   (setq org-side-tree-persistent t)
+;;   (setq outline-minor-mode-cycle t)
+;;   (spacemacs/set-leader-keys "a s" #'org-side-tree))
+;; ;; can also
+;; (setq org-side-tree-narrow-on-jump nil)
 
 
-;; ;; this is the indent sorting
-(setq org-list-indent-offset 0)
+;; ;; ;; this is the indent sorting
+;; (setq org-list-indent-offset 0)
 
-(electric-indent-mode -1) ;; disable electric indent globally for org
+;; (electric-indent-mode -1) ;; disable electric indent globally for org
 
 
 ;;;;;;;; my/org-narrow-to-subtree action
