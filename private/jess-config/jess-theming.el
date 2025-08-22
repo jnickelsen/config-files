@@ -1,6 +1,7 @@
 ;;; jess-theming.el --- Custom theming and palette management -*- lexical-binding: t; -*-
 
 (message "Loading jess-theming.el")
+(require 'cl-lib)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Favorite Themes + Helm interface
@@ -194,8 +195,8 @@
     (_           . (:theme organic-green         :palette "Jess theme"))))
 
 (defvar jess/night-theme-palette-alist
-  '(("Monday"    . (:theme doom-solarized-dark   :palette "Muted Pastels"))
-    ("Tuesday"   . (:theme doom-miramare         :palette "Thermal Bloom"))
+  '(("Monday"    . (:theme doom-solarized-dark   :palette "Muted Pastels")) ; really nice <3
+    ("Tuesday"   . (:theme doom-horizon          :palette "Thermal Bloom"))
     ("Wednesday" . (:theme ef-elea-dark          :palette "Frosted Pastels"))
     ("Thursday"  . (:theme ef-dream              :palette "Thermal Bloom"))
     ("Friday"    . (:theme doom-henna            :palette "Citrine to Coal"))

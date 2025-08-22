@@ -99,17 +99,17 @@ This function should only modify configuration layer settings."
                                       palimpsest
                                       writeroom-mode
                                       org-tracktable
-                                      <<<<<<< Updated upstream
                                       denote-markdown
                                       denote-journal
-                                      =======
                                       annotate
-                                      >>>>>>> Stashed changes
                                       ;; For annotating PDFs
-                                      pdf-tools
+                                      ;;pdf-tools
                                       ;;org-noter
                                       ;; For making a kanban from TODO entries
                                       org-kanban
+                                      ;; other things
+                                      circe
+                                      queue
                                       )
 
 
@@ -682,14 +682,35 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (setq dotspacemacs-startup-buffer-show-version t)
 
-;;;;;;;;;; setting load path for private packages
+
+  ;;; quietening startup messages
+  (setq vc-handled-backends nil)
+
+
+  ;;;;;;;;;; setting up mud client
+  (add-to-list 'load-path "~/.emacs.d/private/mud")
+
+  (load "~/.emacs.d/private/mud/mud.el")
+  (require 'mud)
+  (defun mud-discworld ()
+    "Connect to Discworld MUD on port 4242."
+    (interactive)
+    (mud "discworld.starturtle.net" 4242))
+
+  ;;;;;;;;;; trying mu.el
+  (add-to-list 'load-path "~/.emacs.d/private/")
+  (load-file "~/.emacs.d/private/mu.el")
+
+ ;;;;;;;; setting load path for private packages
   (let ((default-directory "~/.emacs.d/private/"))
     (normal-top-level-add-subdirs-to-load-path))
   (load "~/.emacs.d/private/jess-config/jess-theming.el")
   (load "~/.emacs.d/private/jess-config/jess-org.el")
   (require 'jess-theming)
   (require 'jess-org)
+  ;;(require 'jess-persp)
   (my/apply-all-palettes "Jess theme")
   (message "Theme loaded successfully.")
 
@@ -715,6 +736,11 @@ before packages are loaded."
 ;;;;;;;;;; enabling nyan mode
   (require 'nyan-mode)
   (nyan-mode 1)
+
+;;;;;;;;;; treemacs config
+  (spacemacs/set-leader-keys "f T" #'treemacs-select-window)
+
+
 
 ;;;;;;;;;; changing bell alarm
   ;; see M-x customize group / org-pomodoro for this
@@ -828,43 +854,19 @@ before packages are loaded."
     (magit-stage-modified)
     (magit-commit (list "-m" message)))
 
+
 ;;;;;;;;;;;SAVE LAYOUT
 ;;;;;;;;;; save and load layouts cleanly (and cleanup old buffers)
-  (defun jess/save-layout-cleanly ()
-    "Prompt for a layout name and save the current layout with cleanup."
-    (interactive)
-    (require 'persp-mode)
-    (persp-mode 1)
-    (when (fboundp 'persp-remove-unused-buffers)
-      (persp-remove-unused-buffers))
-    (when (and (boundp 'persp-save-dir)
-               (fboundp 'persp-save-state-to-file))
-      (let* ((existing (directory-files persp-save-dir nil "\\.persp\\'"))
-             (names (mapcar (lambda (f) (file-name-sans-extension f)) existing))
-             (name (completing-read "Save layout as: " names nil nil "jess-")))
-        (persp-save-state-to-file
-         (expand-file-name (concat name ".persp") persp-save-dir))
-        (message "🧼 Layout saved as '%s'." name))))
 
-  (spacemacs/set-leader-keys "o w" #'jess/save-layout-cleanly)
 
-;;;;;;;;;;;;LOAD LAYOUT
-  (defun jess/load-layout ()
-    "Prompt for a saved layout and load it."
-    (interactive)
-    (require 'persp-mode)
-    (persp-mode 1)
-    (when (and (boundp 'persp-save-dir)
-               (fboundp 'persp-load-state-from-file))
-      (let* ((existing (directory-files persp-save-dir nil "\\.persp\\'"))
-             (names (mapcar (lambda (f) (file-name-sans-extension f)) existing))
-             (name (completing-read "Load layout: " names nil t)))
-        (persp-load-state-from-file
-         (expand-file-name (concat name ".persp") persp-save-dir))
-        (message "✨ Loaded layout: '%s'" name))))
+  ;; -----------------------------
+  ;; OPTIONAL: CLEAN UP THEME MESSAGES
+  ;; -----------------------------
 
-  (spacemacs/set-leader-keys "o l" #'jess/load-layout)
-
+  ;; Apply theme once
+  (unless (bound-and-true-p jess-theme-applied)
+    (load-theme 'ef-reverie t)
+    (setq jess-theme-applied t))
 
 ;;;;;;;;;;;;;;;;POMODORO
 ;;;;;;;;;tweak times
@@ -962,6 +964,8 @@ before packages are loaded."
   (add-hook 'org-pomodoro-finished-hook #'my/pomodoro-log-results)
   (add-hook 'org-pomodoro-killed-hook #'my/pomodoro-log-results)
 
+;;;;;;;;;;;;;making sure *spacemacs* still loads
+  (run-at-time 1 nil #'(lambda () (switch-to-buffer "*spacemacs*")))
 
 
   ;; end of user-config
@@ -994,14 +998,14 @@ This function is called at the very end of Spacemacs initialization."
    '(doom-modeline-persp-name nil)
    '(doom-modeline-time t)
    '(helm-minibuffer-history-key "M-p")
+   '(mu-worlds
+     '(["Discworld" "discworld.starturtle.net" 4242 "wanda" "schifoso76" "" ""]))
    '(org-agenda-files
      '("~/Documents/org/work.org" "/Users/jessicanickelsen/Documents/org/today.org"
        "/Users/jessicanickelsen/Documents/org/inbox.org"
        "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"))
    '(org-pomodoro-finished-sound "~/.emacs.d/private/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "~/.emacs.d/private/sounds/wood-block.wav")
-   '(org-side-tree-narrow-on-jump nil)
-   '(org-side-tree-recenter-position 0.2)
    '(package-selected-packages
      '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
          all-the-icons annotate auto-compile auto-highlight-symbol
@@ -1030,12 +1034,12 @@ This function is called at the very end of Spacemacs initialization."
          open-junk-file org org-bullets org-category-capture org-cliplink
          org-contrib org-download org-journal org-kanban org-mime org-noter
          org-plus-contrib org-pomodoro org-present org-project-capture
-         org-projectile org-ql org-reverse-datetree org-rich-yank
-         org-side-tree org-sidebar org-starter org-super-agenda org-superstar
-         org-tracktable organic-green-theme orgit orgit-forge ov overseer ox-hugo
-         package-lint palimpsest paradox password-generator pcre2el pdf-tools
-         pomodoro popwin pos-tip prettier-js pug-mode quickrun rainbow-delimiters
-         ranger request restart-emacs sass-mode scss-mode shrink-path sidebar
+         org-projectile org-ql org-reverse-datetree org-rich-yank org-side-tree
+         org-sidebar org-starter org-super-agenda org-superstar org-tracktable
+         organic-green-theme orgit orgit-forge ov overseer ox-hugo package-lint
+         palimpsest paradox password-generator pcre2el pdf-tools pomodoro popwin
+         pos-tip prettier-js pug-mode queue quickrun rainbow-delimiters ranger
+         request restart-emacs sass-mode scss-mode shrink-path sidebar
          sidebar-narrow simple-httpd slim-mode smeargle space-doc spaceline
          spaceline-all-the-icons spacemacs-purpose-popwin
          spacemacs-whitespace-cleanup string-edit-at-point string-inflection

@@ -1,35 +1,89 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
-((def-persp nil nil
+((def-persp nil
+            ((def-buffer "garbage gods.org<garbage-gods>"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/garbage gods.org"
+                         org-mode)
+             (def-buffer "emacs reference.org"
+                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
+                         org-mode)
+             (def-buffer "2025-08-22-writing-on-emacs.md"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Drafts/2025-08-22-writing-on-emacs.md"
+                         markdown-mode)
+             (def-buffer "style.css"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Templates/copy-of-console-mods/style.css"
+                         css-mode)
+             (def-buffer "Untitled 1.md"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Drafts/Untitled 1.md"
+                         markdown-mode)
+             (def-buffer "about.md"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Pages/about.md"
+                         markdown-mode)
+             (def-buffer "work.org"
+                         "/Users/jessicanickelsen/Documents/org/work.org"
+                         org-mode)
+             (def-buffer "today.org"
+                         "/Users/jessicanickelsen/Documents/org/today.org"
+                         org-mode)
+             (def-buffer "inbox.org"
+                         "/Users/jessicanickelsen/Documents/org/inbox.org"
+                         org-mode)
+             (def-buffer "rewilding-edits.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"
+                         org-mode)
+             (def-buffer "2025-08-21-checking-in.md" nil markdown-mode)
+             (def-buffer "planning.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/planning.org"
+                         org-mode)
+             (def-buffer "gothic trash god novel.org" nil org-mode)
+             (def-buffer "garbage gods.org<011 The Garbage God My Mother Made>"
+                         nil org-mode)
+             (def-buffer "jess-garbage-gods.persp<config-files>"
+                         "/Users/jessicanickelsen/Documents/GitHub/config-files/layouts/jess-garbage-gods.persp"
+                         emacs-lisp-mode)
+             (def-buffer ".custom-settings"
+                         "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
+                         emacs-lisp-mode))
             (def-wconf
-             (((min-height . 4) (min-width . 10) (min-height-ignore . 3)
-               (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2)
-               (min-pixel-height . 80) (min-pixel-width . 100)
-               (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 40)
-               (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
-              leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
+             (((min-height . 4) (min-width . 30) (min-height-ignore . 3)
+               (min-width-ignore . 12) (min-height-safe . 1)
+               (min-width-safe . 6) (min-pixel-height . 80)
+               (min-pixel-width . 300) (min-pixel-height-ignore . 60)
+               (min-pixel-width-ignore . 120) (min-pixel-height-safe . 20)
+               (min-pixel-width-safe . 60))
+              hc (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
               (total-height . 33) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "*Messages*" (selected . t) (hscroll . 0)
-                      (fringes 8 8 nil nil) (margins nil)
-                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 2423) (start . 740))
-              (prev-buffers ("*spacemacs*" 1 1) ("*scratch*" 1 1))))
+              (combination-limit)
+              (leaf (pixel-width . 272) (pixel-height . 674) (total-width . 27)
+                    (total-height . 33) (normal-height . 1.0)
+                    (normal-width . 0.21366849960722703)
+                    (parameters (window-side . left) (window-slot . 0))
+                    (buffer
+                     " *Treemacs-Buffer-#<frame Emacs@Jess-mac.local 0x14c063238>"
+                     (selected) (hscroll . 0) (fringes 8 8 nil nil)
+                     (margins nil) (scroll-bars nil 0 t nil 0 t nil)
+                     (vscroll . 0) (dedicated . t) (point . 187) (start . 1)))
+              (hc (last . t) (pixel-width . 1004) (pixel-height . 674)
+                  (total-width . 101) (total-height . 33) (normal-height . 1.0)
+                  (normal-width . 0.7863315003927729) (combination-limit . t)
+                  (leaf (pixel-width . 714) (pixel-height . 674)
+                        (total-width . 72) (total-height . 33)
+                        (normal-height . 1.0) (normal-width . 0.708167330677291)
+                        (buffer "garbage gods.org<garbage-gods>" (selected . t)
+                                (hscroll . 0) (fringes 8 8 t nil) (margins nil)
+                                (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                                (dedicated) (point . 364) (start . 1))
+                        (prev-buffers
+                         ("2025-08-22-writing-on-emacs.md" 1071 2424)
+                         ("style.css" 1 1) ("Untitled 1.md" 1 92)
+                         ("about.md" 1478 2225) ("*spacemacs*" 1 941)
+                         ("*scratch*" 1 1)))
+                  (leaf (last . t) (pixel-width . 290) (pixel-height . 674)
+                        (total-width . 29) (total-height . 33)
+                        (normal-height . 1.0) (normal-width . 0.291832669322709)
+                        (buffer "emacs reference.org" (selected) (hscroll . 0)
+                                (fringes 8 8 t nil) (margins nil)
+                                (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                                (dedicated) (point . 3922) (start . 1279))))))
             (def-params
-             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
-              (gui-eyebrowse-window-configs
-               (1
-                (((min-height . 4) (min-width . 10) (min-height-ignore . 3)
-                  (min-width-ignore . 4) (min-height-safe . 1)
-                  (min-width-safe . 2) (min-pixel-height . 80)
-                  (min-pixel-width . 100) (min-pixel-height-ignore . 60)
-                  (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
-                  (min-pixel-width-safe . 20))
-                 leaf (pixel-width . 1276) (pixel-height . 674)
-                 (total-width . 128) (total-height . 33) (normal-height . 1.0)
-                 (normal-width . 1.0)
-                 (buffer "*Messages*" (selected . t) (hscroll . 0)
-                         (fringes 8 8 nil nil) (margins nil)
-                         (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 2423) (start . 740))
-                 (prev-buffers ("*spacemacs*" 1 1) ("*scratch*" 1 1)))
-                ""))))
+             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)))
             t nil nil))
