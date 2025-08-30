@@ -1,0 +1,4 @@
+MU.el is a MUD/MUSH/MUCK client for Emacs, using comint, requiring no
+external dependencies, and supporting ANSI escape sequences for text
+coloring and decoration (bold and underline).  It is based on Alex
+Schroeder's mu.el from 2001, last updated in 2004.

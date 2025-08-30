@@ -1,8 +1,10 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "mu.el"
-                         "/Users/jessicanickelsen/.emacs.d/private/mu.el"
+            ((def-buffer ".spacemacs" "/Users/jessicanickelsen/.spacemacs"
                          emacs-lisp-mode)
+             (def-buffer "garbage gods.org<garbage-gods>"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/garbage gods.org"
+                         org-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
@@ -12,10 +14,45 @@
              (def-buffer "inbox.org"
                          "/Users/jessicanickelsen/Documents/org/inbox.org"
                          org-mode)
-             (def-buffer "rewilding-edits.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"
+             (def-buffer "ch1.arriving-at-the-house.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/ch1.arriving-at-the-house.md"
+                         markdown-mode)
+             (def-buffer "misc others.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/60 wiki/misc others.md"
+                         markdown-mode)
+             (def-buffer "emacs reference.org"
+                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
                          org-mode)
-             (def-buffer "wanda@Discworld" nil mu-connection-mode))
+             (def-buffer "Lavinia - aunt.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/60 wiki/Lavinia - aunt.md"
+                         markdown-mode)
+             (def-buffer "_wiki.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/60 wiki/_wiki.md"
+                         markdown-mode)
+             (def-buffer "rewilding-edits.org" nil org-mode)
+             (def-buffer "2025-08-22-writing-on-emacs.md" nil markdown-mode)
+             (def-buffer "style.css"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Templates/copy-of-console-mods/style.css"
+                         css-mode)
+             (def-buffer "Untitled 1.md"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Drafts/Untitled 1.md"
+                         markdown-mode)
+             (def-buffer "about.md"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Pages/about.md"
+                         markdown-mode)
+             (def-buffer "2025-08-21-checking-in.md" nil markdown-mode)
+             (def-buffer "planning.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/planning.org"
+                         org-mode)
+             (def-buffer "gothic trash god novel.org" nil org-mode)
+             (def-buffer "garbage gods.org<011 The Garbage God My Mother Made>"
+                         nil org-mode)
+             (def-buffer "jess-garbage-gods.persp<config-files>"
+                         "/Users/jessicanickelsen/Documents/GitHub/config-files/layouts/jess-garbage-gods.persp"
+                         emacs-lisp-mode)
+             (def-buffer ".custom-settings"
+                         "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
+                         emacs-lisp-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10) (min-height-ignore . 3)
                (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2)
@@ -23,15 +60,16 @@
                (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 40)
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
               leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
-              (total-height . 33) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "mu.el" (selected . t) (hscroll . 0) (fringes 8 8 nil nil)
-                      (margins nil) (scroll-bars nil 0 t nil 0 t nil)
-                      (vscroll . 0) (dedicated) (point . 4649) (start . 4649))
-              (prev-buffers ("*Input for wanda@Discworld*" 1 1)
-                            ("*spacemacs*" 1 245) ("*scratch*" 1 1))))
+              (total-height . 34) (normal-height . 1.0) (normal-width . 1.0)
+              (buffer ".spacemacs" (selected . t) (hscroll . 0)
+                      (fringes 8 8 nil nil) (margins nil)
+                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                      (dedicated) (point . 40631) (start . 39483))
+              (prev-buffers ("garbage gods.org<garbage-gods>" 364 691)
+                            ("*spacemacs*" 265 1776) ("*Messages*" 1 1)
+                            ("*scratch*" 1 1))))
             (def-params
-             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
-              (gui-eyebrowse-window-configs
+             ((gui-eyebrowse-window-configs
                (1
                 (((min-height . 4) (min-width . 10) (min-height-ignore . 3)
                   (min-width-ignore . 4) (min-height-safe . 1)
@@ -40,13 +78,15 @@
                   (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 20))
                  leaf (pixel-width . 1276) (pixel-height . 674)
-                 (total-width . 128) (total-height . 33) (normal-height . 1.0)
+                 (total-width . 128) (total-height . 34) (normal-height . 1.0)
                  (normal-width . 1.0)
-                 (buffer "mu.el" (selected . t) (hscroll . 0)
+                 (buffer ".spacemacs" (selected . t) (hscroll . 0)
                          (fringes 8 8 nil nil) (margins nil)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 4649) (start . 4649))
-                 (prev-buffers ("*Input for wanda@Discworld*" 1 1)
-                               ("*spacemacs*" 1 245) ("*scratch*" 1 1)))
-                ""))))
+                         (dedicated) (point . 40631) (start . 39483))
+                 (prev-buffers ("garbage gods.org<garbage-gods>" 364 691)
+                               ("*spacemacs*" 265 1776) ("*Messages*" 1 1)
+                               ("*scratch*" 1 1)))
+                ""))
+              (gui-eyebrowse-current-slot . 1) (gui-eyebrowse-last-slot . 1)))
             t nil nil))

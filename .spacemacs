@@ -60,11 +60,11 @@ This function should only modify configuration layer settings."
      ;; spell-checking
      syntax-checking
      ;; version-control
-     treemacs
+     (treemacs :variables
+               treemacs-use-all-the-icons-theme t
+               treemacs-use-follow-mode t
+               treemacs-use-filewatch-mode t)
 
-     (treemacs :variables treemacs-use-all-the-icons-theme t)
-     (treemacs :variables treemacs-use-follow-mode t)
-     (treemacs :variables treemacs-use-filewatch-mode t)
      )
 
    ;; List of additional packages that will be installed without being wrapped
@@ -110,6 +110,8 @@ This function should only modify configuration layer settings."
                                       ;; other things
                                       circe
                                       queue
+                                      ;; notes and things
+                                      ;;obsidian
                                       )
 
 
@@ -151,8 +153,6 @@ This function should only modify configuration layer settings."
 This function is called at the very beginning of Spacemacs startup,
 before layer configuration.
 It should only modify the values of Spacemacs settings."
-  ;; problem solving an error
-  (setq package-quickstart nil)
 
 
   ;; This setq-default sexp is an exhaustive list of all the supported
@@ -656,6 +656,8 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq evil-want-keybinding nil)
   (setq package-quickstart t)
+  ;; Initialize the package system **before** using use-package
+  (package-initialize)
   ;; (require 'package)
   (setq package-archives
         '(("melpa" . "https://melpa.org/packages/")
@@ -684,24 +686,14 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq dotspacemacs-startup-buffer-show-version t)
 
+;;;;;;;;;; spacemacs tweaking
+  ;; having problems with leader keys!
+  (spacemacs/set-leader-keys "SPC" 'helm-M-x)
+
 
   ;;; quietening startup messages
   (setq vc-handled-backends nil)
 
-
-  ;;;;;;;;;; setting up mud client
-  (add-to-list 'load-path "~/.emacs.d/private/mud")
-
-  (load "~/.emacs.d/private/mud/mud.el")
-  (require 'mud)
-  (defun mud-discworld ()
-    "Connect to Discworld MUD on port 4242."
-    (interactive)
-    (mud "discworld.starturtle.net" 4242))
-
-  ;;;;;;;;;; trying mu.el
-  (add-to-list 'load-path "~/.emacs.d/private/")
-  (load-file "~/.emacs.d/private/mu.el")
 
  ;;;;;;;; setting load path for private packages
   (let ((default-directory "~/.emacs.d/private/"))
@@ -733,13 +725,12 @@ before packages are loaded."
   (setq window-divider-default-bottom-width 1)
   (window-divider-mode 1)
 
-;;;;;;;;;; enabling nyan mode
-  (require 'nyan-mode)
-  (nyan-mode 1)
+;;;;;;;;;; enabling nyan mode - see instead in doom modeline setup below
+  ;; (require 'nyan-mode)
+  ;; (nyan-mode 1)
 
 ;;;;;;;;;; treemacs config
   (spacemacs/set-leader-keys "f T" #'treemacs-select-window)
-
 
 
 ;;;;;;;;;; changing bell alarm
@@ -805,15 +796,32 @@ before packages are loaded."
 ;;;;;;;;;; MARKDOWN STUFF
   (add-hook 'markdown-mode-hook
             (lambda ()
-              ;; Apply your custom color palette
+              ;; Ensure syntax highlighting
+              (turn-on-font-lock)
+
+              ;; Apply custom color palette (your own function)
               (my/apply-markdown-palette-by-name "Your Palette Name")
 
-              ;; Adjust heading sizes and weights
+              ;; Tweak heading styles
               (set-face-attribute 'markdown-header-face-1 nil :height 1.1 :weight 'bold)
               (dolist (face '(markdown-header-face-2 markdown-header-face-3
                                                      markdown-header-face-4 markdown-header-face-5
                                                      markdown-header-face-6))
-                (set-face-attribute face nil :height 1.0 :weight 'bold))))
+                (set-face-attribute face nil :height 1.0 :weight 'bold))
+
+              ;; Editing/view settings
+              (visual-line-mode 1)    ;; soft wrap
+              (setq line-spacing 0.2)))
+
+
+
+;;;;;;;;;; FLYSPELL
+  ;; SEE https://www.tenderisthebyte.com/blog/2019/06/09/spell-checking-emacs/
+  (eval-after-load "flyspell"
+    '(progn
+       (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
+       (define-key flyspell-mouse-map [mouse-3] #'undefined)))
+
 
 ;;;;;;;;;; RANGER
   ;; (define-key evil-normal-state-map (kbd ", r") 'ranger)
@@ -839,13 +847,69 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd ", r") 'my/ranger-here)
 
 
-;;;;;;;;;;ORG NOVELIST
-;;;;;;;;;; see here for more: https://github.com/sympodius/org-novelist
-;;;;;;;;;; including how to export
-  ;; (load "~/.emacs.d/private/org-novelist/org-novelist.el")
-  ;; (setq org-novelist-author "Jessica Nickelsen")  ; The default author name to use when exporting a story. Each story can also override this setting
-  ;; (setq org-novelist-author-email "jessica.nickelsen@gmail.com")  ; The default author contact email to use when exporting a story. Each story can also override this setting
-  ;; (setq org-novelist-automatic-referencing-p t)  ; Set this variable to 't' if you want Org Novelist to always keep note links up to date. This may slow down some systems when operating on complex stories. It defaults to 'nil' when not set
+;;;;;;;;;; OBSIDIAN.EL
+  ;;   ;;  https://github.com/licht1stein/obsidian.el
+  ;;   (require 'obsidian)
+  ;;   ;; Location of obsidian vault
+  ;;   (setopt obsidian-directory "~/Documents/GitHub/obsidian")
+  ;;   ;; Default location for new notes from `obsidian-capture'
+  ;;   (setopt obsidian-inbox-directory "/10 Notes/14 Inbox")
+  ;;   ;; Useful if you're going to be using wiki links
+  ;;   (setopt markdown-enable-wiki-links t)
+
+  ;;   ;; These bindings are only suggestions; it's okay to use other bindings
+  ;;   ;; Create note
+  ;;   (define-key obsidian-mode-map (kbd "C-c C-n") 'obsidian-capture)
+  ;;   ;; If you prefer you can use `obsidian-insert-wikilink'
+  ;;   (define-key obsidian-mode-map (kbd "C-c C-l") 'obsidian-insert-link)
+  ;;   ;; Open file pointed to by link at point
+  ;;   (define-key obsidian-mode-map (kbd "C-c C-o") 'obsidian-follow-link-at-point)
+  ;;   ;; Open a note note from vault
+  ;;   (define-key obsidian-mode-map (kbd "C-c C-p") 'obsidian-jump)
+  ;;   ;; Follow a backlink for the current file
+  ;;   (define-key obsidian-mode-map (kbd "C-c C-b") 'obsidian-backlink-jump)
+
+  ;;   ;; Activate obsidian mode and backlinks mode
+  ;;   (global-obsidian-mode t)
+  ;;   ;;  (obsidian-backlinks-mode t)
+
+  ;; ;;;;;;;;;;obsidian.el hacking
+  ;;   ;; this should help locate the images / attachments and display them.
+  ;;   ;; need to run =M-x my/obsidian-display-embeds= occasionally
+  ;;   ;; Use obsidian.el’s vault path
+
+  ;;   (defvar my/obsidian-image-dir
+  ;;     (expand-file-name "10 Notes/10 Attachments" obsidian-directory)
+  ;;     "Directory where Obsidian images are stored (reusing obsidian-directory).")
+
+  ;;   (defvar my/obsidian-image-cache nil
+  ;;     "Cached list of all image files in `my/obsidian-image-dir` and subfolders.")
+
+  ;;   (defun my/obsidian-refresh-image-cache ()
+  ;;     "Rebuild the list of image files recursively."
+  ;;     (setq my/obsidian-image-cache
+  ;;           (directory-files-recursively my/obsidian-image-dir
+  ;;                                        "\\.\\(png\\|jpg\\|jpeg\\|webp\\|gif\\)$")))
+
+  ;;   (defun my/obsidian-find-image (filename)
+  ;;     "Return full path to FILENAME in the cached image list, or nil."
+  ;;     (unless my/obsidian-image-cache
+  ;;       (my/obsidian-refresh-image-cache))
+  ;;     (seq-find (lambda (f) (string-equal (file-name-nondirectory f) filename))
+  ;;               my/obsidian-image-cache))
+
+  ;;   (defun my/obsidian-display-embeds ()
+  ;;     "Display Obsidian ![[file]] image embeds inline in markdown buffers."
+  ;;     (interactive)
+  ;;     (save-excursion
+  ;;       (goto-char (point-min))
+  ;;       (while (re-search-forward "!\\[\\[\\([^]|]+\\)\\(?:|[0-9]+\\)?\\]\\]" nil t)
+  ;;         (let ((path (my/obsidian-find-image (match-string 1))))
+  ;;           (when path
+  ;;             (let ((ov (make-overlay (match-beginning 0) (match-end 0))))
+  ;;               (overlay-put ov 'display (create-image path nil nil :max-width 300))
+  ;;               (overlay-put ov 'obsidian-image t)))))))
+
 
 ;;;;;;;;;; MAGIT
 ;;;;;;;;;; testing 'stage all and commit' with magit:
@@ -853,10 +917,6 @@ before packages are loaded."
     (interactive "sCommit Message: ")
     (magit-stage-modified)
     (magit-commit (list "-m" message)))
-
-
-;;;;;;;;;;;SAVE LAYOUT
-;;;;;;;;;; save and load layouts cleanly (and cleanup old buffers)
 
 
   ;; -----------------------------
@@ -1030,8 +1090,8 @@ This function is called at the very end of Spacemacs initialization."
          highlight-parentheses hl-todo holy-mode htmlize hungry-delete hybrid-mode
          impatient-mode indent-guide info+ inspector ivy langtool link-hint llama
          log4e lorem-ipsum macrostep magit magit-section markdown-mode
-         markdown-toc memoize multi-line nameless nerd-icons nyan-mode olivetti
-         open-junk-file org org-bullets org-category-capture org-cliplink
+         markdown-toc memoize multi-line nameless nerd-icons nyan-mode obsidian
+         olivetti open-junk-file org org-bullets org-category-capture org-cliplink
          org-contrib org-download org-journal org-kanban org-mime org-noter
          org-plus-contrib org-pomodoro org-present org-project-capture
          org-projectile org-ql org-reverse-datetree org-rich-yank org-side-tree

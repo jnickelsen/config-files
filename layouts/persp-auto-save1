@@ -1,6 +1,11 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "work.org"
+            ((def-buffer ".spacemacs" "/Users/jessicanickelsen/.spacemacs"
+                         emacs-lisp-mode)
+             (def-buffer "planning.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/planning.org"
+                         org-mode)
+             (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
              (def-buffer "today.org"
@@ -8,9 +13,6 @@
                          org-mode)
              (def-buffer "inbox.org"
                          "/Users/jessicanickelsen/Documents/org/inbox.org"
-                         org-mode)
-             (def-buffer "rewilding-edits.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"
                          org-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10) (min-height-ignore . 3)
@@ -19,12 +21,13 @@
                (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 40)
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
               leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
-              (total-height . 33) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "*spacemacs*" (selected . t) (hscroll . 0)
+              (total-height . 34) (normal-height . 1.0) (normal-width . 1.0)
+              (buffer ".spacemacs" (selected . t) (hscroll . 0)
                       (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 572) (start . 128))
-              (prev-buffers ("*spacemacs*" 128 572) ("*scratch*" 1 1))))
+                      (dedicated) (point . 30238) (start . 29435))
+              (prev-buffers ("planning.org" 1 13710) ("*spacemacs*" 1 1848)
+                            ("*scratch*" 1 1))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -36,12 +39,13 @@
                   (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 20))
                  leaf (pixel-width . 1276) (pixel-height . 674)
-                 (total-width . 128) (total-height . 33) (normal-height . 1.0)
+                 (total-width . 128) (total-height . 34) (normal-height . 1.0)
                  (normal-width . 1.0)
-                 (buffer "*spacemacs*" (selected . t) (hscroll . 0)
+                 (buffer ".spacemacs" (selected . t) (hscroll . 0)
                          (fringes 8 8 nil nil) (margins nil)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 572) (start . 128))
-                 (prev-buffers ("*spacemacs*" 128 572) ("*scratch*" 1 1)))
+                         (dedicated) (point . 30238) (start . 29435))
+                 (prev-buffers ("planning.org" 1 13710) ("*spacemacs*" 1 1848)
+                               ("*scratch*" 1 1)))
                 ""))))
             t nil nil))
