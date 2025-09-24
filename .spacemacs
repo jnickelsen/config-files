@@ -657,7 +657,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq evil-want-keybinding nil)
   (setq package-quickstart t)
   ;; Initialize the package system **before** using use-package
-  (package-initialize)
+  ;;(package-initialize)
   ;; (require 'package)
   (setq package-archives
         '(("melpa" . "https://melpa.org/packages/")
@@ -684,11 +684,27 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+
+  ;; --------------------------------
+  ;; BASIC SETUP
+  ;; --------------------------------
+
   (setq dotspacemacs-startup-buffer-show-version t)
 
 ;;;;;;;;;; spacemacs tweaking
   ;; having problems with leader keys!
   (spacemacs/set-leader-keys "SPC" 'helm-M-x)
+
+  ;; removing missing org agenda files
+  (defun my/org-agenda-prune-files ()
+    "Remove non-existent files from `org-agenda-files`."
+    (interactive)
+    (setq org-agenda-files
+          (cl-remove-if-not #'file-exists-p org-agenda-files))
+    (message "Pruned agenda files. Remaining: %d" (length org-agenda-files)))
+
+  ;; and running it when emacs starts up
+  (add-hook 'after-init-hook #'my/org-agenda-prune-files)
 
 
   ;;; quietening startup messages
@@ -702,15 +718,11 @@ before packages are loaded."
   (load "~/.emacs.d/private/jess-config/jess-org.el")
   (require 'jess-theming)
   (require 'jess-org)
-  ;;(require 'jess-persp)
-  (my/apply-all-palettes "Jess theme")
-  (message "Theme loaded successfully.")
-
   ;; making sure markdown mode works right
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 
-;;;;;;;;;; enable transient mark mode, which enables using org mode with different file types
+;;; enable transient mark mode, which enables using org mode with different file types
   (transient-mark-mode 1)
 
 
@@ -731,10 +743,8 @@ before packages are loaded."
 
 ;;;;;;;;;; treemacs config
   (spacemacs/set-leader-keys "f T" #'treemacs-select-window)
-
-
-;;;;;;;;;; changing bell alarm
-  ;; see M-x customize group / org-pomodoro for this
+  (with-eval-after-load 'treemacs
+    (setq treemacs-show-hidden-files nil))
 
 ;;;;;;;;;; doom modeline setup
   (setq doom-modeline-icon nil)
@@ -742,45 +752,50 @@ before packages are loaded."
   (setq doom-modeline-minor-modes nil)
   (setq doom-modeline-enable-word-count t)
   (setq doom-modeline-nyan-bar t)
-
   (require 'doom-modeline)
   (doom-modeline-mode 1)
-  (nyan-mode 1)
-
-  ;; Custom Pomodoro countdown segment (just the timer, no task name)
+  ;;(nyan-mode 1)  ;;already set above
 
 
-  (with-eval-after-load 'org-pomodoro
-    (doom-modeline-def-segment my-pomodoro-countdown
-      "Show org-pomodoro countdown timer if active."
-      (when (and (featurep 'org-pomodoro) (org-pomodoro-active-p))
-        (let* ((time-left (org-pomodoro-format-seconds)))
-          (format "[%s]" time-left))))
-    ;; Define your custom modeline layout
-    (doom-modeline-def-modeline 'my-clean-line
-      '(modals buffer-info)                           ;; Left
-      '(word-count my-pomodoro-countdown major-mode))      ;; Right
 
-    ;; Apply the custom modeline
-    (defun my/use-clean-doom-modeline ()
-      (doom-modeline-set-modeline 'my-clean-line 'default))
+  ;; --------------------------------
+  ;; WRITING ENVIRONMENT
+  ;; --------------------------------
 
-    (my/use-clean-doom-modeline)
-    )
-;;;;;;;;;; OLIVETTI - markdown
-;;;;;;;;;; I am going to try and use writeroom mode for a bit and see if that is very different
-  ;; (add-hook 'text-mode-hook (lambda ()
-  ;;                             (interactive)
-  ;;                             (message "Olivetti text-mode-hook")
-  ;;                             (olivetti-set-width 81)
-  ;;                             ;;(hidden-mode-line-mode)
-  ;;                             (spacemacs/toggle-vi-tilde-fringe-off)
-  ;;                             (olivetti-mode 1)
-  ;;                             (palimpsest-mode)
-  ;;                             ))
+  (defun my/writing-session ()
+    "Set up buffer-box and clean paragraphs for writing."
+    (interactive)
+    (my/disable-indents)
+    (org-indent-mode -1)
+    ;;(buffer-box-on)
+    (spacemacs/toggle-vi-tilde-fringe-off)
+    (visual-line-mode 1)
+    (palimpsest-mode 1))
+  (defun my/disable-indents ()
+    "Turn off org-indent-mode or other indenting modes."
+    (interactive)
+    (when (bound-and-true-p org-indent-mode)
+      (org-indent-mode -1)))
 
+  (global-set-key (kbd "C-c w") #'my/writing-session)
 
-;;;;;;;;;; WRITEROOM MODE INSTEAD
+ ;;;;;;;;;; OLIVETTI - markdown
+  ;; (add-hook 'text-mode-hook
+  ;;           (lambda ()
+  ;;             (interactive)
+  ;;             (message "Olivetti text-mode-hook")
+  ;;             ;; --- Olivetti settings ---
+  ;;             (olivetti-set-width 81)
+  ;;             (olivetti-mode 1)
+  ;;             ;; --- Visual line wrapping ---
+  ;;             (visual-line-mode 1)
+  ;;             ;; --- Palimpsest mode or other minor modes ---
+  ;;             (palimpsest-mode)
+  ;;             ;; --- Fringe tweaks ---
+  ;;             (spacemacs/toggle-vi-tilde-fringe-off)
+  ;;             ))
+
+;;;;;;;;;;  WRITEROOM MODE INSTEAD
   ;; I have customised other things via customize-group RET writeroom RET
   ;; for example not to maximize screen in fullscreen
   (add-hook 'text-mode-hook (lambda ()
@@ -790,7 +805,7 @@ before packages are loaded."
                               (spacemacs/toggle-vi-tilde-fringe-off)
                               (writeroom-mode 1)
                               (palimpsest-mode)
-                              (visual-line-mode t)
+                              (visual-line-mode 1)
                               ))
 
 ;;;;;;;;;; MARKDOWN STUFF
@@ -813,8 +828,6 @@ before packages are loaded."
               (visual-line-mode 1)    ;; soft wrap
               (setq line-spacing 0.2)))
 
-
-
 ;;;;;;;;;; FLYSPELL
   ;; SEE https://www.tenderisthebyte.com/blog/2019/06/09/spell-checking-emacs/
   (eval-after-load "flyspell"
@@ -823,12 +836,14 @@ before packages are loaded."
        (define-key flyspell-mouse-map [mouse-3] #'undefined)))
 
 
+  ;; --------------------------------
+  ;; NAVIGATION, ETC.
+  ;; --------------------------------
+
+
 ;;;;;;;;;; RANGER
   ;; (define-key evil-normal-state-map (kbd ", r") 'ranger)
   ;; (setq ranger-cleanup-eagerly t)
-
-
-  ;; ;;;;;;;;;; RANGER ;;;;;;;;;;
 
   ;; Ranger behavior tweaks
   (setq ranger-cleanup-eagerly t)   ;; clean up windows/buffers when quitting
@@ -846,72 +861,10 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd ", r") nil)
   (define-key evil-normal-state-map (kbd ", r") 'my/ranger-here)
 
+  ;; --------------------------------
+  ;; MAGIT
+  ;; --------------------------------
 
-;;;;;;;;;; OBSIDIAN.EL
-  ;;   ;;  https://github.com/licht1stein/obsidian.el
-  ;;   (require 'obsidian)
-  ;;   ;; Location of obsidian vault
-  ;;   (setopt obsidian-directory "~/Documents/GitHub/obsidian")
-  ;;   ;; Default location for new notes from `obsidian-capture'
-  ;;   (setopt obsidian-inbox-directory "/10 Notes/14 Inbox")
-  ;;   ;; Useful if you're going to be using wiki links
-  ;;   (setopt markdown-enable-wiki-links t)
-
-  ;;   ;; These bindings are only suggestions; it's okay to use other bindings
-  ;;   ;; Create note
-  ;;   (define-key obsidian-mode-map (kbd "C-c C-n") 'obsidian-capture)
-  ;;   ;; If you prefer you can use `obsidian-insert-wikilink'
-  ;;   (define-key obsidian-mode-map (kbd "C-c C-l") 'obsidian-insert-link)
-  ;;   ;; Open file pointed to by link at point
-  ;;   (define-key obsidian-mode-map (kbd "C-c C-o") 'obsidian-follow-link-at-point)
-  ;;   ;; Open a note note from vault
-  ;;   (define-key obsidian-mode-map (kbd "C-c C-p") 'obsidian-jump)
-  ;;   ;; Follow a backlink for the current file
-  ;;   (define-key obsidian-mode-map (kbd "C-c C-b") 'obsidian-backlink-jump)
-
-  ;;   ;; Activate obsidian mode and backlinks mode
-  ;;   (global-obsidian-mode t)
-  ;;   ;;  (obsidian-backlinks-mode t)
-
-  ;; ;;;;;;;;;;obsidian.el hacking
-  ;;   ;; this should help locate the images / attachments and display them.
-  ;;   ;; need to run =M-x my/obsidian-display-embeds= occasionally
-  ;;   ;; Use obsidian.el’s vault path
-
-  ;;   (defvar my/obsidian-image-dir
-  ;;     (expand-file-name "10 Notes/10 Attachments" obsidian-directory)
-  ;;     "Directory where Obsidian images are stored (reusing obsidian-directory).")
-
-  ;;   (defvar my/obsidian-image-cache nil
-  ;;     "Cached list of all image files in `my/obsidian-image-dir` and subfolders.")
-
-  ;;   (defun my/obsidian-refresh-image-cache ()
-  ;;     "Rebuild the list of image files recursively."
-  ;;     (setq my/obsidian-image-cache
-  ;;           (directory-files-recursively my/obsidian-image-dir
-  ;;                                        "\\.\\(png\\|jpg\\|jpeg\\|webp\\|gif\\)$")))
-
-  ;;   (defun my/obsidian-find-image (filename)
-  ;;     "Return full path to FILENAME in the cached image list, or nil."
-  ;;     (unless my/obsidian-image-cache
-  ;;       (my/obsidian-refresh-image-cache))
-  ;;     (seq-find (lambda (f) (string-equal (file-name-nondirectory f) filename))
-  ;;               my/obsidian-image-cache))
-
-  ;;   (defun my/obsidian-display-embeds ()
-  ;;     "Display Obsidian ![[file]] image embeds inline in markdown buffers."
-  ;;     (interactive)
-  ;;     (save-excursion
-  ;;       (goto-char (point-min))
-  ;;       (while (re-search-forward "!\\[\\[\\([^]|]+\\)\\(?:|[0-9]+\\)?\\]\\]" nil t)
-  ;;         (let ((path (my/obsidian-find-image (match-string 1))))
-  ;;           (when path
-  ;;             (let ((ov (make-overlay (match-beginning 0) (match-end 0))))
-  ;;               (overlay-put ov 'display (create-image path nil nil :max-width 300))
-  ;;               (overlay-put ov 'obsidian-image t)))))))
-
-
-;;;;;;;;;; MAGIT
 ;;;;;;;;;; testing 'stage all and commit' with magit:
   (defun my/magit-stage-all-and-commit(message)
     (interactive "sCommit Message: ")
@@ -928,104 +881,71 @@ before packages are loaded."
     (load-theme 'ef-reverie t)
     (setq jess-theme-applied t))
 
-;;;;;;;;;;;;;;;;POMODORO
-;;;;;;;;;tweak times
-  (setq org-pomodoro-length 25       ;; Sprint time in minutes
-        org-pomodoro-short-break-length 5
-        org-pomodoro-long-break-length 15
-        org-pomodoro-long-break-frequency 4) ;; Every 4 pomodoros
-
-;;;;; or custom set some quick times for testing and whatnot
-  (defun my/pomodoro-quick-1 ()
-    (interactive)
-    (setq org-pomodoro-length 1
-          org-pomodoro-short-break-length 1
-          org-pomodoro-long-break-length 1)
-    (org-pomodoro))
-
-  (defun my/pomodoro-quick-15 ()
-    (interactive)
-    (setq org-pomodoro-length 15
-          org-pomodoro-short-break-length 3
-          org-pomodoro-long-break-length 10)
-    (org-pomodoro))
-
-  (defun my/pomodoro-quick-25 ()
-    (interactive)
-    (setq org-pomodoro-length 25
-          org-pomodoro-short-break-length 5
-          org-pomodoro-long-break-length 15
-          org-pomodoro-long-break-frequency 4)
-    (org-pomodoro))
-
-;;;;;;;;;; turn off the bell
-  ;; (setq visible-bell t)
-
-;;;;;;;;;; configure the rest
-
-  (defvar my/pomodoro-buffer nil
-    "The buffer being tracked during the current Pomodoro.")
-
-  (defvar my/pomodoro-start-wordcount 0
-    "Word count at the beginning of the Pomodoro.")
-
-  (defvar my/pomodoro-log-file
-    (expand-file-name "~/Documents/org/pomodoro-log.org")
-    "File where Pomodoro word count logs are saved.")
-
-
-  (defun my/pomodoro-start-tracking ()
-    "Prompt for buffer to track, store initial word count."
-    (let* ((buf (get-buffer (read-buffer "Track word count in buffer: " (buffer-name) t))))
-      (setq my/pomodoro-buffer buf)
-      (setq my/pomodoro-start-wordcount
-            (with-current-buffer buf
-              (count-words (point-min) (point-max))))
-      (message "Tracking Pomodoro in buffer: %s (%d words)"
-               (buffer-name buf) my/pomodoro-start-wordcount)))
-
-  (defun my/pomodoro-log-results ()
-    "Log the word count delta at end of Pomodoro."
-    (let ((tracked-buf (get-buffer my/pomodoro-buffer)))
-      (when (and tracked-buf (buffer-live-p tracked-buf))
-        (let* ((end-count (with-current-buffer tracked-buf
-                            (count-words (point-min) (point-max))))
-               (delta (- end-count my/pomodoro-start-wordcount))
-               (timestamp (format-time-string "%Y-%m-%d %H:%M"))
-               (bufname (buffer-name tracked-buf)))
-          (with-temp-buffer
-            (insert (format "* %s\n  - %s: %d words in %s\n"
-                            (format-time-string "%Y-%m-%d")
-                            timestamp delta bufname))
-            (append-to-file (point-min) (point-max) my/pomodoro-log-file))
-          (message "Pomodoro complete: %d words in %s" delta bufname))))
-    ;; Clean up
-
-    (defvar my/pomodoro-timer-refresh nil)
-
-    (defun my/start-pomodoro-modeline-refresh ()
-      (setq my/pomodoro-timer-refresh
-            (run-with-timer 1 1 (lambda () (force-mode-line-update t)))))
-
-    (defun my/stop-pomodoro-modeline-refresh ()
-      (when (timerp my/pomodoro-timer-refresh)
-        (cancel-timer my/pomodoro-timer-refresh)
-        (setq my/pomodoro-timer-refresh nil)))
-
-    (add-hook 'org-pomodoro-started-hook #'my/start-pomodoro-modeline-refresh)
-    (add-hook 'org-pomodoro-finished-hook #'my/stop-pomodoro-modeline-refresh)
-    (add-hook 'org-pomodoro-killed-hook  #'my/stop-pomodoro-modeline-refresh)
-
-
-    (setq my/pomodoro-buffer nil)
-    (setq my/pomodoro-start-wordcount 0))
-
-  (add-hook 'org-pomodoro-started-hook #'my/pomodoro-start-tracking)
-  (add-hook 'org-pomodoro-finished-hook #'my/pomodoro-log-results)
-  (add-hook 'org-pomodoro-killed-hook #'my/pomodoro-log-results)
-
 ;;;;;;;;;;;;;making sure *spacemacs* still loads
   (run-at-time 1 nil #'(lambda () (switch-to-buffer "*spacemacs*")))
+
+
+  ;; --------------------------------
+  ;; CURRENTLY RETIRED / ON PAUSE
+  ;; --------------------------------
+
+;;;;;;;;;; setting up buffer-box
+  ;; I really like this but it's not working right now
+
+  ;;   ;; Immediate border toggling (using default header)
+  ;;   (require 'buffer-box)
+  ;;   (buffer-box)
+
+  ;; ;;;;;;; tweaking buffer-box so I don't get weird hanging indents
+  ;; ;;;;;;; and also making sure word-wrapping doesn't create spaces
+  ;; ;;;;;;; (it might be overlapping, function-wise, with writeroom)
+  ;;   (defun my/buffer-box-overlay-create ()
+  ;;     "Create overlay with left and right borders for the entire buffer."
+  ;;     (when (bufferp (current-buffer))
+  ;;       ;; Remove any previous overlay
+  ;;       (remove-overlays (point-min) (point-max) 'buffer-box t)
+  ;;       ;; Make a new overlay for the buffer
+  ;;       (let ((ov (make-overlay (point-min) (point-max))))
+  ;;         (overlay-put ov 'buffer-box t)
+  ;;         ;; Left and right borders, using display properties
+  ;;         (overlay-put ov 'before-string
+  ;;                      (propertize "│" 'face 'buffer-box-face-active))
+  ;;         (overlay-put ov 'after-string
+  ;;                      (propertize "│" 'face 'buffer-box-face-active))
+  ;;         ;; Ensure margins are zero to avoid conflict with writeroom
+  ;;         (setq-local left-margin-width 0
+  ;;                     right-margin-width 0
+  ;;                     fringes-outside-margins nil))))
+
+  ;;   (defun my/buffer-box-overlay-update-active-face ()
+  ;;     "Update border overlay face according to window selection."
+  ;;     (when-let ((ov (buffer-box--overlay)))
+  ;;       (let ((face (if (mode-line-window-selected-p)
+  ;;                       'buffer-box-face-active
+  ;;                     'buffer-box-face-inactive)))
+  ;;         (overlay-put ov 'before-string (propertize "│" 'face face))
+  ;;         (overlay-put ov 'after-string  (propertize "│" 'face face)))))
+
+  ;;   ;; Ensure overlay is created when buffer-box is toggled on
+  ;;   (advice-add 'buffer-box-on :after #'my/buffer-box-overlay-create)
+
+  ;;   ;; Track window selection changes to update face without touching line-prefix
+  ;;   (add-hook 'window-selection-change-functions
+  ;;             (lambda (&rest _) (my/buffer-box-overlay-update-active-face)))
+
+  ;;   ;; Track newly created windows for multi-window setups
+  ;;   (add-hook 'window-buffer-change-functions
+  ;;             (lambda (&rest _)
+  ;;               (dolist (win (window-list))
+  ;;                 (with-current-buffer (window-buffer win)
+  ;;                   (my/buffer-box-overlay-create)
+  ;;                   (my/buffer-box-overlay-update-active-face)))))
+
+
+;;;;;;;;;; changing bell alarm
+  ;; see M-x customize group / org-pomodoro for this
+
+
 
 
   ;; end of user-config
@@ -1063,7 +983,7 @@ This function is called at the very end of Spacemacs initialization."
    '(org-agenda-files
      '("~/Documents/org/work.org" "/Users/jessicanickelsen/Documents/org/today.org"
        "/Users/jessicanickelsen/Documents/org/inbox.org"
-       "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"))
+       ))
    '(org-pomodoro-finished-sound "~/.emacs.d/private/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "~/.emacs.d/private/sounds/wood-block.wav")
    '(package-selected-packages

@@ -1,10 +1,47 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer ".spacemacs" "/Users/jessicanickelsen/.spacemacs"
-                         emacs-lisp-mode)
-             (def-buffer "garbage gods.org<garbage-gods>"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/garbage gods.org"
+            ((def-buffer "home.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/felathia/home.md"
+                         markdown-mode)
+             (def-buffer "outline.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/outline.org"
                          org-mode)
+             (def-buffer "the garbage gods my mother made.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/90 manuscript/the garbage gods my mother made.md"
+                         markdown-mode)
+             (def-buffer "journal.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/20 logs and journal/journal.md"
+                         markdown-mode)
+             (def-buffer "vesta arrives.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/vesta arrives.md"
+                         markdown-mode)
+             (def-buffer "arriving at the house.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/arriving at the house.md"
+                         markdown-mode)
+             (def-buffer "Vesta arrives in the shuttle.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/Vesta arrives in the shuttle.md"
+                         markdown-mode)
+             (def-buffer "at the canteen.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/at the canteen.md"
+                         markdown-mode)
+             (def-buffer "fragment - child in the pile.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/fragment - child in the pile.md"
+                         markdown-mode)
+             (def-buffer "fragment - memories of the house.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/fragment - memories of the house.md"
+                         markdown-mode)
+             (def-buffer "tmp placeholder for writing.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/tmp placeholder for writing.md"
+                         markdown-mode)
+             (def-buffer "vesta as unexpected arrival.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/vesta as unexpected arrival.md"
+                         markdown-mode)
+             (def-buffer "emacs reference.org"
+                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
+                         org-mode)
+             (def-buffer "what-it-feels-like-forty-eight.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/obsidian/40 Authoring/46 Blog/2025/drafts/what-it-feels-like-forty-eight.md"
+                         markdown-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
@@ -13,80 +50,36 @@
                          org-mode)
              (def-buffer "inbox.org"
                          "/Users/jessicanickelsen/Documents/org/inbox.org"
-                         org-mode)
-             (def-buffer "ch1.arriving-at-the-house.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/ch1.arriving-at-the-house.md"
-                         markdown-mode)
-             (def-buffer "misc others.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/60 wiki/misc others.md"
-                         markdown-mode)
-             (def-buffer "emacs reference.org"
-                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
-                         org-mode)
-             (def-buffer "Lavinia - aunt.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/60 wiki/Lavinia - aunt.md"
-                         markdown-mode)
-             (def-buffer "_wiki.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/60 wiki/_wiki.md"
-                         markdown-mode)
-             (def-buffer "rewilding-edits.org" nil org-mode)
-             (def-buffer "2025-08-22-writing-on-emacs.md" nil markdown-mode)
-             (def-buffer "style.css"
-                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Templates/copy-of-console-mods/style.css"
-                         css-mode)
-             (def-buffer "Untitled 1.md"
-                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Drafts/Untitled 1.md"
-                         markdown-mode)
-             (def-buffer "about.md"
-                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Pages/about.md"
-                         markdown-mode)
-             (def-buffer "2025-08-21-checking-in.md" nil markdown-mode)
-             (def-buffer "planning.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/planning.org"
-                         org-mode)
-             (def-buffer "gothic trash god novel.org" nil org-mode)
-             (def-buffer "garbage gods.org<011 The Garbage God My Mother Made>"
-                         nil org-mode)
-             (def-buffer "jess-garbage-gods.persp<config-files>"
-                         "/Users/jessicanickelsen/Documents/GitHub/config-files/layouts/jess-garbage-gods.persp"
-                         emacs-lisp-mode)
-             (def-buffer ".custom-settings"
-                         "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
-                         emacs-lisp-mode))
+                         org-mode))
             (def-wconf
-             (((min-height . 4) (min-width . 10) (min-height-ignore . 3)
-               (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2)
-               (min-pixel-height . 80) (min-pixel-width . 100)
-               (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 40)
-               (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
-              leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
+             (((min-height . 4) (min-width . 20) (min-height-ignore . 3)
+               (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4)
+               (min-pixel-height . 80) (min-pixel-width . 200)
+               (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 80)
+               (min-pixel-height-safe . 20) (min-pixel-width-safe . 40))
+              hc (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
               (total-height . 34) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer ".spacemacs" (selected . t) (hscroll . 0)
-                      (fringes 8 8 nil nil) (margins nil)
-                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 40631) (start . 39483))
-              (prev-buffers ("garbage gods.org<garbage-gods>" 364 691)
-                            ("*spacemacs*" 265 1776) ("*Messages*" 1 1)
-                            ("*scratch*" 1 1))))
+              (combination-limit)
+              (leaf (pixel-width . 350) (pixel-height . 674) (total-width . 35)
+                    (total-height . 34) (normal-height . 1.0)
+                    (normal-width . 0.2727272727272727)
+                    (parameters (window-side . left) (window-slot . 0))
+                    (buffer
+                     " *Treemacs-Buffer-#<frame Emacs@Jess-mac.local 0x13f851238>"
+                     (selected) (hscroll . 0) (fringes 8 8 nil nil)
+                     (margins nil) (scroll-bars nil 0 t nil 0 t nil)
+                     (vscroll . 0) (dedicated . t) (point . 547) (start . 74)))
+              (leaf (last . t) (pixel-width . 926) (pixel-height . 674)
+                    (total-width . 93) (total-height . 34) (normal-height . 1.0)
+                    (normal-width . 0.7272727272727273)
+                    (buffer "home.md" (selected . t) (hscroll . 0)
+                            (fringes 8 8 t nil) (margins 5 . 6)
+                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                            (dedicated) (point . 1) (start . 1))
+                    (prev-buffers
+                     ("the garbage gods my mother made.md" 18357 19660)
+                     ("journal.md" 1 1) ("outline.org" 241 1572)
+                     ("Vesta arrives in the shuttle.md" 108 745)))))
             (def-params
-             ((gui-eyebrowse-window-configs
-               (1
-                (((min-height . 4) (min-width . 10) (min-height-ignore . 3)
-                  (min-width-ignore . 4) (min-height-safe . 1)
-                  (min-width-safe . 2) (min-pixel-height . 80)
-                  (min-pixel-width . 100) (min-pixel-height-ignore . 60)
-                  (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
-                  (min-pixel-width-safe . 20))
-                 leaf (pixel-width . 1276) (pixel-height . 674)
-                 (total-width . 128) (total-height . 34) (normal-height . 1.0)
-                 (normal-width . 1.0)
-                 (buffer ".spacemacs" (selected . t) (hscroll . 0)
-                         (fringes 8 8 nil nil) (margins nil)
-                         (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 40631) (start . 39483))
-                 (prev-buffers ("garbage gods.org<garbage-gods>" 364 691)
-                               ("*spacemacs*" 265 1776) ("*Messages*" 1 1)
-                               ("*scratch*" 1 1)))
-                ""))
-              (gui-eyebrowse-current-slot . 1) (gui-eyebrowse-last-slot . 1)))
+             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)))
             t nil nil))

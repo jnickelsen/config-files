@@ -1,11 +1,6 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer ".spacemacs" "/Users/jessicanickelsen/.spacemacs"
-                         emacs-lisp-mode)
-             (def-buffer "planning.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/planning.org"
-                         org-mode)
-             (def-buffer "work.org"
+            ((def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
              (def-buffer "today.org"
@@ -22,12 +17,11 @@
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
               leaf (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
               (total-height . 34) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer ".spacemacs" (selected . t) (hscroll . 0)
-                      (fringes 8 8 nil nil) (margins nil)
+              (buffer "work.org" (selected . t) (hscroll . 0)
+                      (fringes 8 8 t nil) (margins 23 . 23)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 30238) (start . 29435))
-              (prev-buffers ("planning.org" 1 13710) ("*spacemacs*" 1 1848)
-                            ("*scratch*" 1 1))))
+                      (dedicated) (point . 13449) (start . 11276))
+              (prev-buffers ("*spacemacs*" 1 245) ("*scratch*" 1 1))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -41,11 +35,10 @@
                  leaf (pixel-width . 1276) (pixel-height . 674)
                  (total-width . 128) (total-height . 34) (normal-height . 1.0)
                  (normal-width . 1.0)
-                 (buffer ".spacemacs" (selected . t) (hscroll . 0)
-                         (fringes 8 8 nil nil) (margins nil)
+                 (buffer "work.org" (selected . t) (hscroll . 0)
+                         (fringes 8 8 t nil) (margins 23 . 23)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 30238) (start . 29435))
-                 (prev-buffers ("planning.org" 1 13710) ("*spacemacs*" 1 1848)
-                               ("*scratch*" 1 1)))
+                         (dedicated) (point . 13449) (start . 11276))
+                 (prev-buffers ("*spacemacs*" 1 245) ("*scratch*" 1 1)))
                 ""))))
             t nil nil))
