@@ -25,6 +25,11 @@
     (kbd "|") 'org-agenda-filter-remove-all
     (kbd "\\") 'org-agenda-filter-by-tag))
 
+
+;;;;;;;;; tweaking clocktable
+(setq org-clock-report-include-clocking-task t)
+
+
 ;;;;;;;;;; headline sizes in org mode
 (with-eval-after-load 'org
   ;; Top-level heading (* Heading): slightly larger and bold
