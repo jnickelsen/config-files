@@ -1,10 +1,16 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "Drafts" nil ranger-mode)
-             (def-buffer "Blot" nil ranger-mode)
-             (def-buffer "Pages" nil ranger-mode)
-             (def-buffer "about.md"
-                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Pages/about.md"
+            ((def-buffer "Untitled 1.md"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Drafts/Untitled 1.md"
+                         markdown-mode)
+             (def-buffer "2025-12-21-sometimes-life-is-hard.md"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Drafts/2025-12-21-sometimes-life-is-hard.md"
+                         markdown-mode)
+             (def-buffer "emacs reference.org"
+                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
+                         org-mode)
+             (def-buffer "2025-10-11-.md"
+                         "/Users/jessicanickelsen/db/Apps/Blot/Drafts/2025-10-11-.md"
                          markdown-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
@@ -15,22 +21,13 @@
              (def-buffer "inbox.org"
                          "/Users/jessicanickelsen/Documents/org/inbox.org"
                          org-mode)
-             (def-buffer "rewilding-edits.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/rewilding/1.0 drafts/rewilding-edits.org"
-                         org-mode)
-             (def-buffer "Untitled 1.md"
-                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Drafts/Untitled 1.md"
+             (def-buffer "about.md"
+                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Pages/about.md"
                          markdown-mode)
-             (def-buffer "garbage gods.org<garbage-gods>"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/garbage gods.org"
-                         org-mode)
+             (def-buffer "rewilding-edits.org" nil org-mode)
+             (def-buffer "garbage gods.org<garbage-gods>" nil org-mode)
              (def-buffer "2025-08-21-checking-in.md" nil markdown-mode)
-             (def-buffer "emacs reference.org"
-                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
-                         org-mode)
-             (def-buffer "planning.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/planning.org"
-                         org-mode)
+             (def-buffer "planning.org" nil org-mode)
              (def-buffer ".spacemacs" "/Users/jessicanickelsen/.spacemacs"
                          emacs-lisp-mode)
              (def-buffer "gothic trash god novel.org" nil org-mode)
@@ -43,95 +40,51 @@
                          "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
                          emacs-lisp-mode)
              (def-buffer "Apps" "~/Library/CloudStorage/Dropbox/Apps/"
-                         dired-mode))
+                         dired-mode)
+             (def-buffer "wizardawn.sql" nil fundamental-mode))
             (def-wconf
-             (((min-height . 4) (min-width . 30) (min-height-ignore . 4)
+             (((min-height . 4) (min-width . 30) (min-height-ignore . 3)
                (min-width-ignore . 12) (min-height-safe . 1)
                (min-width-safe . 6) (min-pixel-height . 80)
-               (min-pixel-width . 300) (min-pixel-height-ignore . 80)
+               (min-pixel-width . 300) (min-pixel-height-ignore . 60)
                (min-pixel-width-ignore . 120) (min-pixel-height-safe . 20)
                (min-pixel-width-safe . 60))
-              hc (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
-              (total-height . 34) (normal-height . 1.0) (normal-width . 1.0)
-              (combination-limit . t)
-              (leaf (pixel-width . 146) (pixel-height . 674) (total-width . 15)
-                    (total-height . 34) (normal-height . 1.0)
-                    (normal-width . 0.11442006269592475)
-                    (parameters (window-slot . -1))
-                    (buffer "Blot" (selected) (hscroll . 0)
-                            (fringes 8 8 nil nil) (margins nil)
-                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                            (dedicated) (point . 32) (start . 1)))
-              (hc (last . t) (pixel-width . 1130) (pixel-height . 674)
-                  (total-width . 113) (total-height . 34) (normal-height . 1.0)
-                  (normal-width . 0.8855799373040752) (combination-limit . t)
-                  (leaf (pixel-width . 300) (pixel-height . 674)
-                        (total-width . 30) (total-height . 34)
+              hc (pixel-width . 1276) (pixel-height . 748) (total-width . 128)
+              (total-height . 37) (normal-height . 1.0) (normal-width . 1.0)
+              (combination-limit)
+              (leaf (pixel-width . 230) (pixel-height . 748) (total-width . 23)
+                    (total-height . 37) (normal-height . 1.0)
+                    (normal-width . 0.17868338557993746)
+                    (parameters (window-side . left) (window-slot . 0))
+                    (buffer
+                     " *Treemacs-Buffer-#<frame Emacs@Jess-Mac.local 0x10a81c438>"
+                     (selected) (hscroll . 0) (fringes 8 8 nil nil)
+                     (margins nil) (scroll-bars nil 0 t nil 0 t nil)
+                     (vscroll . 0) (dedicated . t) (point . 204) (start . 33)))
+              (hc (last . t) (pixel-width . 1046) (pixel-height . 748)
+                  (total-width . 105) (total-height . 37) (normal-height . 1.0)
+                  (normal-width . 0.8213166144200625) (combination-limit . t)
+                  (leaf (pixel-width . 786) (pixel-height . 748)
+                        (total-width . 79) (total-height . 37)
                         (normal-height . 1.0)
-                        (normal-width . 0.26548672566371684)
-                        (buffer "Drafts" (selected . t) (hscroll . 0)
-                                (fringes 8 8 nil nil) (margins nil)
+                        (normal-width . 0.7505069192934931)
+                        (buffer "Untitled 1.md" (selected . t) (hscroll . 0)
+                                (fringes 8 8 t nil) (margins nil)
                                 (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                                (dedicated) (point . 29) (start . 1))
-                        (prev-buffers ("Blot" 1 32) ("Pages" 1 65)
-                                      ("about.md" 1112 2225)
-                                      ("*spacemacs*" 1 941) ("*scratch*" 1 1)))
-                  (leaf (last . t) (pixel-width . 830) (pixel-height . 674)
-                        (total-width . 83) (total-height . 34)
+                                (dedicated) (point . 28) (start . 1))
+                        (prev-buffers
+                         ("2025-12-21-sometimes-life-is-hard.md" 1 204)
+                         ("Untitled 1.md" 1 28) ("2025-10-11-.md" 1 11)
+                         ("*spacemacs*" 1 2139) ("*scratch*" 1 1)))
+                  (leaf (last . t) (pixel-width . 260) (pixel-height . 748)
+                        (total-width . 26) (total-height . 37)
                         (normal-height . 1.0)
-                        (normal-width . 0.7345132743362832)
-                        (parameters (window-slot . 1))
-                        (buffer "*ranger-prev*" (selected) (hscroll . 0)
-                                (fringes 8 8 nil nil) (margins nil)
+                        (normal-width . 0.24949308070650686)
+                        (buffer "emacs reference.org" (selected) (hscroll . 0)
+                                (fringes 8 8 t nil) (margins nil)
                                 (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                                (dedicated) (point . 1) (start . 1))))))
+                                (dedicated) (point . 360) (start . 172))
+                        (prev-buffers ("Untitled 1.md" 1 28))))))
             (def-params
-             ((gui-eyebrowse-window-configs
-               (1
-                (((min-height . 4) (min-width . 30) (min-height-ignore . 4)
-                  (min-width-ignore . 12) (min-height-safe . 1)
-                  (min-width-safe . 6) (min-pixel-height . 80)
-                  (min-pixel-width . 300) (min-pixel-height-ignore . 80)
-                  (min-pixel-width-ignore . 120) (min-pixel-height-safe . 20)
-                  (min-pixel-width-safe . 60))
-                 hc (pixel-width . 1276) (pixel-height . 674)
-                 (total-width . 128) (total-height . 34) (normal-height . 1.0)
-                 (normal-width . 1.0) (combination-limit . t)
-                 (leaf (pixel-width . 146) (pixel-height . 674)
-                       (total-width . 15) (total-height . 34)
-                       (normal-height . 1.0)
-                       (normal-width . 0.11442006269592475)
-                       (parameters (window-slot . -1))
-                       (buffer "Blot" (selected) (hscroll . 0)
-                               (fringes 8 8 nil nil) (margins nil)
-                               (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                               (dedicated) (point . 32) (start . 1)))
-                 (hc (last . t) (pixel-width . 1130) (pixel-height . 674)
-                     (total-width . 113) (total-height . 34)
-                     (normal-height . 1.0) (normal-width . 0.8855799373040752)
-                     (combination-limit . t)
-                     (leaf (pixel-width . 300) (pixel-height . 674)
-                           (total-width . 30) (total-height . 34)
-                           (normal-height . 1.0)
-                           (normal-width . 0.26548672566371684)
-                           (buffer "Drafts" (selected . t) (hscroll . 0)
-                                   (fringes 8 8 nil nil) (margins nil)
-                                   (scroll-bars nil 0 t nil 0 t nil)
-                                   (vscroll . 0) (dedicated) (point . 29)
-                                   (start . 1))
-                           (prev-buffers ("Blot" 1 32) ("Pages" 1 65)
-                                         ("about.md" 1112 2225)
-                                         ("*spacemacs*" 1 941) ("*scratch*" 1 1)))
-                     (leaf (last . t) (pixel-width . 830) (pixel-height . 674)
-                           (total-width . 83) (total-height . 34)
-                           (normal-height . 1.0)
-                           (normal-width . 0.7345132743362832)
-                           (parameters (window-slot . 1))
-                           (buffer "*ranger-prev*" (selected) (hscroll . 0)
-                                   (fringes 8 8 nil nil) (margins nil)
-                                   (scroll-bars nil 0 t nil 0 t nil)
-                                   (vscroll . 0) (dedicated) (point . 1)
-                                   (start . 1)))))
-                ""))
-              (gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)))
+             ((gui-eyebrowse-current-slot . 1) (gui-eyebrowse-last-slot . 1)))
             t nil nil))

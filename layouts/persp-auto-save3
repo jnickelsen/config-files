@@ -1,48 +1,6 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "home.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/felathia/home.md"
-                         markdown-mode)
-             (def-buffer "outline.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/outline.org"
-                         org-mode)
-             (def-buffer "the garbage gods my mother made.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/90 manuscript/the garbage gods my mother made.md"
-                         markdown-mode)
-             (def-buffer "journal.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/20 logs and journal/journal.md"
-                         markdown-mode)
-             (def-buffer "vesta arrives.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/vesta arrives.md"
-                         markdown-mode)
-             (def-buffer "arriving at the house.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/arriving at the house.md"
-                         markdown-mode)
-             (def-buffer "Vesta arrives in the shuttle.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/Vesta arrives in the shuttle.md"
-                         markdown-mode)
-             (def-buffer "at the canteen.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/at the canteen.md"
-                         markdown-mode)
-             (def-buffer "fragment - child in the pile.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/fragment - child in the pile.md"
-                         markdown-mode)
-             (def-buffer "fragment - memories of the house.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/fragment - memories of the house.md"
-                         markdown-mode)
-             (def-buffer "tmp placeholder for writing.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/tmp placeholder for writing.md"
-                         markdown-mode)
-             (def-buffer "vesta as unexpected arrival.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/garbage-gods/50 drafts and fragments/vesta as unexpected arrival.md"
-                         markdown-mode)
-             (def-buffer "emacs reference.org"
-                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
-                         org-mode)
-             (def-buffer "what-it-feels-like-forty-eight.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/obsidian/40 Authoring/46 Blog/2025/drafts/what-it-feels-like-forty-eight.md"
-                         markdown-mode)
-             (def-buffer "work.org"
+            ((def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
              (def-buffer "today.org"
@@ -52,34 +10,83 @@
                          "/Users/jessicanickelsen/Documents/org/inbox.org"
                          org-mode))
             (def-wconf
-             (((min-height . 4) (min-width . 20) (min-height-ignore . 3)
-               (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4)
-               (min-pixel-height . 80) (min-pixel-width . 200)
-               (min-pixel-height-ignore . 60) (min-pixel-width-ignore . 80)
-               (min-pixel-height-safe . 20) (min-pixel-width-safe . 40))
-              hc (pixel-width . 1276) (pixel-height . 674) (total-width . 128)
-              (total-height . 34) (normal-height . 1.0) (normal-width . 1.0)
+             (((min-height . 12) (min-width . 10) (min-height-ignore . 9)
+               (min-width-ignore . 4) (min-height-safe . 3) (min-width-safe . 2)
+               (min-pixel-height . 240) (min-pixel-width . 100)
+               (min-pixel-height-ignore . 180) (min-pixel-width-ignore . 40)
+               (min-pixel-height-safe . 60) (min-pixel-width-safe . 20))
+              vc (pixel-width . 1276) (pixel-height . 748) (total-width . 128)
+              (total-height . 37) (normal-height . 1.0) (normal-width . 1.0)
               (combination-limit)
-              (leaf (pixel-width . 350) (pixel-height . 674) (total-width . 35)
-                    (total-height . 34) (normal-height . 1.0)
-                    (normal-width . 0.2727272727272727)
-                    (parameters (window-side . left) (window-slot . 0))
-                    (buffer
-                     " *Treemacs-Buffer-#<frame Emacs@Jess-mac.local 0x13f851238>"
-                     (selected) (hscroll . 0) (fringes 8 8 nil nil)
-                     (margins nil) (scroll-bars nil 0 t nil 0 t nil)
-                     (vscroll . 0) (dedicated . t) (point . 547) (start . 74)))
-              (leaf (last . t) (pixel-width . 926) (pixel-height . 674)
-                    (total-width . 93) (total-height . 34) (normal-height . 1.0)
-                    (normal-width . 0.7272727272727273)
-                    (buffer "home.md" (selected . t) (hscroll . 0)
-                            (fringes 8 8 t nil) (margins 5 . 6)
+              (vc (pixel-width . 1276) (pixel-height . 548) (total-width . 128)
+                  (total-height . 27) (normal-height . 0.7406417112299465)
+                  (normal-width . 1.0) (combination-limit)
+                  (leaf (pixel-width . 1276) (pixel-height . 468)
+                        (total-width . 128) (total-height . 23)
+                        (normal-height . 0.9010695187165776)
+                        (normal-width . 1.0)
+                        (buffer "*spacemacs*" (selected . t) (hscroll . 0)
+                                (fringes 8 8 nil nil) (margins nil)
+                                (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                                (dedicated) (point . 245) (start . 1))
+                        (prev-buffers ("*scratch*" 1 1)))
+                  (leaf (last . t) (pixel-width . 1276) (pixel-height . 80)
+                        (total-width . 128) (total-height . 4)
+                        (normal-height . 0.09893048128342241)
+                        (normal-width . 1.0)
+                        (buffer "*Warnings*" (selected) (hscroll . 0)
+                                (fringes 8 8 nil nil) (margins nil)
+                                (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                                (dedicated) (point . 1) (start . 1))))
+              (leaf (last . t) (pixel-width . 1276) (pixel-height . 200)
+                    (total-width . 128) (total-height . 10)
+                    (normal-height . 0.2593582887700535) (normal-width . 1.0)
+                    (buffer "*Compile-Log*" (selected) (hscroll . 0)
+                            (fringes 8 8 nil nil) (margins nil)
                             (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                            (dedicated) (point . 1) (start . 1))
-                    (prev-buffers
-                     ("the garbage gods my mother made.md" 18357 19660)
-                     ("journal.md" 1 1) ("outline.org" 241 1572)
-                     ("Vesta arrives in the shuttle.md" 108 745)))))
+                            (dedicated) (point . 1129) (start . 584)))))
             (def-params
-             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)))
+             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
+              (gui-eyebrowse-window-configs
+               (1
+                (((min-height . 12) (min-width . 10) (min-height-ignore . 9)
+                  (min-width-ignore . 4) (min-height-safe . 3)
+                  (min-width-safe . 2) (min-pixel-height . 240)
+                  (min-pixel-width . 100) (min-pixel-height-ignore . 180)
+                  (min-pixel-width-ignore . 40) (min-pixel-height-safe . 60)
+                  (min-pixel-width-safe . 20))
+                 vc (pixel-width . 1276) (pixel-height . 748)
+                 (total-width . 128) (total-height . 37) (normal-height . 1.0)
+                 (normal-width . 1.0) (combination-limit)
+                 (vc (pixel-width . 1276) (pixel-height . 548)
+                     (total-width . 128) (total-height . 27)
+                     (normal-height . 0.7406417112299465) (normal-width . 1.0)
+                     (combination-limit)
+                     (leaf (pixel-width . 1276) (pixel-height . 468)
+                           (total-width . 128) (total-height . 23)
+                           (normal-height . 0.9010695187165776)
+                           (normal-width . 1.0)
+                           (buffer "*spacemacs*" (selected . t) (hscroll . 0)
+                                   (fringes 8 8 nil nil) (margins nil)
+                                   (scroll-bars nil 0 t nil 0 t nil)
+                                   (vscroll . 0) (dedicated) (point . 245)
+                                   (start . 1))
+                           (prev-buffers ("*scratch*" 1 1)))
+                     (leaf (last . t) (pixel-width . 1276) (pixel-height . 80)
+                           (total-width . 128) (total-height . 4)
+                           (normal-height . 0.09893048128342241)
+                           (normal-width . 1.0)
+                           (buffer "*Warnings*" (selected) (hscroll . 0)
+                                   (fringes 8 8 nil nil) (margins nil)
+                                   (scroll-bars nil 0 t nil 0 t nil)
+                                   (vscroll . 0) (dedicated) (point . 1)
+                                   (start . 1))))
+                 (leaf (last . t) (pixel-width . 1276) (pixel-height . 200)
+                       (total-width . 128) (total-height . 10)
+                       (normal-height . 0.2593582887700535) (normal-width . 1.0)
+                       (buffer "*Compile-Log*" (selected) (hscroll . 0)
+                               (fringes 8 8 nil nil) (margins nil)
+                               (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                               (dedicated) (point . 1129) (start . 584))))
+                ""))))
             t nil nil))

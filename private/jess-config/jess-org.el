@@ -94,6 +94,23 @@
 
 
 
+;;;;;;;;;;ORG SORT BY NUMBER NO PREFIX
+;; for work.org - sorting but excluding the client prefix for jira codes
+
+(defun org-sort-by-leading-number-suffix ()
+  "Sort Org entries numerically by the number in the prefix at the start of the heading (e.g., MOJ-45)."
+  (interactive)
+  (org-sort-entries t ?f
+                    (lambda ()
+                      (let ((heading (org-get-heading t t t t)))
+                        ;; Extract the number after the dash in the first word
+                        (if (string-match "^[^ ]*-\\([0-9]+\\)" heading)
+                            (string-to-number (match-string 1 heading))
+                          0)))))
+
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c s B") #'org-sort-by-leading-number-suffix))
+
 ;;;;;;;; my/org-narrow-to-subtree action
 ;;;;;;;; currently am commenting this out; seeing if org-side-tree will do
 ;;;;;;;; everything I need it to.

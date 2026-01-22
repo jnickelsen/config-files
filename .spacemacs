@@ -90,6 +90,7 @@ This function should only modify configuration layer settings."
                                       ef-themes
                                       organic-green-theme
                                       forest-blue-theme
+                                      kaolin-themes
                                       ;; For writing
                                       writegood-mode
                                       flyspell
@@ -306,7 +307,8 @@ It should only modify the values of Spacemacs settings."
    ;; `:location' to download the theme package, refer the themes section in
    ;; DOCUMENTATION.org for the full theme specifications.
 
-   dotspacemacs-themes '((doom-flatwhite :package doom-themes)
+   dotspacemacs-themes '((ef-maris-light)
+                         (doom-flatwhite :package doom-themes)
                          (doom-horizon :package doom-themes)
                          )
 
@@ -982,54 +984,53 @@ This function is called at the very end of Spacemacs initialization."
      '(["Discworld" "discworld.starturtle.net" 4242 "wanda" "schifoso76" "" ""]))
    '(org-agenda-files
      '("~/Documents/org/work.org" "/Users/jessicanickelsen/Documents/org/today.org"
-       "/Users/jessicanickelsen/Documents/org/inbox.org"
-       ))
+       "/Users/jessicanickelsen/Documents/org/inbox.org"))
    '(org-pomodoro-finished-sound "~/.emacs.d/private/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "~/.emacs.d/private/sounds/wood-block.wav")
    '(package-selected-packages
      '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
          all-the-icons annotate auto-compile auto-highlight-symbol
          catppuccin-theme centered-cursor-mode clean-aindent-mode closql
-         column-enforce-mode company company-web counsel counsel-css
-         dash-functional deferred define-word devdocs diminish dired-quick-sort
-         disable-mouse doom-modeline doom-themes dotenv-mode drag-stuff dumb-jump
-         edit-indirect ef-themes elisp-def elisp-demos elisp-slime-nav emacsql
-         emmet-mode emojify emr eval-sexp-fu evil-anzu evil-args evil-cleverparens
-         evil-collection evil-easymotion evil-escape evil-evilified-state
-         evil-exchange evil-goggles evil-iedit-state evil-indent-plus evil-lion
-         evil-lisp-state evil-matchit evil-mc evil-nerd-commenter evil-numbers
-         evil-org evil-surround evil-textobj-line evil-tutor evil-unimpaired
-         evil-visual-mark-mode evil-visualstar expand-region eyebrowse
-         fancy-battery flatui-theme flx-ido flycheck flycheck-elsa
-         flycheck-package flycheck-pos-tip forge gandalf-theme gh-md ghub git-link
-         git-messenger git-modes git-timemachine gitignore-templates gntp gnuplot
-         golden-ratio google-translate haml-mode helm-ag helm-comint helm-css-scss
-         helm-descbinds helm-git-grep helm-ls-git helm-make helm-mode-manager
-         helm-org helm-org-rifle helm-projectile helm-purpose helm-swoop
-         helm-themes helm-xref hide-comnt highlight-indentation highlight-numbers
-         highlight-parentheses hl-todo holy-mode htmlize hungry-delete hybrid-mode
-         impatient-mode indent-guide info+ inspector ivy langtool link-hint llama
-         log4e lorem-ipsum macrostep magit magit-section markdown-mode
-         markdown-toc memoize multi-line nameless nerd-icons nyan-mode obsidian
-         olivetti open-junk-file org org-bullets org-category-capture org-cliplink
-         org-contrib org-download org-journal org-kanban org-mime org-noter
-         org-plus-contrib org-pomodoro org-present org-project-capture
-         org-projectile org-ql org-reverse-datetree org-rich-yank org-side-tree
-         org-sidebar org-starter org-super-agenda org-superstar org-tracktable
-         organic-green-theme orgit orgit-forge ov overseer ox-hugo package-lint
-         palimpsest paradox password-generator pcre2el pdf-tools pomodoro popwin
-         pos-tip prettier-js pug-mode queue quickrun rainbow-delimiters ranger
-         request restart-emacs sass-mode scss-mode shrink-path sidebar
-         sidebar-narrow simple-httpd slim-mode smeargle space-doc spaceline
-         spaceline-all-the-icons spacemacs-purpose-popwin
-         spacemacs-whitespace-cleanup string-edit-at-point string-inflection
-         swiper symbol-overlay symon tablist tagedit term-cursor toc-org tomelr
-         toxi-theme transient treemacs-all-the-icons treemacs-evil
-         treemacs-icons-dired treemacs-magit treemacs-persp treemacs-projectile
-         treepy ts undo-fu undo-fu-session uuidgen vi-tilde-fringe
-         volatile-highlights vundo wc-mode web-beautify web-completion-data
-         web-mode wgrep winum with-editor writegood-mode writeroom-mode ws-butler
-         yaml yasnippet zenburn-theme))
+         color-theme-sanityinc-tomorrow column-enforce-mode company company-web
+         counsel counsel-css dash-functional deferred define-word devdocs diminish
+         dired-quick-sort disable-mouse doom-modeline doom-themes dotenv-mode
+         drag-stuff dumb-jump edit-indirect ef-themes elisp-def elisp-demos
+         elisp-slime-nav emacsql emmet-mode emojify emr eval-sexp-fu evil-anzu
+         evil-args evil-cleverparens evil-collection evil-easymotion evil-escape
+         evil-evilified-state evil-exchange evil-goggles evil-iedit-state
+         evil-indent-plus evil-lion evil-lisp-state evil-matchit evil-mc
+         evil-nerd-commenter evil-numbers evil-org evil-surround evil-textobj-line
+         evil-tutor evil-unimpaired evil-visual-mark-mode evil-visualstar
+         expand-region eyebrowse fancy-battery flatui-theme flx-ido flycheck
+         flycheck-elsa flycheck-package flycheck-pos-tip forge gandalf-theme gh-md
+         ghub git-link git-messenger git-modes git-timemachine gitignore-templates
+         gntp gnuplot golden-ratio google-translate haml-mode helm-ag helm-comint
+         helm-css-scss helm-descbinds helm-git-grep helm-ls-git helm-make
+         helm-mode-manager helm-org helm-org-rifle helm-projectile helm-purpose
+         helm-swoop helm-themes helm-xref hide-comnt highlight-indentation
+         highlight-numbers highlight-parentheses hl-todo holy-mode htmlize
+         hungry-delete hybrid-mode impatient-mode indent-guide info+ inspector ivy
+         kaolin-themes langtool link-hint llama log4e lorem-ipsum macrostep magit
+         magit-section markdown-mode markdown-toc memoize multi-line nameless
+         nerd-icons nyan-mode obsidian olivetti open-junk-file org org-bullets
+         org-category-capture org-cliplink org-contrib org-download org-journal
+         org-kanban org-mime org-noter org-plus-contrib org-pomodoro org-present
+         org-project-capture org-projectile org-ql org-reverse-datetree
+         org-rich-yank org-side-tree org-sidebar org-starter org-super-agenda
+         org-superstar org-tracktable organic-green-theme orgit orgit-forge ov
+         overseer ox-hugo package-lint palimpsest paradox password-generator
+         pcre2el pdf-tools pomodoro popwin pos-tip prettier-js pug-mode queue
+         quickrun rainbow-delimiters ranger request restart-emacs sass-mode
+         scss-mode shrink-path sidebar sidebar-narrow simple-httpd slim-mode
+         smeargle space-doc spaceline spaceline-all-the-icons
+         spacemacs-purpose-popwin spacemacs-whitespace-cleanup
+         string-edit-at-point string-inflection swiper symbol-overlay symon
+         tablist tagedit term-cursor toc-org tomelr toxi-theme transient
+         treemacs-all-the-icons treemacs-evil treemacs-icons-dired treemacs-magit
+         treemacs-persp treemacs-projectile treepy ts undo-fu undo-fu-session
+         uuidgen vi-tilde-fringe volatile-highlights vundo wc-mode web-beautify
+         web-completion-data web-mode wgrep winum with-editor writegood-mode
+         writeroom-mode ws-butler yaml yasnippet zenburn-theme))
    '(safe-local-variable-values '((eval progn (pp-buffer) (indent-buffer))))
    '(writeroom-fullscreen-effect 'maximized)
    '(writeroom-global-effects

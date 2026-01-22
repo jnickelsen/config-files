@@ -39,9 +39,9 @@
 ;; Day and night theme schedules
 (defvar jess/day-theme-alist
   '(("Monday"    . doom-flatwhite)
-    ("Tuesday"   . doom-solarized-light)
-    ("Wednesday" . doom-ayu-light)
-    ("Thursday"  . ef-reverie)
+    ("Tuesday"   . ef-day)
+    ("Wednesday" . ef-reverie)
+    ("Thursday"  . doom-ayu-light)
     ("Friday"    . ef-maris-light)
     ("Saturday"  . organic-green)
     ("Sunday"    . ef-summer)
@@ -82,9 +82,34 @@
 ;; daytime timer
 (run-at-time nil 3600 #'jess/apply-daily-theme)
 
+
+;; make sure the scale isn't wonky; I like smaller headlines
+(add-hook 'after-load-theme-hook
+          (lambda ()
+            ;; 1. Ground the universe
+            (set-face-attribute 'default nil :height 100)
+
+            ;; 2. Neutralise outline faces
+            (dolist (face '(outline-1 outline-2 outline-3 outline-4
+                                      outline-5 outline-6 outline-7 outline-8))
+              (set-face-attribute face nil
+                                  :inherit 'default
+                                  :height 1.0
+                                  :weight 'normal))
+
+            ;; 3. Apply *intentional* Org hierarchy
+            (set-face-attribute 'org-level-1 nil
+                                :inherit 'default
+                                :weight 'bold
+                                :height 1.05)
+            (set-face-attribute 'org-level-2 nil
+                                :inherit 'default
+                                :weight 'bold
+                                :height 1.0)))
 ;; -----------------------------
 ;; Apply immediately on load
 (jess/apply-daily-theme)
+
 
 (provide 'jess-theming)
 
