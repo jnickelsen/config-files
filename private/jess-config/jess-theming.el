@@ -50,7 +50,7 @@
 
 (defvar jess/night-theme-alist
   '(("Monday"    . doom-solarized-dark)
-    ("Tuesday"   . doom-horizon)
+    ("Tuesday"   . doom-gruvbox)
     ("Wednesday" . ef-elea-dark)
     ("Thursday"  . ef-dream) ;; love this!
     ("Friday"    . doom-henna)

@@ -1,17 +1,15 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "Untitled 1.md"
-                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Drafts/Untitled 1.md"
+            ((def-buffer "2026-04-15.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/obsidian/40 Authoring/46 Blog/2026/drafts/2026-04-15.md"
                          markdown-mode)
-             (def-buffer "2025-12-21-sometimes-life-is-hard.md"
-                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Drafts/2025-12-21-sometimes-life-is-hard.md"
+             (def-buffer "Untitled 1.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/obsidian/40 Authoring/46 Blog/2026/drafts/Untitled 1.md"
                          markdown-mode)
              (def-buffer "emacs reference.org"
                          "/Users/jessicanickelsen/Documents/org/emacs reference.org"
                          org-mode)
-             (def-buffer "2025-10-11-.md"
-                         "/Users/jessicanickelsen/db/Apps/Blot/Drafts/2025-10-11-.md"
-                         markdown-mode)
+             (def-buffer "obsidian" "~/Documents/GitHub/obsidian/" dired-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
@@ -20,28 +18,7 @@
                          org-mode)
              (def-buffer "inbox.org"
                          "/Users/jessicanickelsen/Documents/org/inbox.org"
-                         org-mode)
-             (def-buffer "about.md"
-                         "/Users/jessicanickelsen/Library/CloudStorage/Dropbox/Apps/Blot/Pages/about.md"
-                         markdown-mode)
-             (def-buffer "rewilding-edits.org" nil org-mode)
-             (def-buffer "garbage gods.org<garbage-gods>" nil org-mode)
-             (def-buffer "2025-08-21-checking-in.md" nil markdown-mode)
-             (def-buffer "planning.org" nil org-mode)
-             (def-buffer ".spacemacs" "/Users/jessicanickelsen/.spacemacs"
-                         emacs-lisp-mode)
-             (def-buffer "gothic trash god novel.org" nil org-mode)
-             (def-buffer "garbage gods.org<011 The Garbage God My Mother Made>"
-                         nil org-mode)
-             (def-buffer "jess-garbage-gods.persp<config-files>"
-                         "/Users/jessicanickelsen/Documents/GitHub/config-files/layouts/jess-garbage-gods.persp"
-                         emacs-lisp-mode)
-             (def-buffer ".custom-settings"
-                         "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
-                         emacs-lisp-mode)
-             (def-buffer "Apps" "~/Library/CloudStorage/Dropbox/Apps/"
-                         dired-mode)
-             (def-buffer "wizardawn.sql" nil fundamental-mode))
+                         org-mode))
             (def-wconf
              (((min-height . 4) (min-width . 30) (min-height-ignore . 3)
                (min-width-ignore . 12) (min-height-safe . 1)
@@ -52,39 +29,36 @@
               hc (pixel-width . 1276) (pixel-height . 748) (total-width . 128)
               (total-height . 37) (normal-height . 1.0) (normal-width . 1.0)
               (combination-limit)
-              (leaf (pixel-width . 230) (pixel-height . 748) (total-width . 23)
+              (leaf (pixel-width . 350) (pixel-height . 748) (total-width . 35)
                     (total-height . 37) (normal-height . 1.0)
-                    (normal-width . 0.17868338557993746)
+                    (normal-width . 0.2727272727272727)
                     (parameters (window-side . left) (window-slot . 0))
                     (buffer
-                     " *Treemacs-Buffer-#<frame Emacs@Jess-Mac.local 0x10a81c438>"
+                     " *Treemacs-Buffer-#<frame Emacs@Jess-Mac.local 0x974d4ca38>"
                      (selected) (hscroll . 0) (fringes 8 8 nil nil)
                      (margins nil) (scroll-bars nil 0 t nil 0 t nil)
-                     (vscroll . 0) (dedicated . t) (point . 204) (start . 33)))
-              (hc (last . t) (pixel-width . 1046) (pixel-height . 748)
-                  (total-width . 105) (total-height . 37) (normal-height . 1.0)
-                  (normal-width . 0.8213166144200625) (combination-limit . t)
-                  (leaf (pixel-width . 786) (pixel-height . 748)
-                        (total-width . 79) (total-height . 37)
-                        (normal-height . 1.0)
-                        (normal-width . 0.7505069192934931)
-                        (buffer "Untitled 1.md" (selected . t) (hscroll . 0)
+                     (vscroll . 0) (dedicated . t) (point . 319) (start . 1)))
+              (hc (last . t) (pixel-width . 926) (pixel-height . 748)
+                  (total-width . 93) (total-height . 37) (normal-height . 1.0)
+                  (normal-width . 0.7272727272727273) (combination-limit . t)
+                  (leaf (pixel-width . 466) (pixel-height . 748)
+                        (total-width . 47) (total-height . 37)
+                        (normal-height . 1.0) (normal-width . 0.5)
+                        (buffer "2026-04-15.md" (selected . t) (hscroll . 0)
                                 (fringes 8 8 t nil) (margins nil)
                                 (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                                (dedicated) (point . 28) (start . 1))
-                        (prev-buffers
-                         ("2025-12-21-sometimes-life-is-hard.md" 1 204)
-                         ("Untitled 1.md" 1 28) ("2025-10-11-.md" 1 11)
-                         ("*spacemacs*" 1 2139) ("*scratch*" 1 1)))
-                  (leaf (last . t) (pixel-width . 260) (pixel-height . 748)
-                        (total-width . 26) (total-height . 37)
-                        (normal-height . 1.0)
-                        (normal-width . 0.24949308070650686)
+                                (dedicated) (point . 1) (start . 1))
+                        (prev-buffers ("Untitled 1.md" 1 2) ("obsidian" 1 1549)
+                                      ("*spacemacs*" 757 2498)
+                                      ("work.org" 31791 31809) ("*scratch*" 1 1)))
+                  (leaf (last . t) (pixel-width . 460) (pixel-height . 748)
+                        (total-width . 46) (total-height . 37)
+                        (normal-height . 1.0) (normal-width . 0.5)
                         (buffer "emacs reference.org" (selected) (hscroll . 0)
                                 (fringes 8 8 t nil) (margins nil)
                                 (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                                (dedicated) (point . 360) (start . 172))
-                        (prev-buffers ("Untitled 1.md" 1 28))))))
+                                (dedicated) (point . 360) (start . 1))
+                        (prev-buffers ("Untitled 1.md" 1 2))))))
             (def-params
-             ((gui-eyebrowse-current-slot . 1) (gui-eyebrowse-last-slot . 1)))
+             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)))
             t nil nil))
