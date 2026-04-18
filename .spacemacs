@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(html
+   '(yaml
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -219,7 +220,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
    ;; to `emacs-version'. (default 'emacs-version)
-   dotspacemacs-elpa-subdirectory 'emacs-version
+   dotspacemacs-elpa-subdirectory nil
 
    ;; One of `vim', `emacs' or `hybrid'.
    ;; `hybrid' is like `vim' except that `insert state' is replaced by the
@@ -656,19 +657,26 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (setq evil-want-keybinding nil)
-  (setq package-quickstart t)
-  ;; Initialize the package system **before** using use-package
-  ;;(package-initialize)
-  ;; (require 'package)
-  (setq package-archives
-        '(("melpa" . "https://melpa.org/packages/")
-          ("org"   . "https://orgmode.org/elpa/")
-          ("gnu"   . "https://elpa.gnu.org/packages/")))
-  (setq package-enable-at-startup nil)
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
 
+  (add-to-list 'load-path
+               (car (file-expand-wildcards
+                     "~/.emacs.d/elpa/org-[0-9]*")))
+
+  (setq evil-want-keybinding nil)
+
+  ;; trying to address treemacs error on startup
+  (unless (boundp 'treemacs--buffer-name-prefix)
+    (defvar treemacs--buffer-name-prefix " *treemacs-buffer-"))
+
+  ;; silencing warnings about depreciated packages that haven't been updated yet.
+  (setq byte-compile-warnings '(not obsolete))
+  (setq warning-suppress-types '((obsolete)))
+
+  ;; more error stuff
+  (setq warning-suppress-log-types '((org-element-cache)
+                                     (org)))
+  (setq warning-suppress-types '((obsolete)
+                                 (org)))
   )
 
 
@@ -712,6 +720,8 @@ before packages are loaded."
   ;;; quietening startup messages
   (setq vc-handled-backends nil)
 
+;;; remapping because my muscle memory already knows SPC s s
+  (spacemacs/set-leader-keys "s s" 'helm-occur)
 
  ;;;;;;;; setting load path for private packages
   (let ((default-directory "~/.emacs.d/private/"))
@@ -1012,7 +1022,7 @@ This function is called at the very end of Spacemacs initialization."
          hungry-delete hybrid-mode impatient-mode indent-guide info+ inspector ivy
          kaolin-themes langtool link-hint llama log4e lorem-ipsum macrostep magit
          magit-section markdown-mode markdown-toc memoize multi-line nameless
-         nerd-icons nyan-mode obsidian olivetti open-junk-file org org-bullets
+         nerd-icons nyan-mode obsidian olivetti open-junk-file org-bullets
          org-category-capture org-cliplink org-contrib org-download org-journal
          org-kanban org-mime org-noter org-plus-contrib org-pomodoro org-present
          org-project-capture org-projectile org-ql org-reverse-datetree
@@ -1030,7 +1040,7 @@ This function is called at the very end of Spacemacs initialization."
          treemacs-persp treemacs-projectile treepy ts undo-fu undo-fu-session
          uuidgen vi-tilde-fringe volatile-highlights vundo wc-mode web-beautify
          web-completion-data web-mode wgrep winum with-editor writegood-mode
-         writeroom-mode ws-butler yaml yasnippet zenburn-theme))
+         writeroom-mode ws-butler yaml yaml-mode yasnippet zenburn-theme))
    '(safe-local-variable-values '((eval progn (pp-buffer) (indent-buffer))))
    '(writeroom-fullscreen-effect 'maximized)
    '(writeroom-global-effects
