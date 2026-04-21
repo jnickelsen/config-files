@@ -1,20 +1,14 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "build.yml"
-                         "/Users/jessicanickelsen/.config/emacs-plus/build.yml"
-                         fundamental-mode)
-             (def-buffer "work.org"
+            ((def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
-                         yaml-mode)
+                         org-mode)
              (def-buffer "today.org"
                          "/Users/jessicanickelsen/Documents/org/today.org"
                          org-mode)
              (def-buffer "inbox.org"
                          "/Users/jessicanickelsen/Documents/org/inbox.org"
-                         org-mode)
-             (def-buffer ".custom-settings"
-                         "/Users/jessicanickelsen/.emacs.d/.cache/.custom-settings"
-                         emacs-lisp-mode))
+                         org-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10) (min-height-ignore . 2)
                (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2)
@@ -23,12 +17,11 @@
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
               leaf (pixel-width . 816) (pixel-height . 700) (total-width . 81)
               (total-height . 35) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "build.yml" (selected . t) (hscroll . 0)
+              (buffer "*spacemacs*" (selected . t) (hscroll . 0)
                       (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 17) (start . 1))
-              (prev-buffers ("work.org" 33055 34424) ("*spacemacs*" 1 245)
-                            ("*scratch*" 1 1))))
+                      (dedicated) (point . 1) (start . 1))
+              (prev-buffers ("*scratch*" 1 1))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -40,13 +33,12 @@
                   (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 20))
                  leaf (pixel-width . 1276) (pixel-height . 744)
-                 (total-width . 127) (total-height . 37) (normal-height . 1.0)
+                 (total-width . 128) (total-height . 37) (normal-height . 1.0)
                  (normal-width . 1.0)
-                 (buffer "build.yml" (selected . t) (hscroll . 0)
+                 (buffer "*spacemacs*" (selected . t) (hscroll . 0)
                          (fringes 8 8 nil nil) (margins nil)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 17) (start . 1))
-                 (prev-buffers ("work.org" 33055 34424) ("*spacemacs*" 1 245)
-                               ("*scratch*" 1 1)))
+                         (dedicated) (point . 245) (start . 1))
+                 (prev-buffers ("*scratch*" 1 1)))
                 ""))))
             t nil nil))

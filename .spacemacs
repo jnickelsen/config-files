@@ -83,6 +83,9 @@ This function should only modify configuration layer settings."
                                       all-the-icons
                                       doom-modeline
                                       doom-themes
+                                      (helm-themes :location (recipe
+                                                              :fetcher github
+                                                              :repo "duianto/emacs-helm-themes"))
                                       nerd-icons
                                       nyan-mode
                                       org-bullets
@@ -757,6 +760,8 @@ before packages are loaded."
   (spacemacs/set-leader-keys "f T" #'treemacs-select-window)
   (with-eval-after-load 'treemacs
     (setq treemacs-show-hidden-files nil))
+  ;; enabling follow mode
+  (treemacs-follow-mode t)
 
 ;;;;;;;;;; doom modeline setup
   (setq doom-modeline-icon nil)
@@ -900,63 +905,6 @@ before packages are loaded."
   ;; --------------------------------
   ;; CURRENTLY RETIRED / ON PAUSE
   ;; --------------------------------
-
-;;;;;;;;;; setting up buffer-box
-  ;; I really like this but it's not working right now
-
-  ;;   ;; Immediate border toggling (using default header)
-  ;;   (require 'buffer-box)
-  ;;   (buffer-box)
-
-  ;; ;;;;;;; tweaking buffer-box so I don't get weird hanging indents
-  ;; ;;;;;;; and also making sure word-wrapping doesn't create spaces
-  ;; ;;;;;;; (it might be overlapping, function-wise, with writeroom)
-  ;;   (defun my/buffer-box-overlay-create ()
-  ;;     "Create overlay with left and right borders for the entire buffer."
-  ;;     (when (bufferp (current-buffer))
-  ;;       ;; Remove any previous overlay
-  ;;       (remove-overlays (point-min) (point-max) 'buffer-box t)
-  ;;       ;; Make a new overlay for the buffer
-  ;;       (let ((ov (make-overlay (point-min) (point-max))))
-  ;;         (overlay-put ov 'buffer-box t)
-  ;;         ;; Left and right borders, using display properties
-  ;;         (overlay-put ov 'before-string
-  ;;                      (propertize "│" 'face 'buffer-box-face-active))
-  ;;         (overlay-put ov 'after-string
-  ;;                      (propertize "│" 'face 'buffer-box-face-active))
-  ;;         ;; Ensure margins are zero to avoid conflict with writeroom
-  ;;         (setq-local left-margin-width 0
-  ;;                     right-margin-width 0
-  ;;                     fringes-outside-margins nil))))
-
-  ;;   (defun my/buffer-box-overlay-update-active-face ()
-  ;;     "Update border overlay face according to window selection."
-  ;;     (when-let ((ov (buffer-box--overlay)))
-  ;;       (let ((face (if (mode-line-window-selected-p)
-  ;;                       'buffer-box-face-active
-  ;;                     'buffer-box-face-inactive)))
-  ;;         (overlay-put ov 'before-string (propertize "│" 'face face))
-  ;;         (overlay-put ov 'after-string  (propertize "│" 'face face)))))
-
-  ;;   ;; Ensure overlay is created when buffer-box is toggled on
-  ;;   (advice-add 'buffer-box-on :after #'my/buffer-box-overlay-create)
-
-  ;;   ;; Track window selection changes to update face without touching line-prefix
-  ;;   (add-hook 'window-selection-change-functions
-  ;;             (lambda (&rest _) (my/buffer-box-overlay-update-active-face)))
-
-  ;;   ;; Track newly created windows for multi-window setups
-  ;;   (add-hook 'window-buffer-change-functions
-  ;;             (lambda (&rest _)
-  ;;               (dolist (win (window-list))
-  ;;                 (with-current-buffer (window-buffer win)
-  ;;                   (my/buffer-box-overlay-create)
-  ;;                   (my/buffer-box-overlay-update-active-face)))))
-
-
-;;;;;;;;;; changing bell alarm
-  ;; see M-x customize group / org-pomodoro for this
-
 
 
 
