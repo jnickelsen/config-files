@@ -129,6 +129,8 @@ This function should only modify configuration layer settings."
                                     powerline
                                     vim-powerline
                                     code-review
+                                    helm-swoop
+                                    helm-git-grep
                                     )
 
 
@@ -311,9 +313,8 @@ It should only modify the values of Spacemacs settings."
    ;; `:location' to download the theme package, refer the themes section in
    ;; DOCUMENTATION.org for the full theme specifications.
 
-   dotspacemacs-themes '((ef-maris-light)
-                         (doom-flatwhite :package doom-themes)
-                         (doom-horizon :package doom-themes)
+   dotspacemacs-themes '(
+                         organic-green
                          )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -661,9 +662,9 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
-  (add-to-list 'load-path
-               (car (file-expand-wildcards
-                     "~/.emacs.d/elpa/org-[0-9]*")))
+  ;; (add-to-list 'load-path
+  ;;              (car (file-expand-wildcards
+  ;;                    "~/.emacs.d/elpa/org-[0-9]*")))
 
   (setq evil-want-keybinding nil)
 
@@ -672,15 +673,11 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
     (defvar treemacs--buffer-name-prefix " *treemacs-buffer-"))
 
   ;; silencing warnings about depreciated packages that haven't been updated yet.
-  (setq byte-compile-warnings '(not obsolete))
-  (setq warning-suppress-types '((obsolete)))
 
-  ;; more error stuff
-  (setq warning-suppress-log-types '((org-element-cache)
-                                     (org)))
-  (setq warning-suppress-types '((obsolete)
-                                 (org)))
+  (setq warning-suppress-types '((obsolete) (org)))
+  (setq warning-suppress-log-types '((org-element-cache) (org)))
   )
+
 
 
 (defun dotspacemacs/user-load ()
@@ -719,9 +716,9 @@ before packages are loaded."
   ;; and running it when emacs starts up
   (add-hook 'after-init-hook #'my/org-agenda-prune-files)
 
-
-  ;;; quietening startup messages
-  (setq vc-handled-backends nil)
+  ;; trying to tidy up recentf messages on startup
+  (setq recentf-auto-cleanup 'never)
+  (setq recentf-auto-save-timer (run-with-idle-timer 300 t 'recentf-save-list))
 
 ;;; remapping because my muscle memory already knows SPC s s
   (spacemacs/set-leader-keys "s s" 'helm-occur)
@@ -744,7 +741,6 @@ before packages are loaded."
 ;;;;;;;;;; tidy up caching / changed files
   ;; Automatically clean up recentf when files no longer exist
   (add-hook 'kill-emacs-hook #'recentf-cleanup)
-  (add-hook 'find-file-hook #'recentf-cleanup)
 
 
 ;;;;;;;;;; trying to sort window dividers when I split panes
@@ -817,8 +813,6 @@ before packages are loaded."
   ;; for example not to maximize screen in fullscreen
   (add-hook 'text-mode-hook (lambda ()
                               (interactive)
-                              (message "Writeroom text-mode-hook")
-                              ;;(hidden-mode-line-mode)
                               (spacemacs/toggle-vi-tilde-fringe-off)
                               (writeroom-mode 1)
                               (palimpsest-mode)
@@ -895,7 +889,6 @@ before packages are loaded."
 
   ;; Apply theme once
   (unless (bound-and-true-p jess-theme-applied)
-    (load-theme 'ef-reverie t)
     (setq jess-theme-applied t))
 
 ;;;;;;;;;;;;;making sure *spacemacs* still loads

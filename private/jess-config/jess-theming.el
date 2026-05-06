@@ -40,7 +40,7 @@
 (defvar jess/day-theme-alist
   '(("Monday"    . doom-dracula) ;; in the mood for dark today
     ("Tuesday"   . ef-day)
-    ("Wednesday" . ef-reverie)
+    ("Wednesday" . organic-green)
     ("Thursday"  . doom-ayu-light)
     ("Friday"    . ef-maris-light)
     ("Saturday"  . organic-green)

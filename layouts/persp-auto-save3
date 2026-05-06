@@ -1,49 +1,42 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "new structure.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/felathia/new structure.org"
-                         org-mode)
+            ((def-buffer ".spacemacs"
+                         "/Users/jessicanickelsen/Documents/Github/config-files/.spacemacs"
+                         emacs-lisp-mode)
+             (def-buffer "jess-org.el"
+                         "/Users/jessicanickelsen/Documents/Github/config-files/private/jess-config/jess-org.el"
+                         emacs-lisp-mode)
+             (def-buffer "jess-theming.el"
+                         "/Users/jessicanickelsen/Documents/Github/config-files/private/jess-config/jess-theming.el"
+                         emacs-lisp-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/org/work.org"
                          org-mode)
-             (def-buffer "rewilding 1.0.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/first draft/rewilding 1.0.org"
-                         org-mode)
-             (def-buffer "emacs reference.org"
-                         "/Users/jessicanickelsen/Documents/org/emacs reference.org"
-                         org-mode)
-             (def-buffer "rewilding 2.md"
-                         "/Users/jessicanickelsen/Documents/GitHub/fiction/90 Projects/009 Writing Group Anthology 2/90 Manuscript/first draft/writing in sections/rewilding 2.md"
-                         markdown-mode)
-             (def-buffer "jess-theming.el"
-                         "/Users/jessicanickelsen/.emacs.d/private/jess-config/jess-theming.el"
-                         emacs-lisp-mode)
              (def-buffer "today.org"
                          "/Users/jessicanickelsen/Documents/org/today.org"
                          org-mode)
              (def-buffer "inbox.org"
                          "/Users/jessicanickelsen/Documents/org/inbox.org"
                          org-mode)
-             (def-buffer ".spacemacs" "/Users/jessicanickelsen/.spacemacs"
-                         emacs-lisp-mode)
-             (def-buffer "now.md" nil fundamental-mode))
+             (def-buffer "jess-config"
+                         "~/Documents/Github/config-files/private/jess-config/"
+                         dired-mode))
             (def-wconf
-             (((min-height . 4) (min-width . 50) (min-height-ignore . 2)
-               (min-width-ignore . 50) (min-height-safe . 1)
-               (min-width-safe . 2) (min-pixel-height . 80)
-               (min-pixel-width . 500) (min-pixel-height-ignore . 40)
-               (min-pixel-width-ignore . 500) (min-pixel-height-safe . 20)
-               (min-pixel-width-safe . 20))
+             (((min-height . 4) (min-width . 10) (min-height-ignore . 2)
+               (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2)
+               (min-pixel-height . 80) (min-pixel-width . 100)
+               (min-pixel-height-ignore . 40) (min-pixel-width-ignore . 40)
+               (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
               leaf (pixel-width . 816) (pixel-height . 700) (total-width . 81)
               (total-height . 35) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "new structure.org" (selected . t) (hscroll . 0)
-                      (fringes 8 8 t nil) (margins 23 . 23)
+              (buffer ".spacemacs" (selected . t) (hscroll . 0)
+                      (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 476) (start . 1))
-              (prev-buffers ("work.org" 1 31742) ("rewilding 1.0.org" 1 9375)
-                            ("rewilding 2.md" 1 1) ("new structure.org" 1 136)
-                            ("*spacemacs*" 1277 1835)
-                            ("jess-theming.el" 3872 5314) ("*scratch*" 1 1))))
+                      (dedicated) (point . 32169) (start . 31058))
+              (prev-buffers ("jess-org.el" 312 1496)
+                            ("jess-theming.el" 388 1386) ("jess-config" 1 272)
+                            (".spacemacs" 31058 32169) ("*Messages*" 1 1)
+                            ("*spacemacs*" 1 140) ("*scratch*" 1 1))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -54,17 +47,17 @@
                   (min-pixel-width . 100) (min-pixel-height-ignore . 60)
                   (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 20))
-                 leaf (pixel-width . 1276) (pixel-height . 744)
-                 (total-width . 128) (total-height . 37) (normal-height . 1.0)
+                 leaf (pixel-width . 946) (pixel-height . 920)
+                 (total-width . 94) (total-height . 46) (normal-height . 1.0)
                  (normal-width . 1.0)
-                 (buffer "new structure.org" (selected . t) (hscroll . 0)
-                         (fringes 8 8 t nil) (margins 23 . 23)
+                 (buffer ".spacemacs" (selected . t) (hscroll . 0)
+                         (fringes 8 8 nil nil) (margins nil)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 476) (start . 1))
-                 (prev-buffers ("work.org" 1 31742) ("rewilding 1.0.org" 1 9375)
-                               ("rewilding 2.md" 1 1)
-                               ("new structure.org" 1 136)
-                               ("*spacemacs*" 1277 1835)
-                               ("jess-theming.el" 3872 5314) ("*scratch*" 1 1)))
+                         (dedicated) (point . 32169) (start . 31058))
+                 (prev-buffers ("jess-org.el" 312 1496)
+                               ("jess-theming.el" 388 1386)
+                               ("jess-config" 1 272) (".spacemacs" 31058 32169)
+                               ("*Messages*" 1 1) ("*spacemacs*" 1 140)
+                               ("*scratch*" 1 1)))
                 ""))))
             t nil nil))
