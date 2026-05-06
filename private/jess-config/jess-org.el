@@ -91,7 +91,7 @@
                            (org-agenda-files :maxlevel . 9)))
 (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
 (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
-
+(setq org-refile-use-outline-path 'file)              ; HOPEFULLY lets me refile to top level
 
 
 ;;;;;;;;;;ORG SORT BY NUMBER NO PREFIX
