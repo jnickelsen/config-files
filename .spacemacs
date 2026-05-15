@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(yaml
+   '(javascript
+     yaml
      html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -95,6 +96,7 @@ This function should only modify configuration layer settings."
                                       organic-green-theme
                                       forest-blue-theme
                                       kaolin-themes
+                                      color-theme-modern
                                       ;; For writing
                                       writegood-mode
                                       flyspell
@@ -942,28 +944,29 @@ This function is called at the very end of Spacemacs initialization."
      '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
          all-the-icons annotate auto-compile auto-highlight-symbol
          catppuccin-theme centered-cursor-mode clean-aindent-mode closql
-         color-theme-sanityinc-tomorrow column-enforce-mode company company-web
-         counsel counsel-css dash-functional deferred define-word devdocs diminish
-         dired-quick-sort disable-mouse doom-modeline doom-themes dotenv-mode
-         drag-stuff dumb-jump edit-indirect ef-themes elisp-def elisp-demos
-         elisp-slime-nav emacsql emmet-mode emojify emr eval-sexp-fu evil-anzu
-         evil-args evil-cleverparens evil-collection evil-easymotion evil-escape
-         evil-evilified-state evil-exchange evil-goggles evil-iedit-state
-         evil-indent-plus evil-lion evil-lisp-state evil-matchit evil-mc
-         evil-nerd-commenter evil-numbers evil-org evil-surround evil-textobj-line
-         evil-tutor evil-unimpaired evil-visual-mark-mode evil-visualstar
-         expand-region eyebrowse fancy-battery flatui-theme flx-ido flycheck
-         flycheck-elsa flycheck-package flycheck-pos-tip forge gandalf-theme gh-md
-         ghub git-link git-messenger git-modes git-timemachine gitignore-templates
-         gntp gnuplot golden-ratio google-translate haml-mode helm-ag helm-comint
-         helm-css-scss helm-descbinds helm-git-grep helm-ls-git helm-make
-         helm-mode-manager helm-org helm-org-rifle helm-projectile helm-purpose
-         helm-swoop helm-themes helm-xref hide-comnt highlight-indentation
-         highlight-numbers highlight-parentheses hl-todo holy-mode htmlize
-         hungry-delete hybrid-mode impatient-mode indent-guide info+ inspector ivy
-         kaolin-themes langtool link-hint llama log4e lorem-ipsum macrostep magit
-         magit-section markdown-mode markdown-toc memoize multi-line nameless
-         nerd-icons nyan-mode obsidian olivetti open-junk-file org-bullets
+         color-theme-modern color-theme-sanityinc-tomorrow column-enforce-mode
+         company company-web counsel counsel-css dash-functional deferred
+         define-word devdocs diminish dired-quick-sort disable-mouse doom-modeline
+         doom-themes dotenv-mode drag-stuff dumb-jump edit-indirect ef-themes
+         elisp-def elisp-demos elisp-slime-nav emacsql emmet-mode emojify emr
+         eval-sexp-fu evil-anzu evil-args evil-cleverparens evil-collection
+         evil-easymotion evil-escape evil-evilified-state evil-exchange
+         evil-goggles evil-iedit-state evil-indent-plus evil-lion evil-lisp-state
+         evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-org
+         evil-surround evil-textobj-line evil-tutor evil-unimpaired
+         evil-visual-mark-mode evil-visualstar expand-region eyebrowse
+         fancy-battery flatui-theme flx-ido flycheck flycheck-elsa
+         flycheck-package flycheck-pos-tip forge gandalf-theme gh-md ghub git-link
+         git-messenger git-modes git-timemachine gitignore-templates gntp gnuplot
+         golden-ratio google-translate haml-mode helm-ag helm-comint helm-css-scss
+         helm-descbinds helm-git-grep helm-ls-git helm-make helm-mode-manager
+         helm-org helm-org-rifle helm-projectile helm-purpose helm-swoop
+         helm-themes helm-xref hide-comnt highlight-indentation highlight-numbers
+         highlight-parentheses hl-todo holy-mode htmlize hungry-delete hybrid-mode
+         impatient-mode indent-guide info+ inspector ivy kaolin-themes langtool
+         link-hint llama log4e lorem-ipsum macrostep magit magit-section
+         markdown-mode markdown-toc memoize multi-line nameless nerd-icons
+         nyan-mode obsidian olivetti open-junk-file org-bullets
          org-category-capture org-cliplink org-contrib org-download org-journal
          org-kanban org-mime org-noter org-plus-contrib org-pomodoro org-present
          org-project-capture org-projectile org-ql org-reverse-datetree
