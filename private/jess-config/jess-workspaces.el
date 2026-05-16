@@ -12,6 +12,14 @@
 
 ;; dired opens files in the next window rather than replacing itself
 (setq dired-dwim-target t)
+(with-eval-after-load 'dired
+  (evil-define-key 'normal dired-mode-map
+    (kbd "RET") (lambda ()
+                  (interactive)
+                  (if (file-directory-p (dired-get-file-for-visit))
+                      (dired-find-file)
+                    (dired-find-file-other-window)))))
+
 
 
 ;; ─────────────────────────────────────────────

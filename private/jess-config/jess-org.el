@@ -6,6 +6,9 @@
 
 ;; making dired open selected in the next window
 (setq dired-dwim-target t)
+;; and setting it to non-verbose by default
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
+
 ;;;;;;;; making sure text wraps by default
 (add-hook 'org-mode-hook #'visual-line-mode)
 
