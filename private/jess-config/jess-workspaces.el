@@ -7,7 +7,7 @@
 ;; ─────────────────────────────────────────────
 
 (defvar jess/reference-file
-  "~/Documents/GitHub/org/emacs-reference.org"
+  "~/Documents/GitHub/org/emacs reference.org"
   "Path to the Emacs reference file, shown in the right sidebar.")
 
 ;; dired opens files in the next window rather than replacing itself
