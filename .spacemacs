@@ -741,6 +741,7 @@ before packages are loaded."
   (add-to-list 'load-path "~/.emacs.d/private/jess-config/")
   (require 'jess-theming)
   (require 'jess-org)
+  (require 'jess-workspaces)
 
   ;;;;;;;THIS IS BEING REPLACED
   ;; making sure the theme stuff happens on emacs start
@@ -978,8 +979,8 @@ This function is called at the very end of Spacemacs initialization."
    '(mu-worlds
      '(["Discworld" "discworld.starturtle.net" 4242 "wanda" "schifoso76" "" ""]))
    '(org-agenda-files
-     '("~/Documents/Github/work/work.org" "/Users/jessicanickelsen/Documents/org/today.org"
-       "/Users/jessicanickelsen/Documents/org/inbox.org"))
+     '("~/Documents/Github/work/work.org" "/Users/jessicanickelsen/Documents/GitHub/org/today.org"
+       "/Users/jessicanickelsen/Documents/GitHub/org/inbox.org"))
    '(org-pomodoro-finished-sound "~/.emacs.d/private/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "~/.emacs.d/private/sounds/wood-block.wav")
    '(package-selected-packages

@@ -4,7 +4,8 @@
 
 (require 'cl-lib)
 
-
+;; making dired open selected in the next window
+(setq dired-dwim-target t)
 ;;;;;;;; making sure text wraps by default
 (add-hook 'org-mode-hook #'visual-line-mode)
 
