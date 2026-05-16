@@ -4,6 +4,10 @@
 
 (require 'cl-lib)
 
+
+;;;;;;;; making sure text wraps by default
+(add-hook 'org-mode-hook #'visual-line-mode)
+
 ;;;;;;;;;; trying to stop files opening in another window by default
 (setq org-link-frame-setup '((file . find-file)))
 
@@ -30,34 +34,15 @@
 (setq org-clock-report-include-clocking-task t)
 
 
-;;;;;;;;;; headline sizes in org mode
-(with-eval-after-load 'org
-  ;; Top-level heading (* Heading): slightly larger and bold
-  ;; edit: this was :height 1.1 but I am changing it back to 1.0
-  (set-face-attribute 'org-level-1 nil :height 1.05 :weight 'bold)
-
-  ;; All other heading levels: normal size and bold
-  (dolist (face '(org-level-2 org-level-3 org-level-4
-                              org-level-5 org-level-6 org-level-7 org-level-8))
-    (set-face-attribute face nil :height 1.0 :weight 'bold)))
-
-;; making sure the above 'sticks' when the theme changes
-(add-hook 'after-load-theme-hook #'jess/org-set-headline-sizes)
-
-
 ;;;;;;;;;; setting details for tags
 (setq org-tags-column 0) ; this hopefully puts tags inline with headlines
 
-;;;;;configuration for org and org-roam, etc.
-(with-eval-after-load 'org
-  ;;  (org-superstar-mode -1) ;; superstar mode was overriding my bullets!
+;;;;;configuration for bullets using org-superstar.
+(with-eval-after-load 'org-superstar
+  (setq org-superstar-headline-bullets-list '("◉" "☉" "◎" "○" "►" "✲")))
 
-  (use-package org-bullets
-    :after org
-    :hook (org-mode . org-bullets-mode)
-    :custom
-    (org-bullets-bullet-list '("◉" "☉" "◎" "○" "►" "✲")))
-  )
+(add-hook 'org-mode-hook #'org-superstar-mode)
+
 ;;;;;;;;;; superstar mode
 (setq org-superstar-remove-leading-stars t
       org-superstar-leading-bullet " "
@@ -110,6 +95,28 @@
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c s B") #'org-sort-by-leading-number-suffix))
+
+;;;;;;;; setting up export from org to a word document
+(defun jess/convert-org-to-docx ()
+  "Use Pandoc to convert the current .org buffer to .docx."
+  (interactive)
+  (unless (buffer-file-name)
+    (user-error "Buffer is not visiting a file"))
+  (let* ((input (buffer-file-name))
+         (output (concat (file-name-sans-extension input)
+                         (format-time-string "-%Y-%m-%d-%H%M%S")
+                         ".docx"))
+         (cmd (concat "pandoc --from org '" input "' -o '" output "' 2>&1"))
+         (result (shell-command-to-string cmd)))
+    (if (string-empty-p result)
+        (message "Exported to %s" (file-name-nondirectory output))
+      (message "Pandoc error: %s" result))))
+
+
+(with-eval-after-load 'org
+  (spacemacs/declare-prefix-for-mode 'org-mode "mP" "pandoc")
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "P d" #'jess/convert-org-to-docx))
 
 ;;;;;;;; my/org-narrow-to-subtree action
 ;;;;;;;; currently am commenting this out; seeing if org-side-tree will do

@@ -63,10 +63,8 @@ This function should only modify configuration layer settings."
      syntax-checking
      ;; version-control
      (treemacs :variables
-               treemacs-use-all-the-icons-theme t
-               treemacs-use-follow-mode t
+               treemacs-load-theme "nerd-icons"
                treemacs-use-filewatch-mode t)
-
      )
 
    ;; List of additional packages that will be installed without being wrapped
@@ -81,7 +79,7 @@ This function should only modify configuration layer settings."
                                       ;; navigation
                                       ranger
                                       ;; Aesthetics
-                                      all-the-icons
+                                      treemacs-nerd-icons
                                       doom-modeline
                                       doom-themes
                                       (helm-themes :location (recipe
@@ -96,7 +94,8 @@ This function should only modify configuration layer settings."
                                       organic-green-theme
                                       forest-blue-theme
                                       kaolin-themes
-                                      color-theme-modern
+                                      catppuccin-theme
+
                                       ;; For writing
                                       writegood-mode
                                       flyspell
@@ -127,7 +126,6 @@ This function should only modify configuration layer settings."
 
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                    light-blue
                                     powerline
                                     vim-powerline
                                     code-review
@@ -267,12 +265,14 @@ It should only modify the values of Spacemacs settings."
    ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
-   dotspacemacs-startup-lists '((recents . 7)
-                                (projects . 10)
-                                (bookmarks . 5)
+   dotspacemacs-startup-lists '(
                                 (agenda . 5)
                                 (todos . 5)
-                                (recents-by-project . (5 . 5)))
+                                (recents . 7)
+                                (projects . 10)
+                                (bookmarks . 5)
+                                (recents-by-project . (3 . 3))
+                                )
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -338,7 +338,7 @@ It should only modify the values of Spacemacs settings."
    ;; fixed-pitch faces. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("iMWritingDuo Nerd Font"  ;; was Source Code Pro
                                :size 16.0
                                :weight normal
                                :width normal)
@@ -678,6 +678,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (setq warning-suppress-types '((obsolete) (org)))
   (setq warning-suppress-log-types '((org-element-cache) (org)))
+
+  ;; making sure my themes are there
+  (add-to-list 'custom-theme-load-path "~/Documents/GitHub/config-files/private/themes/")
+
   )
 
 
@@ -707,6 +711,12 @@ before packages are loaded."
   ;; having problems with leader keys!
   (spacemacs/set-leader-keys "SPC" 'helm-M-x)
 
+  ;; ignore missing org-agenda files
+  (with-eval-after-load 'org
+    (setq org-agenda-files
+          (seq-filter #'file-exists-p
+                      org-agenda-files)))
+
   ;; removing missing org agenda files
   (defun my/org-agenda-prune-files ()
     "Remove non-existent files from `org-agenda-files`."
@@ -728,10 +738,14 @@ before packages are loaded."
  ;;;;;;;; setting load path for private packages
   (let ((default-directory "~/.emacs.d/private/"))
     (normal-top-level-add-subdirs-to-load-path))
-  (load "~/.emacs.d/private/jess-config/jess-theming.el")
-  (load "~/.emacs.d/private/jess-config/jess-org.el")
+  (add-to-list 'load-path "~/.emacs.d/private/jess-config/")
   (require 'jess-theming)
   (require 'jess-org)
+
+  ;;;;;;;THIS IS BEING REPLACED
+  ;; making sure the theme stuff happens on emacs start
+  ;;(add-hook 'emacs-startup-hook #'jess/apply-daily-theme)
+
   ;; making sure markdown mode works right
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
@@ -739,6 +753,9 @@ before packages are loaded."
 ;;; enable transient mark mode, which enables using org mode with different file types
   (transient-mark-mode 1)
 
+
+  ;; setting default cappuccin flavour
+  (setq catppuccin-flavor 'latte)
 
 ;;;;;;;;;; tidy up caching / changed files
   ;; Automatically clean up recentf when files no longer exist
@@ -754,15 +771,43 @@ before packages are loaded."
   ;; (require 'nyan-mode)
   ;; (nyan-mode 1)
 
+
+;;;;;;;;;; fiddling with monochrome stuff
+  (with-eval-after-load 'nerd-icons
+    (setq nerd-icons-color-icons nil)
+
+    ;; force everything to inherit default face (monochrome)
+    (dolist (face (face-list))
+      (when (string-prefix-p "nerd-icons-" (symbol-name face))
+        (set-face-attribute face nil
+                            :foreground 'unspecified))))
+
 ;;;;;;;;;; treemacs config
   (spacemacs/set-leader-keys "f T" #'treemacs-select-window)
+  (require 'treemacs-nerd-icons)
+  (require 'nerd-icons)
   (with-eval-after-load 'treemacs
+    (setq treemacs-no-png-images nil)   ;; IMPORTANT: allow icons
+    (setq treemacs-icon-fallback-text nil)
+    (setq nerd-icons-scale-factor 1.0)
+    (treemacs-load-theme "nerd-icons")
     (setq treemacs-show-hidden-files nil))
   ;; enabling follow mode
-  (treemacs-follow-mode t)
+  (with-eval-after-load 'treemacs
+    (treemacs-follow-mode 1)
+    )
+  (with-eval-after-load 'treemacs
+    (setq treemacs-load-theme "nerd-icons")
+    (setq treemacs-no-png-images t)
 
+    ;; force treemacs faces to be monochrome
+    (dolist (face '(treemacs-root-face
+                    treemacs-file-face
+                    treemacs-directory-face
+                    treemacs-tags-face))
+      (set-face-attribute face nil :foreground 'unspecified)))
 ;;;;;;;;;; doom modeline setup
-  (setq doom-modeline-icon nil)
+  (setq doom-modeline-icon t)
   (setq doom-modeline-buffer-file-name-style 'file-name)
   (setq doom-modeline-minor-modes nil)
   (setq doom-modeline-enable-word-count t)
@@ -770,8 +815,10 @@ before packages are loaded."
   (require 'doom-modeline)
   (doom-modeline-mode 1)
   ;;(nyan-mode 1)  ;;already set above
-
-
+  (setq doom-modeline-major-mode-color-icon nil)
+  (setq doom-modeline-buffer-state-icon nil)
+  (setq doom-modeline-major-mode-color-icon nil)
+  (setq doom-modeline-buffer-state-icon nil)
 
   ;; --------------------------------
   ;; WRITING ENVIRONMENT
@@ -828,7 +875,7 @@ before packages are loaded."
               (turn-on-font-lock)
 
               ;; Apply custom color palette (your own function)
-              (my/apply-markdown-palette-by-name "Your Palette Name")
+              ;;   (my/apply-markdown-palette-by-name "Your Palette Name")
 
               ;; Tweak heading styles
               (set-face-attribute 'markdown-header-face-1 nil :height 1.1 :weight 'bold)
@@ -855,14 +902,11 @@ before packages are loaded."
 
 
 ;;;;;;;;;; RANGER
-  ;; (define-key evil-normal-state-map (kbd ", r") 'ranger)
-  ;; (setq ranger-cleanup-eagerly t)
 
-  ;; Ranger behavior tweaks
-  (setq ranger-cleanup-eagerly t)   ;; clean up windows/buffers when quitting
-  (setq ranger-open-in-place nil)   ;; open files in another window, keep ranger open
+  (with-eval-after-load 'ranger
+    (setq ranger-cleanup-eagerly t
+          ranger-open-in-place t))
 
-  ;; Open ranger in the current buffer's directory
   (defun my/ranger-here ()
     "Open ranger in the directory of the current buffer."
     (interactive)
@@ -870,9 +914,7 @@ before packages are loaded."
                 (file-name-directory (buffer-file-name))
               default-directory)))
 
-  ;; Override any existing , r binding in evil normal state (currently ', r' opens org-roam)
-  (define-key evil-normal-state-map (kbd ", r") nil)
-  (define-key evil-normal-state-map (kbd ", r") 'my/ranger-here)
+  (spacemacs/set-leader-keys "fr" #'my/ranger-here)
 
   ;; --------------------------------
   ;; MAGIT
@@ -936,7 +978,7 @@ This function is called at the very end of Spacemacs initialization."
    '(mu-worlds
      '(["Discworld" "discworld.starturtle.net" 4242 "wanda" "schifoso76" "" ""]))
    '(org-agenda-files
-     '("~/Documents/org/work.org" "/Users/jessicanickelsen/Documents/org/today.org"
+     '("~/Documents/Github/work/work.org" "/Users/jessicanickelsen/Documents/org/today.org"
        "/Users/jessicanickelsen/Documents/org/inbox.org"))
    '(org-pomodoro-finished-sound "~/.emacs.d/private/sounds/kitchen-timer.wav")
    '(org-pomodoro-short-break-sound "~/.emacs.d/private/sounds/wood-block.wav")
@@ -979,12 +1021,13 @@ This function is called at the very end of Spacemacs initialization."
          smeargle space-doc spaceline spaceline-all-the-icons
          spacemacs-purpose-popwin spacemacs-whitespace-cleanup
          string-edit-at-point string-inflection swiper symbol-overlay symon
-         tablist tagedit term-cursor toc-org tomelr toxi-theme transient
+         tablist tagedit term-cursor tern toc-org tomelr toxi-theme transient
          treemacs-all-the-icons treemacs-evil treemacs-icons-dired treemacs-magit
-         treemacs-persp treemacs-projectile treepy ts undo-fu undo-fu-session
-         uuidgen vi-tilde-fringe volatile-highlights vundo wc-mode web-beautify
-         web-completion-data web-mode wgrep winum with-editor writegood-mode
-         writeroom-mode ws-butler yaml yaml-mode yasnippet zenburn-theme))
+         treemacs-nerd-icons treemacs-persp treemacs-projectile treepy ts undo-fu
+         undo-fu-session uuidgen vi-tilde-fringe volatile-highlights vundo wc-mode
+         web-beautify web-completion-data web-mode wgrep winum with-editor
+         writegood-mode writeroom-mode ws-butler yaml yaml-mode yasnippet
+         zenburn-theme))
    '(safe-local-variable-values '((eval progn (pp-buffer) (indent-buffer))))
    '(writeroom-fullscreen-effect 'maximized)
    '(writeroom-global-effects

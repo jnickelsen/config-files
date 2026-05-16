@@ -3,6 +3,19 @@
             ((def-buffer "new structure.org"
                          "/Users/jessicanickelsen/Documents/GitHub/felathia/new structure.org"
                          org-mode)
+             (def-buffer "felathia" "~/Documents/GitHub/felathia/" dired-mode)
+             (def-buffer ".spacemacs"
+                         "/Users/jessicanickelsen/Documents/GitHub/config-files/.spacemacs"
+                         emacs-lisp-mode)
+             (def-buffer "work.org"
+                         "/Users/jessicanickelsen/Documents/Github/work/work.org"
+                         org-mode)
+             (def-buffer "today.org"
+                         "/Users/jessicanickelsen/Documents/org/today.org"
+                         org-mode)
+             (def-buffer "inbox.org"
+                         "/Users/jessicanickelsen/Documents/org/inbox.org"
+                         org-mode)
              (def-buffer "theme-registry.org"
                          "/Users/jessicanickelsen/Documents/GitHub/config-files/private/jess-config/theme-registry.org"
                          org-mode)
@@ -12,24 +25,14 @@
              (def-buffer "jess-org.el"
                          "/Users/jessicanickelsen/Documents/GitHub/config-files/private/jess-config/jess-org.el"
                          emacs-lisp-mode)
-             (def-buffer "today.org"
-                         "/Users/jessicanickelsen/Documents/org/today.org"
-                         org-mode)
-             (def-buffer "work.org"
-                         "/Users/jessicanickelsen/Documents/Github/work/work.org"
-                         org-mode)
              (def-buffer "jess-theming.el"
                          "/Users/jessicanickelsen/Documents/GitHub/config-files/private/jess-config/jess-theming.el"
                          emacs-lisp-mode)
-             (def-buffer "inbox.org"
-                         "/Users/jessicanickelsen/Documents/org/inbox.org"
-                         org-mode)
              (def-buffer "00 Meta" "~/Documents/GitHub/fiction/00 Meta/"
                          dired-mode)
              (def-buffer "emacs reference.org"
                          "/Users/jessicanickelsen/Documents/org/emacs reference.org"
-                         org-mode)
-             (def-buffer "rewilding-edits.org" nil org-mode))
+                         org-mode))
             (def-wconf
              (((min-height . 4) (min-width . 30) (min-height-ignore . 2)
                (min-width-ignore . 12) (min-height-safe . 1)
@@ -40,36 +43,35 @@
               hc (pixel-width . 816) (pixel-height . 700) (total-width . 82)
               (total-height . 35) (normal-height . 1.0) (normal-width . 1.0)
               (combination-limit)
-              (leaf (pixel-width . 220) (pixel-height . 700) (total-width . 22)
+              (leaf (pixel-width . 150) (pixel-height . 700) (total-width . 15)
                     (total-height . 35) (normal-height . 1.0)
-                    (normal-width . 0.26960784313725494)
+                    (normal-width . 0.18382352941176472)
                     (parameters (window-side . left) (window-slot . 0))
                     (buffer
-                     " *Treemacs-Buffer-#<frame Emacs@Jess-Mac.local 0x8b4e08d40>"
-                     (selected) (hscroll . 0) (fringes 8 8 nil nil)
+                     " *Treemacs-Buffer-#<frame Emacs@Jess-Mac.local 0x941199d40>"
+                     (selected . t) (hscroll . 0) (fringes 8 8 nil nil)
                      (margins nil) (scroll-bars nil 0 t nil 0 t nil)
-                     (vscroll . 0) (dedicated . t) (point . 310) (start . 1)))
-              (hc (last . t) (pixel-width . 596) (pixel-height . 700)
-                  (total-width . 60) (total-height . 35) (normal-height . 1.0)
-                  (normal-width . 0.7303921568627451) (combination-limit . t)
-                  (leaf (pixel-width . 450) (pixel-height . 700)
-                        (total-width . 45) (total-height . 35)
+                     (vscroll . 0) (dedicated . t) (point . 1) (start . 1)))
+              (hc (last . t) (pixel-width . 666) (pixel-height . 700)
+                  (total-width . 67) (total-height . 35) (normal-height . 1.0)
+                  (normal-width . 0.8161764705882353) (combination-limit . t)
+                  (leaf (pixel-width . 490) (pixel-height . 700)
+                        (total-width . 49) (total-height . 35)
                         (normal-height . 1.0)
-                        (normal-width . 0.7550335570469798)
-                        (buffer "*spacemacs*" (selected . t) (hscroll . 0)
-                                (fringes 8 8 nil nil) (margins nil)
+                        (normal-width . 0.7357357357357357)
+                        (buffer "new structure.org" (selected) (hscroll . 0)
+                                (fringes 8 8 t nil) (margins nil)
                                 (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                                (dedicated) (point . 1) (start . 1))
-                        (prev-buffers ("new structure.org" 121 248)
-                                      ("*spacemacs*" 1 1) ("*scratch*" 1 1)))
-                  (leaf (last . t) (pixel-width . 146) (pixel-height . 700)
-                        (total-width . 15) (total-height . 35)
+                                (dedicated) (point . 17113) (start . 13196)))
+                  (leaf (last . t) (pixel-width . 176) (pixel-height . 700)
+                        (total-width . 18) (total-height . 35)
                         (normal-height . 1.0)
-                        (normal-width . 0.24496644295302014)
+                        (normal-width . 0.26426426426426425)
                         (buffer "emacs reference.org" (selected) (hscroll . 0)
                                 (fringes 8 8 t nil) (margins nil)
                                 (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                                (dedicated) (point . 6183) (start . 765))))))
+                                (dedicated) (point . 6175) (start . 1))
+                        (prev-buffers ("new structure.org" 16266 17113))))))
             (def-params
-             ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)))
+             ((gui-eyebrowse-current-slot . 1) (gui-eyebrowse-last-slot . 1)))
             t nil nil))

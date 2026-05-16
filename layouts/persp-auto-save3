@@ -1,26 +1,24 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer ".spacemacs"
-                         "/Users/jessicanickelsen/Documents/Github/config-files/.spacemacs"
+            ((def-buffer "jess-org.el"
+                         "/Users/jessicanickelsen/Documents/GitHub/config-files/private/jess-config/jess-org.el"
                          emacs-lisp-mode)
-             (def-buffer "jess-org.el"
-                         "/Users/jessicanickelsen/Documents/Github/config-files/private/jess-config/jess-org.el"
+             (def-buffer "new structure.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/felathia/new structure.org"
+                         org-mode)
+             (def-buffer ".spacemacs"
+                         "/Users/jessicanickelsen/Documents/GitHub/config-files/.spacemacs"
                          emacs-lisp-mode)
-             (def-buffer "jess-theming.el"
-                         "/Users/jessicanickelsen/Documents/Github/config-files/private/jess-config/jess-theming.el"
-                         emacs-lisp-mode)
+             (def-buffer "felathia" "~/Documents/GitHub/felathia/" dired-mode)
              (def-buffer "work.org"
-                         "/Users/jessicanickelsen/Documents/org/work.org"
+                         "/Users/jessicanickelsen/Documents/Github/work/work.org"
                          org-mode)
              (def-buffer "today.org"
                          "/Users/jessicanickelsen/Documents/org/today.org"
                          org-mode)
              (def-buffer "inbox.org"
                          "/Users/jessicanickelsen/Documents/org/inbox.org"
-                         org-mode)
-             (def-buffer "jess-config"
-                         "~/Documents/Github/config-files/private/jess-config/"
-                         dired-mode))
+                         org-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10) (min-height-ignore . 2)
                (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2)
@@ -29,14 +27,14 @@
                (min-pixel-height-safe . 20) (min-pixel-width-safe . 20))
               leaf (pixel-width . 816) (pixel-height . 700) (total-width . 81)
               (total-height . 35) (normal-height . 1.0) (normal-width . 1.0)
-              (buffer ".spacemacs" (selected . t) (hscroll . 0)
+              (buffer "jess-org.el" (selected . t) (hscroll . 0)
                       (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 32169) (start . 31058))
-              (prev-buffers ("jess-org.el" 312 1496)
-                            ("jess-theming.el" 388 1386) ("jess-config" 1 272)
-                            (".spacemacs" 31058 32169) ("*Messages*" 1 1)
-                            ("*spacemacs*" 1 140) ("*scratch*" 1 1))))
+                      (dedicated) (point . 4426) (start . 3976))
+              (prev-buffers ("new structure.org" 13385 13575)
+                            (".spacemacs" 30901 31953) ("jess-org.el" 3703 4246)
+                            ("felathia" 1 1415) ("*spacemacs*" 757 2582)
+                            ("*scratch*" 1 1))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
@@ -47,17 +45,16 @@
                   (min-pixel-width . 100) (min-pixel-height-ignore . 60)
                   (min-pixel-width-ignore . 40) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 20))
-                 leaf (pixel-width . 946) (pixel-height . 920)
-                 (total-width . 94) (total-height . 46) (normal-height . 1.0)
+                 leaf (pixel-width . 1276) (pixel-height . 744)
+                 (total-width . 128) (total-height . 37) (normal-height . 1.0)
                  (normal-width . 1.0)
-                 (buffer ".spacemacs" (selected . t) (hscroll . 0)
+                 (buffer "jess-org.el" (selected . t) (hscroll . 0)
                          (fringes 8 8 nil nil) (margins nil)
                          (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                         (dedicated) (point . 32169) (start . 31058))
-                 (prev-buffers ("jess-org.el" 312 1496)
-                               ("jess-theming.el" 388 1386)
-                               ("jess-config" 1 272) (".spacemacs" 31058 32169)
-                               ("*Messages*" 1 1) ("*spacemacs*" 1 140)
-                               ("*scratch*" 1 1)))
+                         (dedicated) (point . 4426) (start . 3976))
+                 (prev-buffers ("new structure.org" 13385 13575)
+                               (".spacemacs" 30901 31953)
+                               ("jess-org.el" 3703 4246) ("felathia" 1 1479)
+                               ("*spacemacs*" 757 2582) ("*scratch*" 1 1)))
                 ""))))
             t nil nil))

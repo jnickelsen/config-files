@@ -1,10 +1,138 @@
-;;; jess-theming.el --- Simple daily + night theme loader -*- lexical-binding: t; -*-
+;;; jess-theming.el --- Theme system backed by theme-registry.org -*- lexical-binding: t; -*-
 
 (message "Loading jess-theming.el")
 
+;; ─────────────────────────────────────────────
+;; CONFIGURATION
+;; ─────────────────────────────────────────────
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Org-mode prettify checkboxes
+(defvar jess/theme-registry-file
+  (expand-file-name "theme-registry.org" (file-name-directory (or load-file-name buffer-file-name)))
+  "Path to the org file listing themes with tags.")
+
+;; Evening = 18:00–06:59
+(defun jess/evening-p ()
+  (let ((h (string-to-number (format-time-string "%H"))))
+    (or (>= h 18) (< h 7))))
+
+
+;; ─────────────────────────────────────────────
+;; ORG REGISTRY PARSING
+;; Simple regexp approach — no org-element needed.
+;; Headlines look like: * theme-name :tag1:tag2:
+;; ─────────────────────────────────────────────
+
+(defun jess/registry-all-tags ()
+  "Return a sorted list of all unique tags in the theme registry."
+  (let (tags)
+    (with-temp-buffer
+      (insert-file-contents jess/theme-registry-file)
+      (goto-char (point-min))
+      (while (re-search-forward "^\\* .+?\\(\\(:[a-zA-Z0-9_]+\\)+:\\)" nil t)
+        (let ((tag-string (match-string 1)))
+          (dolist (tag (split-string (string-trim tag-string ":") ":"))
+            (unless (string-empty-p tag)
+              (cl-pushnew tag tags :test #'string=))))))
+    (sort tags #'string<)))
+
+(defun jess/registry-themes-with-tag (tag)
+  "Return a list of theme symbols from the registry that have TAG."
+  (let (themes
+        (pattern (format "^\\* \\([^ \t]+\\).*:%s:" (regexp-quote tag))))
+    (with-temp-buffer
+      (insert-file-contents jess/theme-registry-file)
+      (goto-char (point-min))
+      (while (re-search-forward pattern nil t)
+        (push (intern (match-string 1)) themes)))
+    (nreverse themes)))
+
+
+;; ─────────────────────────────────────────────
+;; THEME LOADING
+;; ─────────────────────────────────────────────
+
+(defun jess/load-theme-safely (theme)
+  "Disable all active themes, load THEME, then apply face tweaks."
+  (mapc #'disable-theme custom-enabled-themes)
+  (load-theme theme t)
+  (jess/apply-face-tweaks)
+  (message "Theme: %s" theme))
+
+(defun jess/pick-random (list)
+  "Return a random element from LIST, or nil if empty."
+  (when list
+    (nth (random (length list)) list)))
+
+
+;; ─────────────────────────────────────────────
+;; DAILY THEME  (time-based, random from :light or :dark)
+;; ─────────────────────────────────────────────
+
+(defun jess/apply-daily-theme ()
+  "Load a random light or dark theme depending on time of day."
+  (interactive)
+  (let* ((tag (if (jess/evening-p) "dark" "light"))
+         (candidates (jess/registry-themes-with-tag tag))
+         (theme (jess/pick-random candidates)))
+    (if theme
+        (jess/load-theme-safely theme)
+      (message "No themes found for tag: %s" tag))))
+
+
+;; ─────────────────────────────────────────────
+;; TAG-BASED RANDOM  (interactive, SPC T r)
+;; ─────────────────────────────────────────────
+
+(defun jess/random-theme-by-tag (tag)
+  "Pick a random theme from the registry matching TAG.
+With prefix arg, prompt from known tags; otherwise free-type."
+  (interactive
+   (list (completing-read "Tag: " (jess/registry-all-tags) nil nil)))
+  (let* ((candidates (jess/registry-themes-with-tag tag))
+         (theme (jess/pick-random candidates)))
+    (if theme
+        (progn
+          (jess/load-theme-safely theme)
+          (message "🎲 %s  (tag: %s, %d candidates)" theme tag (length candidates)))
+      (message "No themes found for tag: %s" tag))))
+
+
+;; ─────────────────────────────────────────────
+;; FACE TWEAKS  (applied after every theme load)
+;; Keeps headings modest — max 1.1× default height.
+;; ─────────────────────────────────────────────
+
+(defun jess/apply-face-tweaks ()
+  "Enforce sane heading sizes and weights after a theme is loaded."
+  ;; Flatten outline faces — themes sometimes scale these wildly
+  (dolist (face '(outline-1 outline-2 outline-3 outline-4
+                  outline-5 outline-6 outline-7 outline-8))
+    (when (facep face)
+      (set-face-attribute face nil :height 1.0 :weight 'normal :inherit 'default)))
+  ;; Org headings: level 1 slightly larger, rest normal
+  (when (facep 'org-level-1)
+    (set-face-attribute 'org-level-1 nil :height 1.1 :weight 'bold :inherit 'default))
+  (dolist (face '(org-level-2 org-level-3 org-level-4
+                  org-level-5 org-level-6 org-level-7 org-level-8))
+    (when (facep face)
+      (set-face-attribute face nil :height 1.0 :weight 'bold :inherit 'default))))
+
+
+;; ─────────────────────────────────────────────
+;; CATPPUCCIN FLAVOURS
+;; ─────────────────────────────────────────────
+
+(defun jess/catppuccin (flavour)
+  "Load catppuccin with FLAVOUR (latte, mocha, macchiato, frappe)."
+  (interactive (list (completing-read "Flavour: " '("latte" "mocha" "macchiato" "frappe"))))
+  (setq catppuccin-flavor (intern flavour))
+  (jess/load-theme-safely 'catppuccin))
+
+
+;; ─────────────────────────────────────────────
+;; ORG-MODE PRETTINESS
+;; ─────────────────────────────────────────────
+
 (add-hook 'org-mode-hook
           (lambda ()
             (org-indent-mode 1)
@@ -12,149 +140,35 @@
             (push '("[X]" . "☑") prettify-symbols-alist)
             (push '("[-]" . "❍") prettify-symbols-alist)
             (prettify-symbols-mode 1)
-            (org-bullets-mode 1)))
+            (when (fboundp 'org-bullets-mode)
+              (org-bullets-mode 1))))
 
 (defface org-checkbox-done-text
   '((t (:foreground "#71696A")))
   "Face for the text part of a checked org-mode checkbox.")
 
 
+;; ─────────────────────────────────────────────
+;; KEYBINDINGS
+;; ─────────────────────────────────────────────
 
-;; -----------------------------
-;; Utility: safely load a theme
-(defun my/load-theme-safely (theme)
-  "Disable all other themes and load THEME."
-  (mapc #'disable-theme custom-enabled-themes)
-  (load-theme theme t)
-  (message "Loaded theme: %s" theme))
+(spacemacs/set-leader-keys
+  "T d"   #'jess/apply-daily-theme       ;; today's random theme
+  "T r"   #'jess/random-theme-by-tag     ;; random by tag
+  "T c"   #'jess/catppuccin)             ;; catppuccin flavour picker
 
-;; -----------------------------
-;; Utility: check if it’s evening
-(defun evening-hours-p ()
-  "Return t if current time is between 6pm and 7am."
-  (let ((hour (string-to-number (format-time-string "%H"))))
-    (or (>= hour 18) (< hour 7))))
 
-;; -----------------------------
-;; Day and night theme schedules
-(defvar jess/day-theme-alist
-  '(("Monday"    . doom-dracula) ;; in the mood for dark today
-    ("Tuesday"   . ef-day)
-    ("Wednesday" . organic-green)
-    ("Thursday"  . doom-ayu-light)
-    ("Friday"    . ef-maris-light)
-    ("Saturday"  . organic-green)
-    ("Sunday"    . ef-summer)
-    (_           . doom-flatwhite))
-  "Alist mapping weekday names to day themes.")
+;; ─────────────────────────────────────────────
+;; STARTUP + AUTO-REFRESH
+;; ─────────────────────────────────────────────
 
-(defvar jess/night-theme-alist
-  '(("Monday"    . doom-solarized-dark)
-    ("Tuesday"   . doom-gruvbox)
-    ("Wednesday" . ef-elea-dark)
-    ("Thursday"  . ef-dream) ;; love this!
-    ("Friday"    . doom-henna)
-    ("Saturday"  . wombat)
-    ("Sunday"    . doom-solarized-dark)
-    (_           . wombat))
-  "Alist mapping weekday names to night themes.")
-
-;; -----------------------------
-;; Apply theme based on day + time
-(defun jess/apply-daily-theme ()
-  "Load theme for today, using day or night version."
-  (interactive)
-  (let* ((day (format-time-string "%A"))
-         (alist (if (evening-hours-p)
-                    jess/night-theme-alist
-                  jess/day-theme-alist))
-         (theme (or (cdr (assoc day alist))
-                    (cdr (assoc '_' alist)))))
-    (my/load-theme-safely theme)))
-
-;; -----------------------------
-;; Optional: keybinding for manual refresh
-(spacemacs/set-leader-keys "t d" #'jess/apply-daily-theme)
-
-;; -----------------------------
-;; Midnight timer to automatically switch day/night
+;; Switch at midnight and re-check every hour
 (run-at-time "00:00" 86400 #'jess/apply-daily-theme)
-;; daytime timer
 (run-at-time nil 3600 #'jess/apply-daily-theme)
 
-
-;; make sure the scale isn't wonky; I like smaller headlines
-(add-hook 'after-load-theme-hook
-          (lambda ()
-            ;; 1. Ground the universe
-            (set-face-attribute 'default nil :height 100)
-
-            ;; 2. Neutralise outline faces
-            (dolist (face '(outline-1 outline-2 outline-3 outline-4
-                                      outline-5 outline-6 outline-7 outline-8))
-              (set-face-attribute face nil
-                                  :inherit 'default
-                                  :height 1.0
-                                  :weight 'normal))
-
-            ;; 3. Apply *intentional* Org hierarchy
-            (set-face-attribute 'org-level-1 nil
-                                :inherit 'default
-                                :weight 'bold
-                                :height 1.05)
-            (set-face-attribute 'org-level-2 nil
-                                :inherit 'default
-                                :weight 'bold
-                                :height 1.0)))
-
-
-;; -----------------------------
-;; favourites
-
-(defvar jess/theme-clusters
-  '((:name "Cosy Dark"
-           :themes (doom-dracula doom-gruvbox doom-solarized-dark wombat
-                                 doom-henna doom-rouge doom-miramare doom-laserwave))
-    (:name "Soft Light"
-           :themes (ef-day ef-maris-light doom-ayu-light doom-flatwhite
-                           doom-solarized-light leuven modus-operandi spacemacs-light))
-    (:name "Ef Themes"
-           :themes (ef-day ef-reverie ef-maris-light ef-summer ef-elea-dark
-                           ef-dream ef-trio-light ef-trio-dark ef-spring ef-rosa))
-    (:name "Dreamy & Moody"
-           :themes (ef-dream ef-reverie doom-laserwave doom-miramare
-                             doom-rouge toxi doom-monokai-octagon))
-    (:name "Nature & Calm"
-           :themes (organic-green zenburn wombat ef-summer ef-spring
-                                  doom-oksolar-dark modus-operandi leuven))
-    (:name "All Favs"
-           :themes (doom-dracula doom-gruvbox doom-solarized-dark wombat doom-henna
-                                 doom-rouge doom-miramare doom-laserwave ef-day ef-maris-light
-                                 doom-ayu-light doom-flatwhite doom-solarized-light leuven
-                                 modus-operandi spacemacs-light ef-reverie ef-summer ef-elea-dark
-                                 ef-dream ef-trio-light ef-trio-dark ef-spring ef-rosa organic-green
-                                 zenburn toxi doom-oksolar-dark doom-monokai-octagon))))
-
-;; and then the function to randomly pick from these
-(defun jess/random-theme-from-cluster (cluster-name)
-  "Load a random theme from the named cluster."
-  (interactive
-   (list (completing-read "Cluster: "
-                          (mapcar (lambda (c) (plist-get c :name))
-                                  jess/theme-clusters))))
-  (let* ((cluster (seq-find (lambda (c) (string= (plist-get c :name) cluster-name))
-                            jess/theme-clusters))
-         (themes (plist-get cluster :themes))
-         (pick (nth (random (length themes)) themes)))
-    (my/load-theme-safely pick)
-    (message "🎲 Random theme: %s (from %s)" pick cluster-name)))
-
-(spacemacs/set-leader-keys "t r" #'jess/random-theme-from-cluster)
-
-
-;; -----------------------------
-;; Apply immediately on load
+;; Apply on startup
 (jess/apply-daily-theme)
 
 
 (provide 'jess-theming)
+;;; jess-theming.el ends here
