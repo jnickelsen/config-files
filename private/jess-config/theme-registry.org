@@ -57,7 +57,7 @@
 * leuven :light:greyish:
 * light-blue-theme :light:blueish:fave:
 * modus-operandi-deuteranopia :light:
-* modus-operandi-tinted :light:
+* modus-operandi-tinted :light:fave:
 * modus-operandi-tritanopia :light:
 * organic-green :light:greenish:fave:
 * spacemacs-light :light:

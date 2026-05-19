@@ -1,17 +1,52 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp nil
-            ((def-buffer "jess-workspaces.el"
-                         "/Users/jessicanickelsen/Documents/GitHub/config-files/private/jess-config/jess-workspaces.el"
-                         emacs-lisp-mode)
+            ((def-buffer "2026-05-16-sunday-morning.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/obsidian/40 Authoring/46 Blog/2026/drafts/2026-05-16-sunday-morning.md"
+                         markdown-mode)
+             (def-buffer "emacs reference.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/org/emacs reference.org"
+                         org-mode)
              (def-buffer "drafts"
                          "~/Documents/GitHub/obsidian/40 Authoring/46 Blog/2026/drafts/"
                          dired-mode)
-             (def-buffer "emacs-reference.org"
-                         "/Users/jessicanickelsen/Documents/GitHub/org/emacs-reference.org"
-                         org-mode)
+             (def-buffer "60 cicada ink"
+                         "~/Documents/GitHub/obsidian/60 cicada ink/" dired-mode)
+             (def-buffer "jess-workspaces.el"
+                         "/Users/jessicanickelsen/Documents/GitHub/config-files/private/jess-config/jess-workspaces.el"
+                         emacs-lisp-mode)
+             (def-buffer "work" "~/Documents/GitHub/work/" dired-mode)
              (def-buffer "work.org"
                          "/Users/jessicanickelsen/Documents/Github/work/work.org"
                          org-mode)
+             (def-buffer "outline 2.1.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/trash-planet-redux/outline 2.1.org"
+                         org-mode)
+             (def-buffer "trash-planet-redux"
+                         "~/Documents/GitHub/trash-planet-redux/" dired-mode)
+             (def-buffer "outline2.1.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/trash-planet-redux/outline2.1.org"
+                         org-mode)
+             (def-buffer "80 fiction" "~/Documents/GitHub/fiction/80 fiction/"
+                         dired-mode)
+             (def-buffer "new structure.org"
+                         "/Users/jessicanickelsen/Documents/GitHub/felathia/new structure.org"
+                         org-mode)
+             (def-buffer "felathia" "~/Documents/GitHub/felathia/" dired-mode)
+             (def-buffer "<post template>.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/obsidian/40 Authoring/46 Blog/2026/drafts/<post template>.md"
+                         markdown-mode)
+             (def-buffer "2026"
+                         "~/Documents/GitHub/obsidian/40 Authoring/46 Blog/2026/"
+                         dired-mode)
+             (def-buffer "46 Blog"
+                         "~/Documents/GitHub/obsidian/40 Authoring/46 Blog/"
+                         dired-mode)
+             (def-buffer "blog and ink.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/obsidian/40 Authoring/46 Blog/blog and ink.md"
+                         markdown-mode)
+             (def-buffer "master blog post list 2026.md"
+                         "/Users/jessicanickelsen/Documents/GitHub/obsidian/40 Authoring/46 Blog/2026/master blog post list 2026.md"
+                         markdown-mode)
              (def-buffer "today.org"
                          "/Users/jessicanickelsen/Documents/GitHub/org/today.org"
                          org-mode)
@@ -19,92 +54,91 @@
                          "/Users/jessicanickelsen/Documents/GitHub/org/inbox.org"
                          org-mode))
             (def-wconf
-             (((min-height . 4) (min-width . 30) (min-height-ignore . 2)
-               (min-width-ignore . 12) (min-height-safe . 1)
+             (((min-height . 4) (min-width . 30) (min-height-ignore . 3)
+               (min-width-ignore . 18) (min-height-safe . 1)
                (min-width-safe . 6) (min-pixel-height . 80)
-               (min-pixel-width . 300) (min-pixel-height-ignore . 40)
-               (min-pixel-width-ignore . 120) (min-pixel-height-safe . 20)
+               (min-pixel-width . 300) (min-pixel-height-ignore . 60)
+               (min-pixel-width-ignore . 180) (min-pixel-height-safe . 20)
                (min-pixel-width-safe . 60))
-              hc (pixel-width . 816) (pixel-height . 700) (total-width . 82)
+              hc (pixel-width . 833) (pixel-height . 700) (total-width . 83)
               (total-height . 35) (normal-height . 1.0) (normal-width . 1.0)
               (combination-limit . t)
               (leaf (pixel-width . 200) (pixel-height . 700) (total-width . 20)
                     (total-height . 35) (normal-height . 1.0)
-                    (normal-width . 0.2450980392156863)
+                    (normal-width . 0.2400960384153662)
                     (buffer "drafts" (selected) (hscroll . 0)
                             (fringes 8 8 nil nil) (margins nil)
-                            (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                            (dedicated) (point . 284) (start . 1))
-                    (prev-buffers ("*spacemacs*" 1 245) ("*scratch*" 1 1)))
-              (hc (last . t) (pixel-width . 616) (pixel-height . 700)
-                  (total-width . 62) (total-height . 35) (normal-height . 1.0)
-                  (normal-width . 0.7549019607843137) (combination-limit . t)
-                  (leaf (pixel-width . 410) (pixel-height . 700)
-                        (total-width . 41) (total-height . 35)
-                        (normal-height . 1.0)
-                        (normal-width . 0.6655844155844156)
-                        (buffer "jess-workspaces.el" (selected . t)
-                                (hscroll . 0) (fringes 8 8 nil nil)
-                                (margins nil) (scroll-bars nil 0 t nil 0 t nil)
-                                (vscroll . 0) (dedicated) (point . 296)
-                                (start . 1))
-                        (prev-buffers ("*writing*" 1 1) ("drafts" 1 284)))
-                  (leaf (last . t) (pixel-width . 206) (pixel-height . 700)
-                        (total-width . 21) (total-height . 35)
-                        (normal-height . 1.0)
-                        (normal-width . 0.3344155844155844)
-                        (buffer "emacs-reference.org" (selected) (hscroll . 0)
-                                (fringes 8 8 t nil) (margins nil)
-                                (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                            (scroll-bars nil 2 t nil 0 t nil) (vscroll . 0)
+                            (dedicated) (point . 460) (start . 1))
+                    (prev-buffers ("*writing*" 1 1) ("60 cicada ink" 1 265)))
+              (hc (last . t) (pixel-width . 633) (pixel-height . 700)
+                  (total-width . 63) (total-height . 35) (normal-height . 1.0)
+                  (normal-width . 0.7599039615846338) (combination-limit . t)
+                  (leaf (pixel-width . 400) (pixel-height . 700)
+                        (total-width . 40) (total-height . 35)
+                        (normal-height . 1.0) (normal-width . 0.631911532385466)
+                        (buffer "*writing*" (selected) (hscroll . 0)
+                                (fringes 8 8 nil nil) (margins nil)
+                                (scroll-bars nil 2 t nil 0 t nil) (vscroll . 0)
                                 (dedicated) (point . 1) (start . 1))
-                        (prev-buffers ("*writing*" 1 1))))))
+                        (prev-buffers ("drafts" 1 460)))
+                  (leaf (last . t) (pixel-width . 233) (pixel-height . 700)
+                        (total-width . 23) (total-height . 35)
+                        (normal-height . 1.0)
+                        (normal-width . 0.36808846761453395)
+                        (buffer "2026-05-16-sunday-morning.md" (selected . t)
+                                (hscroll . 0) (fringes 8 8 t nil) (margins nil)
+                                (scroll-bars nil 2 t nil 0 t nil) (vscroll . 0)
+                                (dedicated) (point . 1) (start . 1))
+                        (prev-buffers ("emacs reference.org" 186 663)
+                                      ("*writing*" 1 1))))))
             (def-params
              ((gui-eyebrowse-last-slot . 1) (gui-eyebrowse-current-slot . 1)
               (gui-eyebrowse-window-configs
                (1
                 (((min-height . 4) (min-width . 30) (min-height-ignore . 3)
-                  (min-width-ignore . 12) (min-height-safe . 1)
+                  (min-width-ignore . 18) (min-height-safe . 1)
                   (min-width-safe . 6) (min-pixel-height . 80)
                   (min-pixel-width . 300) (min-pixel-height-ignore . 60)
-                  (min-pixel-width-ignore . 120) (min-pixel-height-safe . 20)
+                  (min-pixel-width-ignore . 180) (min-pixel-height-safe . 20)
                   (min-pixel-width-safe . 60))
-                 hc (pixel-width . 1276) (pixel-height . 744)
+                 hc (pixel-width . 1276) (pixel-height . 742)
                  (total-width . 128) (total-height . 37) (normal-height . 1.0)
                  (normal-width . 1.0) (combination-limit . t)
-                 (leaf (pixel-width . 310) (pixel-height . 744)
+                 (leaf (pixel-width . 310) (pixel-height . 742)
                        (total-width . 31) (total-height . 37)
                        (normal-height . 1.0)
                        (normal-width . 0.24294670846394983)
                        (buffer "drafts" (selected) (hscroll . 0)
                                (fringes 8 8 nil nil) (margins nil)
-                               (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                               (dedicated) (point . 284) (start . 1))
-                       (prev-buffers ("*spacemacs*" 1 245) ("*scratch*" 1 1)))
-                 (hc (last . t) (pixel-width . 966) (pixel-height . 744)
+                               (scroll-bars nil 2 t nil 0 t nil) (vscroll . 0)
+                               (dedicated) (point . 460) (start . 1))
+                       (prev-buffers ("*writing*" 1 1) ("60 cicada ink" 1 265)))
+                 (hc (last . t) (pixel-width . 966) (pixel-height . 742)
                      (total-width . 97) (total-height . 37)
                      (normal-height . 1.0) (normal-width . 0.7570532915360502)
                      (combination-limit . t)
-                     (leaf (pixel-width . 640) (pixel-height . 744)
-                           (total-width . 64) (total-height . 37)
+                     (leaf (pixel-width . 620) (pixel-height . 742)
+                           (total-width . 62) (total-height . 37)
                            (normal-height . 1.0)
-                           (normal-width . 0.6625258799171843)
-                           (buffer "jess-workspaces.el" (selected . t)
-                                   (hscroll . 0) (fringes 8 8 nil nil)
-                                   (margins nil)
-                                   (scroll-bars nil 0 t nil 0 t nil)
-                                   (vscroll . 0) (dedicated) (point . 296)
-                                   (start . 1))
-                           (prev-buffers ("*writing*" 1 1) ("drafts" 1 284)))
-                     (leaf (last . t) (pixel-width . 326) (pixel-height . 744)
-                           (total-width . 33) (total-height . 37)
-                           (normal-height . 1.0)
-                           (normal-width . 0.33747412008281574)
-                           (buffer "emacs-reference.org" (selected)
-                                   (hscroll . 0) (fringes 8 8 t nil)
-                                   (margins nil)
-                                   (scroll-bars nil 0 t nil 0 t nil)
+                           (normal-width . 0.6418219461697723)
+                           (buffer "*writing*" (selected) (hscroll . 0)
+                                   (fringes 8 8 nil nil) (margins nil)
+                                   (scroll-bars nil 2 t nil 0 t nil)
                                    (vscroll . 0) (dedicated) (point . 1)
                                    (start . 1))
-                           (prev-buffers ("*writing*" 1 1)))))
+                           (prev-buffers ("drafts" 1 460)))
+                     (leaf (last . t) (pixel-width . 346) (pixel-height . 742)
+                           (total-width . 35) (total-height . 37)
+                           (normal-height . 1.0)
+                           (normal-width . 0.3581780538302277)
+                           (buffer "2026-05-16-sunday-morning.md" (selected . t)
+                                   (hscroll . 0) (fringes 8 8 t nil)
+                                   (margins nil)
+                                   (scroll-bars nil 2 t nil 0 t nil)
+                                   (vscroll . 0) (dedicated) (point . 1)
+                                   (start . 1))
+                           (prev-buffers ("emacs reference.org" 186 663)
+                                         ("*writing*" 1 1)))))
                 "Blog"))))
             t nil nil))

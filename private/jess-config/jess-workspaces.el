@@ -20,7 +20,8 @@
                       (dired-find-file)
                     (dired-find-file-other-window)))))
 
-
+(defvar jess/editing-window nil
+  "The designated editing window in the current workspace layout.")
 
 ;; ─────────────────────────────────────────────
 ;; CORE LAYOUT
@@ -60,7 +61,7 @@ Reference file is opened on the right."
         (select-window ref-win)
         (find-file (expand-file-name jess/reference-file))
         (visual-line-mode 1)))
-
+    (setq jess/editing-window (selected-window))
     ;; Leave cursor in the middle (editing) window
     (select-window (window-at (/ total-width 2) 5))))
 
@@ -142,7 +143,19 @@ Reference file is opened on the right."
 ;; ─────────────────────────────────────────────
 ;; KEYBINDINGS  SPC W <key>
 ;; ─────────────────────────────────────────────
-
+(with-eval-after-load 'dired
+  (evil-define-key 'normal dired-mode-map
+    (kbd "RET") (lambda ()
+                  (interactive)
+                  (if (file-directory-p (dired-get-file-for-visit))
+                      (dired-find-file)
+                    (let ((file (dired-get-file-for-visit)))
+                      (if (and jess/editing-window
+                               (window-live-p jess/editing-window))
+                          (progn
+                            (select-window jess/editing-window)
+                            (find-file file))
+                        (dired-find-file-other-window)))))))
 (spacemacs/declare-prefix "W" "workspaces")
 (spacemacs/set-leader-keys
   "Wt" #'jess/workspace-trash-planet   ;; Trash Planet
